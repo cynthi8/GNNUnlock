@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
 import os
-import networkx as nx
+from pathlib import Path
 from PythonEncrypt.read import bench as ReadBench
 from PythonEncrypt.write import verilog as WriteVerilog
 
 benchmark_directory = './Benchmarks'
+verilog_benchmark_directory = './VerilogBenchmarks'
 python_encrypt_directory = './PythonEncrypt'
 
 for entry in os.scandir(benchmark_directory):
     if entry.path.endswith(".bench") and entry.is_file():
         graph = ReadBench(entry.path)
-        print(graph.size())
-        WriteVerilog(graph, f'{benchmark_directory}/{entry.name}')
-
-        print(entry.name)
+        print(entry.name, graph.size())
+        WriteVerilog(graph, f'{verilog_benchmark_directory}/{Path(entry).stem}')
