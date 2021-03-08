@@ -680,7 +680,7 @@ def pointfunc(design_file_path, enc_type, key_size, encrypted_file_path):
     sat_res_out = f'  output {flip_signal};\n'
     sat_res_wires = f'  wire {unroll(new_wires)};\n'
     if enc_type=='NR':
-        flip_logic = f'\n  assign {flip_signal} = ( (keyinputs!=keyvalue) & (sat_res_inputs[{pi_count-1}:0]==~keyinputs[{pi_count-1}:0]) & (sat_res_inputs[{pi_count-1}:0]==keyinputs[{sat_res_key_size-1}:{pi_count}]) ) ? \'b1 : \'b0;'
+        flip_logic = f'\n  assign {flip_signal} = ( (keyinputs!=keyvalue) & (sat_res_inputs[{pi_count-1}:0]!=keyinputs[{pi_count-1}:0]) & (sat_res_inputs[{pi_count-1}:0]==keyinputs[{sat_res_key_size-1}:{pi_count}]) ) ? \'b1 : \'b0;'
     elif enc_type=='SR':
         flip_logic = f'\n  assign {flip_signal} = ( (keyinputs!=keyvalue) & (sat_res_inputs==keyinputs) ) ? \'b1 : \'b0;'
     elif enc_type=='TR':
