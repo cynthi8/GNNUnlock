@@ -6,7 +6,6 @@ from PythonEncrypt.write import verilog as WriteVerilog
 
 benchmark_directory = './Benchmarks'
 verilog_benchmark_directory = './VerilogBenchmarks'
-python_encrypt_directory = './PythonEncrypt'
 
 for entry in os.scandir(benchmark_directory):
     if entry.path.endswith(".bench") and entry.is_file():
