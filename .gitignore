@@ -1,0 +1,8 @@
+# Editors
+.vscode/
+
+# Python Cache
+__pycache__/
+
+# Environments
+venv/
