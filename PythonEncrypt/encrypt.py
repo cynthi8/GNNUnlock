@@ -584,6 +584,31 @@ def cyclic(design_file_path, enc_type, key_size, encrypted_file_path):
     return True
 
 
+def ham_dist_block(a, b, bit_length):
+    """Function to build a hamming distance caluculator logic block. (only one per module allowed)
+
+    Arguments:
+        a {string} -- Name of first wire
+        b {string} -- Name of second wire
+        bit_length {int} -- Bit length of a and b
+
+    Raises:
+        None
+
+    Returns:
+        string -- Verilog code of the hamming distance calculator
+    """
+    return (
+        f'  integer ham_dist, idx;\n'
+        f'  wire [{bit_length-1}:0] diff;\n'
+        f'  assign diff = {a} ^ {b};\n\n'
+        f'  always@* begin\n'
+        f'    ham_dist = 0;\n'
+        f'    for(idx=0; idx<{bit_length}; idx=idx+1) ham_dist = ham_dist + diff[idx];\n'
+        f'  end\n\n'
+    )
+
+
 def pointfunc(design_file_path, enc_type, key_size, encrypted_file_path):
     """Function to perform point-function based encryption.
     
