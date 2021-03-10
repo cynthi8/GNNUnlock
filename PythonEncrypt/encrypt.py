@@ -624,15 +624,15 @@ def pointfunc(design_file_path, enc_type, key_size, encrypted_file_path):
     invalid_pi = set()
     primary_outputs = {sigattr['name'] for signal,sigattr in OriginalCircuit.node.items() if sigattr['type']=='OUTPUT'}
     primary_output = ''
-    while True:
+    while True: # This loop tries to find a primary output with a really big input cone of influence (more than key bit size)
         valid_po = primary_outputs.difference(invalid_pi)
         if valid_po:
             primary_output = random.choice(list(valid_po))
-        else:
+        else: # If it couldn't find any POs with big enough ICOI, fanin will be any non-PO signal (almost the whole graph)
             fanin = [signal for signal in OriginalCircuit.nodes() if OriginalCircuit.node[signal]['name'] not in primary_outputs]
             break
         icoi = find.input_coi([primary_output], OriginalCircuit)[primary_output]
-        fanin = [signal for signal in icoi['IS'] + icoi['PI'] if not signal.startswith('keyinput')]
+        fanin = [signal for signal in icoi['IS'] + icoi['PI'] if not signal.startswith('keyinput')] # fanin is all the signals in the ICOI, except for any key inputs from a previous round of logic locking
         if len(fanin)>sat_res_key_size:
             break
         invalid_pi.add(primary_output)
