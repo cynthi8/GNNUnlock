@@ -583,9 +583,12 @@ def cyclic(design_file_path, enc_type, key_size, encrypted_file_path):
 
     return True
 
+# Function to unroll string
+def unroll(list_of_strings): 
+    return ', '.join(list_of_strings)
 
 def ham_dist_block(a, b, bit_length):
-    """Function to build a hamming distance caluculator logic block. (only one per module allowed)
+    """Function to build a Verilog hamming distance caluculator logic block. (only one per module allowed)
 
     Arguments:
         a {string} -- Name of first wire
@@ -608,6 +611,50 @@ def ham_dist_block(a, b, bit_length):
         f'  end\n\n'
     )
 
+def module_block(module, outputs, inputs, logic_block):
+    """Function to build a Verilog module block around given logic
+
+    Arguments:
+        module {string} -- Name of module to be declared
+        outputs {List[string]} -- List of output ports (these are first to be consistant with rest of codebase)
+        inputs {List[string]} -- List of input ports
+        logic_block {string} -- Verilog code of the logic that is contained by the module
+
+    Raises:
+        None
+
+    Returns:
+        string -- Verilog code of the module block
+    """
+    new_line = '\n'
+    return (
+        f'module {module} ({unroll(outputs)}, {unroll(inputs)});\n'
+        '\n'
+        f'  input {unroll(inputs)};\n'
+        f'  output {unroll(outputs)};\n'
+        f'{logic_block}'
+        f'endmodule\n'
+    )
+
+def instantiation_block(module, instance_name, outputs, inputs):
+    """Function to build a Verilog instantiation block (with implicit port mapping)
+
+    Arguments:
+        module {string} -- Name of module to be instantiated
+        instance_name {string} -- Name of instance
+        outputs {List[string]} -- List of output ports (these are first to be consistant with rest of codebase)
+        inputs {List[string]} -- List of input ports
+
+    Raises:
+        None
+
+    Returns:
+        string -- Verilog code of the instantiation block
+    """
+    return (
+        f'  {module} {instance_name} ({unroll(outputs)}, {unroll(inputs)});\n'
+    )
+
 
 def pointfunc(design_file_path, enc_type, key_size, encrypted_file_path):
     """Function to perform point-function based encryption.
@@ -624,10 +671,6 @@ def pointfunc(design_file_path, enc_type, key_size, encrypted_file_path):
     Returns:
         bool -- True if encryption was successful; False if encryption was unsuccessful
     """
-    
-    # Function to unroll string
-    def unroll(list_of_strings): 
-        return ', '.join(list_of_strings)
     
     if enc_type not in ['SR', 'NR', 'TR', 'FR']:
         raise ValueError(f"Invalid enctype {enc_type}")
@@ -711,15 +754,13 @@ def pointfunc(design_file_path, enc_type, key_size, encrypted_file_path):
     elif enc_type=='TR':
         flip_logic = f'\n  assign {flip_signal} = ( (keyinputs!=keyvalue) & ( (sat_res_inputs==keyinputs) | (sat_res_inputs==keyvalue) ) ) ? \'b1 : \'b0;'
     elif enc_type=='FR':
-        flip_logic = (
-            f'  integer ham_dist, idx;\n'
-            f'  wire [{pi_count-1}:0] diff;\n'
-            f'  assign diff = sat_res_inputs ^ keyvalue;\n\n'
-            f'  always@* begin\n'
-            f'    ham_dist = 0;\n'
-            f'    for(idx=0; idx<{pi_count}; idx=idx+1) ham_dist = ham_dist + diff[idx];\n'
-            f'  end\n\n'
-            f'  assign {flip_signal} = ( (keyinputs!=keyvalue) & ( (sat_res_inputs==keyinputs) | (ham_dist=={h_value}) ) ) ? \'b1 : \'b0;'
+        peturb_logic = (
+            f"{ham_dist_block('sat_res_inputs', 'keyvalue', pi_count)}"
+            f'  assign {flip_signal} = ( ham_dist<={h_value}) ) ) ? \'b1 : \'b0;'
+        )
+        restore_logic = (
+            f"{ham_dist_block('sat_res_inputs', 'keyinputs', pi_count)}"
+            f'  assign {flip_signal} = ( ham_dist<={h_value}) ) ) ? \'b1 : \'b0;'
         )
     if Testing:
         pdb.set_trace()
