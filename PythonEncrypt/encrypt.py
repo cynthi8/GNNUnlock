@@ -587,31 +587,7 @@ def cyclic(design_file_path, enc_type, key_size, encrypted_file_path):
 def unroll(list_of_strings): 
     return ', '.join(list_of_strings)
 
-def ham_dist_block(a, b, bit_length):
-    """Function to build a Verilog hamming distance caluculator logic block. (only one per module allowed)
-
-    Arguments:
-        a {string} -- Name of first wire
-        b {string} -- Name of second wire
-        bit_length {int} -- Bit length of a and b
-
-    Raises:
-        None
-
-    Returns:
-        string -- Verilog code of the hamming distance calculator
-    """
-    return (
-        f'  integer ham_dist, idx;\n'
-        f'  wire [{bit_length-1}:0] diff;\n'
-        f'  assign diff = {a} ^ {b};\n\n'
-        f'  always@* begin\n'
-        f'    ham_dist = 0;\n'
-        f'    for(idx=0; idx<{bit_length}; idx=idx+1) ham_dist = ham_dist + diff[idx];\n'
-        f'  end\n\n'
-    )
-
-def module_block(module, outputs, inputs, logic_block):
+def module_block(module, outputs, inputs, logic_block, module_comment):
     """Function to build a Verilog module block around given logic
 
     Arguments:
@@ -619,6 +595,8 @@ def module_block(module, outputs, inputs, logic_block):
         outputs {List[string]} -- List of output ports (these are first to be consistant with rest of codebase)
         inputs {List[string]} -- List of input ports
         logic_block {string} -- Verilog code of the logic that is contained by the module
+        module_comment {string} -- Module comment that is placed at the start and end of the module
+
 
     Raises:
         None
@@ -626,14 +604,16 @@ def module_block(module, outputs, inputs, logic_block):
     Returns:
         string -- Verilog code of the module block
     """
-    new_line = '\n'
     return (
+        f'{module_comment}'
         f'module {module} ({unroll(outputs)}, {unroll(inputs)});\n'
         '\n'
         f'  input {unroll(inputs)};\n'
         f'  output {unroll(outputs)};\n'
-        f'{logic_block}'
+        f'  {logic_block}'
         f'endmodule\n'
+        f'{module_comment}'
+
     )
 
 def instantiation_block(module, instance_name, outputs, inputs):
@@ -652,7 +632,32 @@ def instantiation_block(module, instance_name, outputs, inputs):
         string -- Verilog code of the instantiation block
     """
     return (
-        f'  {module} {instance_name} ({unroll(outputs)}, {unroll(inputs)});\n'
+        f'{module} {instance_name} ({unroll(outputs)}, {unroll(inputs)});\n'
+    )
+
+def ham_dist_block(wire1, wire2, bit_length, output):
+    """Function to build a Verilog hamming distance caluculator logic block
+
+    Arguments:
+        wire1 {string} -- Name of first wire
+        wire2 {string} -- Name of second wire
+        bit_length {int} -- Bit length of wires
+        output {string} -- Name of output
+
+    Raises:
+        None
+
+    Returns:
+        string -- Verilog code of the hamming distance calculator
+    """
+    return (
+        f'integer {output}, idx;\n'
+        f'wire [{bit_length-1}:0] diff;\n'
+        f'assign diff = {wire1} ^ {wire2};\n\n'
+        f'always@* begin\n'
+        f'  {output} = 0;\n'
+        f'  for(idx=0; idx<{bit_length}; idx=idx+1) {output} = {output} + diff[idx];\n'
+        f'end\n\n'
     )
 
 
@@ -735,45 +740,77 @@ def pointfunc(design_file_path, enc_type, key_size, encrypted_file_path):
     assert len(sat_res_inputs)==len(set(sat_res_inputs))
     sat_res_key_value = format(random.getrandbits(sat_res_key_size), f'0{sat_res_key_size}b')
     sat_res_key_inputs = [f'keyinput{keybit}' for keybit in range(sat_vul_key_size, sat_vul_key_size+sat_res_key_size)]
-    new_wires = [f'newWire{keybit}' for keybit in range(sat_res_key_size+2)]
     if Testing:
         pdb.set_trace()
 
-    # Generate SatHard block
+    # Generate SatHard block for SARLock or Anti-SAT
     new_line = '\n'
-    sat_res_instance = f'  SatHard block1 ({flip_signal}, {unroll(sat_res_inputs)}, {unroll(sat_res_key_inputs)});\n'
-    sat_res_comment = '/*************** SatHard block ***************/\n'
-    sat_res_module = sat_res_instance.replace('block1 ', '').replace('  SatHard', 'module SatHard')
-    sat_res_in = f'  input {unroll(sat_res_inputs)};\n  input {unroll(sat_res_key_inputs)};\n'
-    sat_res_out = f'  output {flip_signal};\n'
-    sat_res_wires = f'  wire {unroll(new_wires)};\n'
-    if enc_type=='NR':
-        flip_logic = f'\n  assign {flip_signal} = ( (keyinputs!=keyvalue) & (sat_res_inputs[{pi_count-1}:0]!=keyinputs[{pi_count-1}:0]) & (sat_res_inputs[{pi_count-1}:0]==keyinputs[{sat_res_key_size-1}:{pi_count}]) ) ? \'b1 : \'b0;'
-    elif enc_type=='SR':
-        flip_logic = f'\n  assign {flip_signal} = ( (keyinputs!=keyvalue) & (sat_res_inputs==keyinputs) ) ? \'b1 : \'b0;'
-    elif enc_type=='TR':
-        flip_logic = f'\n  assign {flip_signal} = ( (keyinputs!=keyvalue) & ( (sat_res_inputs==keyinputs) | (sat_res_inputs==keyvalue) ) ) ? \'b1 : \'b0;'
-    elif enc_type=='FR':
-        peturb_logic = (
-            f"{ham_dist_block('sat_res_inputs', 'keyvalue', pi_count)}"
-            f'  assign {flip_signal} = ( ham_dist<={h_value}) ) ) ? \'b1 : \'b0;'
+    if enc_type in ['NR', 'SR']:
+        if enc_type=='SR':
+            flip_logic = f'\n  assign {flip_signal} = ( (keyinputs!=keyvalue) & (sat_res_inputs==keyinputs) ) ? \'b1 : \'b0;'
+        elif enc_type=='NR':
+            flip_logic = (
+                f'  wire g, g_bar;\n'
+                f'  assign g = &(keyinputs[{pi_count-1}:0] ^ sat_res_inputs ^ keyvalue[{pi_count-1}:0]);\n'
+                f'  assign g_bar = ~&(keyinputs[{sat_res_key_size-1}:{pi_count}] ^ sat_res_inputs ^ keyvalue[{sat_res_key_size-1}:{pi_count}]);\n'
+                f'  assign {flip_signal} = g & g_bar;\n'
+            )
+
+        sat_hard_block_logic = (
+            f'  //SatHard key={sat_res_key_value}\n'
+            f'  wire [{pi_count-1}:0] sat_res_inputs;\n'
+            f'  assign sat_res_inputs[{pi_count-1}:0] = {{{unroll(sat_res_inputs)}}};\n'
+            f'  wire [{sat_res_key_size-1}:0] keyinputs, keyvalue;\n'
+            f'  assign keyinputs[{sat_res_key_size-1}:0] = {{{unroll(sat_res_key_inputs)}}};\n'
+            f'  assign keyvalue[{sat_res_key_size-1}:0] = {sat_res_key_size}\'b{sat_res_key_value};\n'
+            f'{flip_logic}\n'
         )
-        restore_logic = (
-            f"{ham_dist_block('sat_res_inputs', 'keyinputs', pi_count)}"
-            f'  assign {flip_signal} = ( ham_dist<={h_value}) ) ) ? \'b1 : \'b0;'
+        
+        sat_hard_block_outputs = [flip_signal]
+        sat_hard_block_inputs = sat_res_inputs + sat_res_key_inputs
+        sat_hard_block_module = module_block('SatHard', sat_hard_block_outputs, sat_hard_block_inputs, sat_hard_block_logic, '/*************** SatHard block ***************/')
+        sat_hard_block_instance = instantiation_block('SatHard', 'block1', sat_hard_block_outputs, sat_hard_block_inputs)
+
+        new_modules = sat_hard_block_module
+        new_instances = sat_hard_block_instance
+
+    # Generate SatHard block for TTLock or SFLL-HD (FIXME - make into two seperate module, and incorporate perturb into the orginal circuit)
+    elif enc_type in ['TR', 'FR']:
+        if enc_type=='TR':
+            flip_logic = (
+                f'  wire perturb, restore;\n'
+                f'  assign perturb = (sat_res_inputs == keyvalue) ? \'b1 : \'b0;\n'
+                f'  assign restore = (sat_res_inputs == keyinputs) ? \'b1 : \'b0;\n'
+                f'  assign {flip_signal} = (perturb ^ restore) ? \'b1 : \'b0;'
+            )
+        elif enc_type=='FR':
+            flip_logic = (
+                f"  {ham_dist_block('sat_res_inputs', 'keyvalue', pi_count, 'ham_dist_peturb')}\n"
+                f"  {ham_dist_block('sat_res_inputs', 'keyinputs', pi_count, 'ham_dist_restore')}\n"
+                f'  assign {flip_signal} = ( (ham_dist_peturb=={h_value}) ^ (ham_dist_restore=={h_value}) ) ? \'b1 : \'b0;'
+            )
+            
+        sat_hard_block_logic = (
+            f'  //SatHard key={sat_res_key_value}\n'
+            f'  wire [{pi_count-1}:0] sat_res_inputs;\n'
+            f'  assign sat_res_inputs[{pi_count-1}:0] = {{{unroll(sat_res_inputs)}}};\n'
+            f'  wire [{sat_res_key_size-1}:0] keyinputs, keyvalue;\n'
+            f'  assign keyinputs[{sat_res_key_size-1}:0] = {{{unroll(sat_res_key_inputs)}}};\n'
+            f'  assign keyvalue[{sat_res_key_size-1}:0] = {sat_res_key_size}\'b{sat_res_key_value};\n'
+            f'{flip_logic}\n'
         )
+
+        sat_hard_block_outputs = [flip_signal]
+        sat_hard_block_inputs = sat_res_inputs + sat_res_key_inputs
+        sat_hard_block_module = module_block('SatHard', sat_hard_block_outputs, sat_hard_block_inputs, sat_hard_block_logic, '/*************** SatHard block ***************/')
+        sat_hard_block_instance = instantiation_block('SatHard', 'block1', sat_hard_block_outputs, sat_hard_block_inputs)
+
+        new_modules = sat_hard_block_module
+        new_instances = sat_hard_block_instance
+
     if Testing:
         pdb.set_trace()
-    
-    sat_res_logic = (
-        f'  //SatHard key={sat_res_key_value}\n'
-        f'  wire [{pi_count-1}:0] sat_res_inputs;\n'
-        f'  assign sat_res_inputs[{pi_count-1}:0] = {{{unroll(sat_res_inputs)}}};\n'
-        f'  wire [{sat_res_key_size-1}:0] keyinputs, keyvalue;\n'
-        f'  assign keyinputs[{sat_res_key_size-1}:0] = {{{unroll(sat_res_key_inputs)}}};\n'
-        f'  assign keyvalue[{sat_res_key_size-1}:0] = {sat_res_key_size}\'b{sat_res_key_value};\n'
-        f'{flip_logic}\n'
-    )
+
     print('.', end='', flush=True)
     
     # Modify netlist by adding SatHard block
@@ -790,21 +827,10 @@ def pointfunc(design_file_path, enc_type, key_size, encrypted_file_path):
             edited_netlist.append(line)
         elif stripped_line.startswith('endmodule'):
             edited_netlist += [
-                sat_res_instance, 
+                new_instances, 
                 new_line, 
                 'endmodule\n',
-                new_line,
-                sat_res_comment,
-                sat_res_module,
-                new_line,
-                sat_res_in,
-                sat_res_out,
-                sat_res_wires,
-                new_line,
-                sat_res_logic,
-                new_line,
-                'endmodule\n',
-                sat_res_comment
+                new_modules,
             ]
         else:
             edited_netlist.append(line)
