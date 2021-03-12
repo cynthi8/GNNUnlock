@@ -743,70 +743,45 @@ def pointfunc(design_file_path, enc_type, key_size, encrypted_file_path):
     if Testing:
         pdb.set_trace()
 
-    # Generate SatHard block for SARLock or Anti-SAT
+    # Generate SatHard block
     new_line = '\n'
-    if enc_type in ['NR', 'SR']:
-        if enc_type=='SR':
-            flip_logic = f'\n  assign {flip_signal} = ( (keyinputs!=keyvalue) & (sat_res_inputs==keyinputs) ) ? \'b1 : \'b0;'
-        elif enc_type=='NR':
-            flip_logic = (
-                f'  wire g, g_bar;\n'
-                f'  assign g = &(keyinputs[{pi_count-1}:0] ^ sat_res_inputs ^ keyvalue[{pi_count-1}:0]);\n'
-                f'  assign g_bar = ~&(keyinputs[{sat_res_key_size-1}:{pi_count}] ^ sat_res_inputs ^ keyvalue[{sat_res_key_size-1}:{pi_count}]);\n'
-                f'  assign {flip_signal} = g & g_bar;\n'
-            )
-
-        sat_hard_block_logic = (
-            f'  //SatHard key={sat_res_key_value}\n'
-            f'  wire [{pi_count-1}:0] sat_res_inputs;\n'
-            f'  assign sat_res_inputs[{pi_count-1}:0] = {{{unroll(sat_res_inputs)}}};\n'
-            f'  wire [{sat_res_key_size-1}:0] keyinputs, keyvalue;\n'
-            f'  assign keyinputs[{sat_res_key_size-1}:0] = {{{unroll(sat_res_key_inputs)}}};\n'
-            f'  assign keyvalue[{sat_res_key_size-1}:0] = {sat_res_key_size}\'b{sat_res_key_value};\n'
-            f'{flip_logic}\n'
+    if enc_type=='SR':
+        flip_logic = f'\n  assign {flip_signal} = ( (keyinputs!=keyvalue) & (sat_res_inputs==keyinputs) ) ? \'b1 : \'b0;'
+    elif enc_type=='NR':
+        flip_logic = (
+            f'  wire g, g_bar;\n'
+            f'  assign g = &(keyinputs[{pi_count-1}:0] ^ sat_res_inputs ^ keyvalue[{pi_count-1}:0]);\n'
+            f'  assign g_bar = ~&(keyinputs[{sat_res_key_size-1}:{pi_count}] ^ sat_res_inputs ^ keyvalue[{sat_res_key_size-1}:{pi_count}]);\n'
+            f'  assign {flip_signal} = g & g_bar;\n'
         )
-        
-        sat_hard_block_outputs = [flip_signal]
-        sat_hard_block_inputs = sat_res_inputs + sat_res_key_inputs
-        sat_hard_block_module = module_block('SatHard', sat_hard_block_outputs, sat_hard_block_inputs, sat_hard_block_logic, '/*************** SatHard block ***************/')
-        sat_hard_block_instance = instantiation_block('SatHard', 'block1', sat_hard_block_outputs, sat_hard_block_inputs)
-
-        new_modules = sat_hard_block_module
-        new_instances = sat_hard_block_instance
-
-    # Generate SatHard block for TTLock or SFLL-HD (FIXME - make into two seperate module, and incorporate perturb into the orginal circuit)
-    elif enc_type in ['TR', 'FR']:
-        if enc_type=='TR':
-            flip_logic = (
-                f'  wire perturb, restore;\n'
-                f'  assign perturb = (sat_res_inputs == keyvalue) ? \'b1 : \'b0;\n'
-                f'  assign restore = (sat_res_inputs == keyinputs) ? \'b1 : \'b0;\n'
-                f'  assign {flip_signal} = (perturb ^ restore) ? \'b1 : \'b0;'
-            )
-        elif enc_type=='FR':
-            flip_logic = (
-                f"  {ham_dist_block('sat_res_inputs', 'keyvalue', pi_count, 'ham_dist_peturb')}\n"
-                f"  {ham_dist_block('sat_res_inputs', 'keyinputs', pi_count, 'ham_dist_restore')}\n"
-                f'  assign {flip_signal} = ( (ham_dist_peturb=={h_value}) ^ (ham_dist_restore=={h_value}) ) ? \'b1 : \'b0;'
-            )
-            
-        sat_hard_block_logic = (
-            f'  //SatHard key={sat_res_key_value}\n'
-            f'  wire [{pi_count-1}:0] sat_res_inputs;\n'
-            f'  assign sat_res_inputs[{pi_count-1}:0] = {{{unroll(sat_res_inputs)}}};\n'
-            f'  wire [{sat_res_key_size-1}:0] keyinputs, keyvalue;\n'
-            f'  assign keyinputs[{sat_res_key_size-1}:0] = {{{unroll(sat_res_key_inputs)}}};\n'
-            f'  assign keyvalue[{sat_res_key_size-1}:0] = {sat_res_key_size}\'b{sat_res_key_value};\n'
-            f'{flip_logic}\n'
+    elif enc_type=='TR':
+        flip_logic = (
+            f'  wire perturb, restore;\n'
+            f'  assign perturb = (sat_res_inputs == keyvalue) ? \'b1 : \'b0;\n'
+            f'  assign restore = (sat_res_inputs == keyinputs) ? \'b1 : \'b0;\n'
+            f'  assign {flip_signal} = (perturb ^ restore) ? \'b1 : \'b0;'
+        )
+    elif enc_type=='FR':
+        flip_logic = (
+            f"  {ham_dist_block('sat_res_inputs', 'keyvalue', pi_count, 'ham_dist_peturb')}\n"
+            f"  {ham_dist_block('sat_res_inputs', 'keyinputs', pi_count, 'ham_dist_restore')}\n"
+            f'  assign {flip_signal} = ( (ham_dist_peturb=={h_value}) ^ (ham_dist_restore=={h_value}) ) ? \'b1 : \'b0;'
         )
 
-        sat_hard_block_outputs = [flip_signal]
-        sat_hard_block_inputs = sat_res_inputs + sat_res_key_inputs
-        sat_hard_block_module = module_block('SatHard', sat_hard_block_outputs, sat_hard_block_inputs, sat_hard_block_logic, '/*************** SatHard block ***************/')
-        sat_hard_block_instance = instantiation_block('SatHard', 'block1', sat_hard_block_outputs, sat_hard_block_inputs)
-
-        new_modules = sat_hard_block_module
-        new_instances = sat_hard_block_instance
+    sat_hard_block_logic = (
+        f'  //SatHard key={sat_res_key_value}\n'
+        f'  wire [{pi_count-1}:0] sat_res_inputs;\n'
+        f'  assign sat_res_inputs[{pi_count-1}:0] = {{{unroll(sat_res_inputs)}}};\n'
+        f'  wire [{sat_res_key_size-1}:0] keyinputs, keyvalue;\n'
+        f'  assign keyinputs[{sat_res_key_size-1}:0] = {{{unroll(sat_res_key_inputs)}}};\n'
+        f'  assign keyvalue[{sat_res_key_size-1}:0] = {sat_res_key_size}\'b{sat_res_key_value};\n'
+        f'{flip_logic}\n'
+    )
+    
+    sat_hard_block_outputs = [flip_signal]
+    sat_hard_block_inputs = sat_res_inputs + sat_res_key_inputs
+    sat_hard_block_module = module_block('SatHard', sat_hard_block_outputs, sat_hard_block_inputs, sat_hard_block_logic, '/*************** SatHard block ***************/')
+    sat_hard_block_instance = instantiation_block('SatHard', 'block1', sat_hard_block_outputs, sat_hard_block_inputs)
 
     if Testing:
         pdb.set_trace()
@@ -827,10 +802,10 @@ def pointfunc(design_file_path, enc_type, key_size, encrypted_file_path):
             edited_netlist.append(line)
         elif stripped_line.startswith('endmodule'):
             edited_netlist += [
-                new_instances, 
+                sat_hard_block_instance, 
                 new_line, 
                 'endmodule\n',
-                new_modules,
+                sat_hard_block_module,
             ]
         else:
             edited_netlist.append(line)
