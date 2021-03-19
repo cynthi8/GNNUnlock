@@ -48,10 +48,10 @@ def bench(circuit_graph, bench_file_path):
 
     global single_ip_gates
     netlist = circuit_graph.copy()
-    primary_inputs = [signal for signal, sigattr in netlist.node.items() if sigattr['type'] == 'INPUT']
+    primary_inputs = [signal for signal, sigattr in netlist.nodes.items() if sigattr['type'] == 'INPUT']
     key_inputs = [signal for signal in primary_inputs if signal.startswith('keyinput')]
     primary_inputs = [signal for signal in primary_inputs if signal not in key_inputs]
-    primary_outputs = [signal[:-4] for signal, sigattr in netlist.node.items() if sigattr['type'] == 'OUTPUT']
+    primary_outputs = [signal[:-4] for signal, sigattr in netlist.nodes.items() if sigattr['type'] == 'OUTPUT']
     
     with open(bench_file_path, 'w') as bench_file:
         # Write primary inputs and primary outputs
@@ -67,12 +67,12 @@ def bench(circuit_graph, bench_file_path):
         bench_file.write("OUTPUT(" + ")\nOUTPUT(".join(sorted(primary_outputs)) + ")\n")
             
         # Write netlist logic
-        for signal in sorted(list(netlist.nodes()), key=lambda sig:netlist.node[sig]['name']):
-            sigattr = netlist.node[signal]
+        for signal in sorted(list(netlist.nodes()), key=lambda sig:netlist.nodes[sig]['name']):
+            sigattr = netlist.nodes[signal]
             if sigattr['type'] == 'INPUT' or sigattr['type'] == 'OUTPUT':
                 continue
             gate_output, gate_type = sigattr['name'], sigattr['type']
-            gate_inputs = [netlist.node[fanin]['name'] for fanin in netlist.predecessors(signal)]
+            gate_inputs = [netlist.nodes[fanin]['name'] for fanin in netlist.predecessors(signal)]
             if gate_type not in single_ip_gates and len(gate_inputs) < 2:
                 gate_inputs.append(gate_inputs[0])
             bench_file.write(gate_output + " = " + gate_type + "(" + ", ".join(gate_inputs) + ")\n")
@@ -108,12 +108,12 @@ def smv(circuit_graph, smv_file_path):
     
     # Change variable names to avoid conflict with keywords
     keywords = {'F', 'G', 'X', 'U', 'V', 'W', 'H', 'O', 'Y', 'Z', 'S', 'T', 'B', 'word', 'word1', 'bool', 'init'}
-    for signal, sigattr in netlist.node.items():
+    for signal, sigattr in netlist.nodes.items():
         if sigattr['name'].upper() in keywords or sigattr['name'].lower() in keywords:
             sigattr['name'] += "_sig"
 
     # Write DFF module
-    dff_outputs = [sigattr['name'] for signal, sigattr in netlist.node.items() if sigattr['type'] == 'DFF']
+    dff_outputs = [sigattr['name'] for signal, sigattr in netlist.nodes.items() if sigattr['type'] == 'DFF']
     if dff_outputs:
         smv_file.write(
             "-- Module describing D flip-flop\n"
@@ -127,23 +127,23 @@ def smv(circuit_graph, smv_file_path):
         "IVAR\n\t-- Primary inputs\n\t")
     
     # Find and write primary inputs
-    primary_inputs = [sigattr['name'] for signal, sigattr in netlist.node.items() if sigattr['type'] == 'INPUT']
+    primary_inputs = [sigattr['name'] for signal, sigattr in netlist.nodes.items() if sigattr['type'] == 'INPUT']
     primary_inputs.sort()
     smv_file.write(" : boolean;\n\t".join(primary_inputs) + " : boolean;\n\n")
 
     # Separate sequential and combinational sub-circuits
     seq_ckt, comb_ckt = [], []
-    for signal, sigattr in netlist.node.items():
+    for signal, sigattr in netlist.nodes.items():
         if sigattr['type'] == 'INPUT' or sigattr['type'] == 'OUTPUT':
             continue
         gate_output, gate_type, gate_inputs = sigattr['name'], sigattr['type'], []
         for node in netlist.predecessors(signal):   
-            if netlist.node[node]['type']=='OUTPUT':
+            if netlist.nodes[node]['type']=='OUTPUT':
                 node = next(netlist.predecessors(node))
             if node in dff_outputs:
-                gate_inputs.append(netlist.node[node]['name'] + ".OUT")
+                gate_inputs.append(netlist.nodes[node]['name'] + ".OUT")
             else:
-                gate_inputs.append(netlist.node[node]['name'])
+                gate_inputs.append(netlist.nodes[node]['name'])
         if gate_type not in single_ip_gates and len(gate_inputs) < 2:
             gate_inputs.append(gate_inputs[0])
         if sigattr['type'] == 'DFF':
@@ -186,9 +186,9 @@ def verilog(circuit_graph, verilog_file_path):
     verilog_file.write("// Main module\nmodule "+ benchmark + "(")
 
     # Write primary inputs and outputs
-    primary_inputs = [signal for signal, sigattr in netlist.node.items() if sigattr['type'] == 'INPUT']
-    primary_outputs = [signal[:-4] for signal, sigattr in netlist.node.items() if sigattr['type'] == 'OUTPUT']
-    dff_outputs = [signal for signal, sigattr in netlist.node.items() if sigattr['type'] == 'DFF']
+    primary_inputs = [signal for signal, sigattr in netlist.nodes.items() if sigattr['type'] == 'INPUT']
+    primary_outputs = [signal[:-4] for signal, sigattr in netlist.nodes.items() if sigattr['type'] == 'OUTPUT']
+    dff_outputs = [signal for signal, sigattr in netlist.nodes.items() if sigattr['type'] == 'DFF']
     if dff_outputs:
         if 'CK' not in primary_inputs:
             primary_inputs.append('CK')
@@ -221,14 +221,14 @@ def verilog(circuit_graph, verilog_file_path):
     )
 
     # Write internal signal declaration
-    internal_signals = [signal for signal, sigattr in netlist.node.items() if sigattr['type'] != 'INPUT' and sigattr['type'] != 'OUTPUT']
+    internal_signals = [signal for signal, sigattr in netlist.nodes.items() if sigattr['type'] != 'INPUT' and sigattr['type'] != 'OUTPUT']
     verilog_file.write("  wire " + ", ".join([signal for signal in internal_signals if signal not in primary_outputs]) + ";\n\n")
 
     # Write netlist
     gate_count = 1
     for signal in sorted(internal_signals):
-        gate_output, gate_type = netlist.node[signal]['name'], netlist.node[signal]['type'].lower()
-        gate_inputs = [netlist.node[gate_input]['name'] for gate_input in netlist.predecessors(signal)]
+        gate_output, gate_type = netlist.nodes[signal]['name'], netlist.nodes[signal]['type'].lower()
+        gate_inputs = [netlist.nodes[gate_input]['name'] for gate_input in netlist.predecessors(signal)]
         
         # Add clock and reset pin for DFF
         if gate_type == 'dff':
@@ -279,9 +279,9 @@ def vhdl(circuit_graph, vhdl_file_path):
     benchmark = vhdl_file_path[vhdl_file_path.rfind('/')+1:vhdl_file_path.rfind('.')]
     vhdl_file.write(f'entity {benchmark} is port(\n\t')
     
-    primary_inputs = [signal for signal, sigattr in netlist.node.items() if sigattr['type'] == 'INPUT']
-    primary_outputs = [signal[:-4] for signal, sigattr in netlist.node.items() if sigattr['type'] == 'OUTPUT']
-    dff_outputs = [signal for signal, sigattr in netlist.node.items() if sigattr['type'] == 'DFF']
+    primary_inputs = [signal for signal, sigattr in netlist.nodes.items() if sigattr['type'] == 'INPUT']
+    primary_outputs = [signal[:-4] for signal, sigattr in netlist.nodes.items() if sigattr['type'] == 'OUTPUT']
+    dff_outputs = [signal for signal, sigattr in netlist.nodes.items() if sigattr['type'] == 'DFF']
     if dff_outputs:
         if 'CK' not in primary_inputs:
             primary_inputs.append('CK')
@@ -303,7 +303,7 @@ def vhdl(circuit_graph, vhdl_file_path):
         ' : out std_logic;\n\t'.join(primary_outputs) + ' : out std_logic);\nend ' + benchmark + ';\n\n'
     )
     
-    internal_signals = [signal for signal, sigattr in netlist.node.items() if sigattr['type'] != 'INPUT' and sigattr['type'] != 'OUTPUT' and signal not in primary_outputs]
+    internal_signals = [signal for signal, sigattr in netlist.nodes.items() if sigattr['type'] != 'INPUT' and sigattr['type'] != 'OUTPUT' and signal not in primary_outputs]
     
     if dff_outputs:
         vhdl_file.write(
@@ -316,8 +316,8 @@ def vhdl(circuit_graph, vhdl_file_path):
     
     dff_count = 1
     for signal in dff_outputs:
-        gate_output, gate_type = netlist.node[signal]['name'], netlist.node[signal]['type'].lower()
-        gate_inputs = [netlist.node[gate_input]['name'] for gate_input in netlist.predecessors(signal)]
+        gate_output, gate_type = netlist.nodes[signal]['name'], netlist.nodes[signal]['type'].lower()
+        gate_inputs = [netlist.nodes[gate_input]['name'] for gate_input in netlist.predecessors(signal)]
         vhdl_file.write(f"\tg{dff_count} : dff port map( q => {gate_output}, d => {gate_inputs[0]}, clk => {clock_pin}, rst => {reset_pin});\n")
         dff_count += 1
 
@@ -329,8 +329,8 @@ def vhdl(circuit_graph, vhdl_file_path):
             'begin\n'
         )
     for signal in sorted(internal_signals):
-        gate_output, gate_type = netlist.node[signal]['name'], netlist.node[signal]['type'].lower()
-        gate_inputs = [netlist.node[gate_input]['name'] for gate_input in netlist.predecessors(signal)]
+        gate_output, gate_type = netlist.nodes[signal]['name'], netlist.nodes[signal]['type'].lower()
+        gate_inputs = [netlist.nodes[gate_input]['name'] for gate_input in netlist.predecessors(signal)]
         
         # Change nand and nor to not and and not or
         if gate_type == 'nand':

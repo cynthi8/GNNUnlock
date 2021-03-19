@@ -184,8 +184,8 @@ def verilog(verilog_file_path):
         if gate_output not in circuit:
             circuit.add_node(gate_output, name=gate_output, type=gate_type)
         else:
-            if circuit.node[gate_output]['type'] != gate_type:
-                raise ValueError("Gate type mismatch on " + gate_output + " - " + circuit.node[gate_output]['type'] + " and " + gate_type)
+            if circuit.nodes[gate_output]['type'] != gate_type:
+                raise ValueError("Gate type mismatch on " + gate_output + " - " + circuit.nodes[gate_output]['type'] + " and " + gate_type)
         for gate_input in gate_inputs:
             edge_list.append((gate_input, gate_output))
     
@@ -644,7 +644,7 @@ def verilog(verilog_file_path):
     # Remove clock signals from circuit
     remove_nodes = set()
     for clock_signal in clock_signals:
-        if clock_signal not in circuit or not all(circuit.node[fanout]['type']=='DFF' for fanout in circuit.successors(clock_signal)):
+        if clock_signal not in circuit or not all(circuit.nodes[fanout]['type']=='DFF' for fanout in circuit.successors(clock_signal)):
             continue
         remove_nodes.add(clock_signal)
         queue = set(circuit.predecessors(clock_signal))

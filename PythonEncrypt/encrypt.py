@@ -109,15 +109,15 @@ def cyclic(design_file_path, enc_type, key_size, encrypted_file_path):
     
     # Read the circuit
     OriginalCircuit = read.verilog(design_file_path)
-    primary_inputs = {sigattr['name'] for signal, sigattr in OriginalCircuit.node.items() if sigattr['type']=='INPUT'}
-    primary_outputs = {sigattr['name'] for signal, sigattr in OriginalCircuit.node.items() if sigattr['type']=='OUTPUT'}
+    primary_inputs = {sigattr['name'] for signal, sigattr in OriginalCircuit.nodes.items() if sigattr['type']=='INPUT'}
+    primary_outputs = {sigattr['name'] for signal, sigattr in OriginalCircuit.nodes.items() if sigattr['type']=='OUTPUT'}
     
     # Topological sort gates in circuit
     try:
         sorted_gates = nx.topological_sort(OriginalCircuit)
     except (nx.NetworkXError , nx.NetworkXUnfeasible) as err:
         raise SystemExit(f"Circuit must be a DAG.\nNetworkx returned error {err}")
-    sorted_gates = [gate for gate in sorted_gates if OriginalCircuit.node[gate]['name'] not in primary_inputs.union(primary_outputs)]
+    sorted_gates = [gate for gate in sorted_gates if OriginalCircuit.nodes[gate]['name'] not in primary_inputs.union(primary_outputs)]
     print('.', end='', flush=True)
 
     # Find suitable locations for gates
@@ -222,7 +222,7 @@ def cyclic(design_file_path, enc_type, key_size, encrypted_file_path):
             fanin = OriginalCircuit.predecessors(gate_output)
             mux_ins = 0
             for sig in fanin:
-                if OriginalCircuit.node[sig]['name'].startswith('muxed_'):
+                if OriginalCircuit.nodes[sig]['name'].startswith('muxed_'):
                     correct_inputs[gate_output] = sig
                     mux_ins += 1
             assert mux_ins==1
@@ -255,7 +255,7 @@ def cyclic(design_file_path, enc_type, key_size, encrypted_file_path):
                 fanin = OriginalCircuit.predecessors(r_gate)
                 mux_ins = 0
                 for sig in fanin:
-                    if OriginalCircuit.node[sig]['name'].startswith('muxed_'):
+                    if OriginalCircuit.nodes[sig]['name'].startswith('muxed_'):
                         sgr_correct_outputs[r_gate] = sig
                         mux_ins += 1
                 assert mux_ins==1
@@ -401,9 +401,9 @@ def cyclic(design_file_path, enc_type, key_size, encrypted_file_path):
             for newEdge in newEdges:
                 for i in range(1, len(newEdge)):
                     circuit_graph.add_edge(newEdge[i], newEdge[0])
-            for node in circuit_graph.node:
-                if not 'type' in circuit_graph.node[node].keys():
-                    circuit_graph.node[node].update({'type' : 'NONE', 'name' : node })
+            for node in circuit_graph.nodes:
+                if not 'type' in circuit_graph.nodes[node].keys():
+                    circuit_graph.nodes[node].update({'type' : 'NONE', 'name' : node })
             muxes = []
             randConeSignals = []
             cycleNum = 0
@@ -696,14 +696,14 @@ def pointfunc(design_file_path, enc_type, key_size, h_value, encrypted_file_path
     sat_res_key_size = key_size
     fanin = []
     invalid_pi = set()
-    primary_outputs = {sigattr['name'] for signal,sigattr in OriginalCircuit.node.items() if sigattr['type']=='OUTPUT'}
+    primary_outputs = {sigattr['name'] for signal,sigattr in OriginalCircuit.nodes.items() if sigattr['type']=='OUTPUT'}
     primary_output = ''
     while True: # This loop tries to find a primary output with a really big input cone of influence (more than key bit size)
         valid_po = primary_outputs.difference(invalid_pi)
         if valid_po:
             primary_output = random.choice(list(valid_po))
         else: # If it couldn't find any POs with big enough ICOI, fanin will be any non-PO signal (almost the whole graph)
-            fanin = [signal for signal in OriginalCircuit.nodes() if OriginalCircuit.node[signal]['name'] not in primary_outputs]
+            fanin = [signal for signal in OriginalCircuit.nodes() if OriginalCircuit.nodes[signal]['name'] not in primary_outputs]
             break
         icoi = find.input_coi([primary_output], OriginalCircuit)[primary_output]
         fanin = [signal for signal in icoi['IS'] + icoi['PI'] if not signal.startswith('keyinput')] # fanin is all the signals in the ICOI, except for any key inputs from a previous round of logic locking
@@ -711,10 +711,10 @@ def pointfunc(design_file_path, enc_type, key_size, h_value, encrypted_file_path
             break
         invalid_pi.add(primary_output)
     po_replace, flip_signal = f'{primary_output}_in', 'flip_signal'
-    OriginalCircuit.add_node(po_replace, name=po_replace, type=OriginalCircuit.node[primary_output]['type'])
+    OriginalCircuit.add_node(po_replace, name=po_replace, type=OriginalCircuit.nodes[primary_output]['type'])
     OriginalCircuit.add_edges_from(itertools.product(OriginalCircuit.predecessors(primary_output), [po_replace]))
     OriginalCircuit.remove_edges_from(itertools.product(OriginalCircuit.predecessors(primary_output), [primary_output]))
-    OriginalCircuit.node[primary_output]['type'] = 'XOR'
+    OriginalCircuit.nodes[primary_output]['type'] = 'XOR'
     OriginalCircuit.add_edge(po_replace, primary_output)
     OriginalCircuit.add_node(flip_signal, name=flip_signal, type='REMOVE')
     OriginalCircuit.add_edge(flip_signal, primary_output)

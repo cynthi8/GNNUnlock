@@ -41,13 +41,13 @@ def input_coi(signal_list, netlist):
     fan_in_inputs = {}
     input_coi_signals = {}
     input_cone_of_influence = {}
-    inputs = [signal for signal in netlist.nodes() if netlist.node[signal]['type']=='INPUT']
-    outputs = [signal[:-4] for signal in netlist.nodes() if netlist.node[signal]['type']=='INPUT']
+    inputs = [signal for signal in netlist.nodes() if netlist.nodes[signal]['type']=='INPUT']
+    outputs = [signal[:-4] for signal in netlist.nodes() if netlist.nodes[signal]['type']=='INPUT']
 
     # Recursive function to perform DFT
     def find_coi(sig, primary_sig):
         fan_in_signals = sorted(list(netlist.predecessors(sig)))
-        line = sig + " = " + netlist.node[sig]['type'] + "(" + ", ".join([netlist.node[fan_in]['name'] for fan_in in fan_in_signals]) + ")"
+        line = sig + " = " + netlist.nodes[sig]['type'] + "(" + ", ".join([netlist.nodes[fan_in]['name'] for fan_in in fan_in_signals]) + ")"
         input_cone_of_influence[primary_sig].append(line)
         for net in sorted(fan_in_signals):
             if net in inputs:
@@ -105,8 +105,8 @@ def output_coi(signal_list, netlist):
     fan_out_outputs = {}
     output_coi_signals = {}
     output_cone_of_influence = {}
-    inputs = [signal for signal in netlist.nodes if netlist.node[signal]['type']=='INPUT']
-    outputs = [signal[:-4] for signal in netlist.nodes if netlist.node[signal]['type']=='OUTPUT']
+    inputs = [signal for signal in netlist.nodes if netlist.nodes[signal]['type']=='INPUT']
+    outputs = [signal[:-4] for signal in netlist.nodes if netlist.nodes[signal]['type']=='OUTPUT']
 
     # Recursive function to perform DFT
     def find_coi(sig, primary_sig):
@@ -165,8 +165,8 @@ def all_pipo_in_coi(netlist):
     """
 
     # Global variables
-    primary_inputs = [signal for signal in netlist.nodes() if netlist.node[signal]['type']=='INPUT']
-    primary_outputs = [signal[:-4] for signal in netlist.nodes() if netlist.node[signal]['type']=='OUTPUT']
+    primary_inputs = [signal for signal in netlist.nodes() if netlist.nodes[signal]['type']=='INPUT']
+    primary_outputs = [signal[:-4] for signal in netlist.nodes() if netlist.nodes[signal]['type']=='OUTPUT']
     coi_primary_inputs = dict((primary_input, [primary_input]) for primary_input in primary_inputs)
     coi_primary_outputs = dict((primary_output, [primary_output]) for primary_output in primary_outputs)
 
@@ -300,7 +300,7 @@ def skew(netlist, skew_file_path):
         raise ValueError("Netlist must be a DAG")
 
     # Find inputs, outputs and store file in list
-    inputs = [signal for signal in netlist.nodes if netlist.node[signal]['type']=='INPUT']
+    inputs = [signal for signal in netlist.nodes if netlist.nodes[signal]['type']=='INPUT']
     probability_skew = {}
     probability_skew = probability_skew.fromkeys(inputs, 0)
 
@@ -311,7 +311,7 @@ def skew(netlist, skew_file_path):
         fanin = list(netlist.predecessors(signal))
         assert all(net in probability_skew for net in fanin), f"Skew of some of the fan-in signals of {signal} has not been calculated"
         input_skew_list = [probability_skew[net] for net in fanin]
-        probability_skew[signal] = calculate_gate_skew(netlist.node[signal]['type'], input_skew_list)
+        probability_skew[signal] = calculate_gate_skew(netlist.nodes[signal]['type'], input_skew_list)
     assert all(signal in probability_skew for signal in sorted_nodes)
 
     # Write probability values to skew file
@@ -319,7 +319,7 @@ def skew(netlist, skew_file_path):
         with open(skew_file_path, 'w') as skew_file:
             skew_file.write("net,Prob0,Prob1\n")
             for signal in sorted(probability_skew.keys()):
-                if netlist.node[signal]['type'] == 'OUTPUT':
+                if netlist.nodes[signal]['type'] == 'OUTPUT':
                     continue
                 p0, p1 = 0.5 - probability_skew[signal], probability_skew[signal] + 0.5
                 skew_file.write(signal + "," + str(p0) + "," + str(p1) + "\n")
@@ -399,7 +399,7 @@ def skew2(netlist, skew_file_path):
         return output_skew
 
     # Find inputs, outputs and store file in list
-    inputs = [signal for signal,sigattr in netlist.node.items() if sigattr['type']=='INPUT']
+    inputs = [signal for signal,sigattr in netlist.nodes.items() if sigattr['type']=='INPUT']
     probability_skew = {}
     probability_skew = probability_skew.fromkeys(inputs, 0)
 
@@ -408,7 +408,7 @@ def skew2(netlist, skew_file_path):
         for output in netlist.successors(input_signal):
             if all(net in probability_skew for net in netlist.predecessors(output)) and output not in probability_skew:
                 input_skew_list = [probability_skew[net] for net in netlist.predecessors(output)]
-                probability_skew[output] = calculate_gate_skew(netlist.node[output]['type'], input_skew_list)
+                probability_skew[output] = calculate_gate_skew(netlist.nodes[output]['type'], input_skew_list)
                 if list(netlist.successors(output)):
                     propagate_skew(output)
 
@@ -442,10 +442,10 @@ def metrics(circuit):
         dff_outputs  [list of strings] -- List of dff outputs of the design
     """
 
-    assert all('type' in circuit.node[signal] for signal in circuit.nodes)
-    primary_inputs = [signal for signal,sigattr in circuit.node.items() if sigattr['type']=='INPUT']
-    primary_outputs = [signal[:-4] for signal,sigattr in circuit.node.items() if sigattr['type']=='OUTPUT']
-    dff_outputs = [signal for signal,sigattr in circuit.node.items() if sigattr['type']=='DFF']
+    assert all('type' in circuit.nodes[signal] for signal in circuit.nodes)
+    primary_inputs = [signal for signal,sigattr in circuit.nodes.items() if sigattr['type']=='INPUT']
+    primary_outputs = [signal[:-4] for signal,sigattr in circuit.nodes.items() if sigattr['type']=='OUTPUT']
+    dff_outputs = [signal for signal,sigattr in circuit.nodes.items() if sigattr['type']=='DFF']
     return primary_inputs, primary_outputs, dff_outputs
 
 
@@ -520,18 +520,18 @@ def benchmark_data(benchmark_file_path, format='bench'):
 
     # Find and return metrics
     metrics = {}
-    metrics['input'] = len([signal for signal,sigattr in circuit.node.items() if sigattr['type']=='INPUT'])
-    metrics['output'] = len([signal for signal,sigattr in circuit.node.items() if sigattr['type']=='OUTPUT'])
-    metrics['dff'] = len([signal for signal,sigattr in circuit.node.items() if sigattr['type']=='DFF'])
-    metrics['mux'] = len([signal for signal,sigattr in circuit.node.items() if sigattr['type']=='MUX'])
-    metrics['and'] = len([signal for signal,sigattr in circuit.node.items() if sigattr['type']=='AND'])
-    metrics['nand'] = len([signal for signal,sigattr in circuit.node.items() if sigattr['type']=='NAND'])
-    metrics['or'] = len([signal for signal,sigattr in circuit.node.items() if sigattr['type']=='OR'])
-    metrics['nor'] = len([signal for signal,sigattr in circuit.node.items() if sigattr['type']=='NOR'])
-    metrics['xor'] = len([signal for signal,sigattr in circuit.node.items() if sigattr['type']=='XOR'])
-    metrics['xnor'] = len([signal for signal,sigattr in circuit.node.items() if sigattr['type']=='XNOR'])
-    metrics['not'] = len([signal for signal,sigattr in circuit.node.items() if sigattr['type']=='NOT'])
-    metrics['buff'] = len([signal for signal,sigattr in circuit.node.items() if sigattr['type']=='BUFF' or sigattr['type']=='BUF'])
+    metrics['input'] = len([signal for signal,sigattr in circuit.nodes.items() if sigattr['type']=='INPUT'])
+    metrics['output'] = len([signal for signal,sigattr in circuit.nodes.items() if sigattr['type']=='OUTPUT'])
+    metrics['dff'] = len([signal for signal,sigattr in circuit.nodes.items() if sigattr['type']=='DFF'])
+    metrics['mux'] = len([signal for signal,sigattr in circuit.nodes.items() if sigattr['type']=='MUX'])
+    metrics['and'] = len([signal for signal,sigattr in circuit.nodes.items() if sigattr['type']=='AND'])
+    metrics['nand'] = len([signal for signal,sigattr in circuit.nodes.items() if sigattr['type']=='NAND'])
+    metrics['or'] = len([signal for signal,sigattr in circuit.nodes.items() if sigattr['type']=='OR'])
+    metrics['nor'] = len([signal for signal,sigattr in circuit.nodes.items() if sigattr['type']=='NOR'])
+    metrics['xor'] = len([signal for signal,sigattr in circuit.nodes.items() if sigattr['type']=='XOR'])
+    metrics['xnor'] = len([signal for signal,sigattr in circuit.nodes.items() if sigattr['type']=='XNOR'])
+    metrics['not'] = len([signal for signal,sigattr in circuit.nodes.items() if sigattr['type']=='NOT'])
+    metrics['buff'] = len([signal for signal,sigattr in circuit.nodes.items() if sigattr['type']=='BUFF' or sigattr['type']=='BUF'])
     return metrics
 
 
@@ -548,7 +548,7 @@ def ignore_signals(signal_list, netlist, internal_signals):
                               Value is a list of signals with fan-out outside TFI of signals in signal list.
     """
 
-    inputs = [signal for signal in netlist.nodes() if netlist.node[signal]['type']=='INPUT']
+    inputs = [signal for signal in netlist.nodes() if netlist.nodes[signal]['type']=='INPUT']
 
     # Recursive function to remove dont touch signals whose tfo holds other fan-out signals
     def remove_from_dont_touch(sig, primary_sig):
