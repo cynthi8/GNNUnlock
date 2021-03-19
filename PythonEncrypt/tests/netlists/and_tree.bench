@@ -1,0 +1,18 @@
+INPUT(1)
+INPUT(2)
+INPUT(3)
+INPUT(4)
+INPUT(5)
+INPUT(6)
+INPUT(7)
+INPUT(8)
+
+OUTPUT(9)
+
+10 = AND(1, 2)
+11 = AND(3, 4)
+12 = AND(5, 6)
+13 = AND(7, 8)
+14 = AND(10, 11)
+15 = AND(12, 13)
+9 = AND(14, 15)
