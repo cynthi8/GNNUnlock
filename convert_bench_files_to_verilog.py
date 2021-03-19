@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 import os
+from glob import glob
 from pathlib import Path
-from PythonEncrypt.read import bench as ReadBench
-from PythonEncrypt.write import verilog as WriteVerilog
+
+import read
+import write
 
 benchmark_directory = './Benchmarks'
 verilog_benchmark_directory = './VerilogBenchmarks'
 
-for entry in os.scandir(benchmark_directory):
-    if entry.path.endswith(".bench") and entry.is_file():
-        graph = ReadBench(entry.path)
-        print(entry.name, graph.size())
-        WriteVerilog(graph, f'{verilog_benchmark_directory}/{Path(entry).stem}')
+for walk_tuple in os.walk(benchmark_directory):
+    for file in glob(os.path.join(walk_tuple[0], '*.bench')):
+        graph = read.bench(file)
+        print(file, graph.size())
+        write.verilog(graph, os.path.join(verilog_benchmark_directory, Path(file).stem))
