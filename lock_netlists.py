@@ -16,5 +16,5 @@ locked_netlists_path = './LockedNetlists'
 for entry in os.scandir(ISCAS_85_path):
     if entry.path.endswith(".v") and entry.is_file():
         for k in key_sizes:
-            pointfunc(entry.path,"NR", k, f'{locked_netlists_path}/{Path(entry).stem}_AntiSAT_{k}.v')
-            pointfunc(entry.path,"FR", k, f'{locked_netlists_path}/{Path(entry).stem}_SFLL-HD(2)_{k}.v')
+            pointfunc(entry.path,"NR", k, None, os.path.join(locked_netlists_path, f'{Path(entry).stem}_AntiSAT_{k}.v'))
+            pointfunc(entry.path,"FR", k, 2, os.path.join(locked_netlists_path, f'{Path(entry).stem}_SFLL-HD(2)_{k}.v'))

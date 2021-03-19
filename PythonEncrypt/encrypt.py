@@ -691,7 +691,6 @@ def pointfunc(design_file_path, enc_type, key_size, h_value, encrypted_file_path
         OriginalCircuit.add_node(keyinput, name=keyinput, type='INPUT')
 
     # Add flip signal
-    assert 0 <= h_value <= key_size
     sat_vul_key_size = 0
     sat_res_key_size = key_size
     fanin = []
@@ -763,6 +762,7 @@ def pointfunc(design_file_path, enc_type, key_size, h_value, encrypted_file_path
             f'  assign {flip_signal} = (perturb ^ restore) ? \'b1 : \'b0;'
         )
     elif enc_type=='FR':
+        assert 0 <= h_value <= key_size
         flip_logic = (
             f"{ham_dist_block('sat_res_inputs', 'keyvalue', pi_count, 'ham_dist_peturb')}"
             f"{ham_dist_block('sat_res_inputs', 'keyinputs', pi_count, 'ham_dist_restore')}"
