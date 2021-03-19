@@ -1,5 +1,5 @@
 ISCAS-85 Benchmarks taken from http://web.eecs.umich.edu/~jhayes/iscas.restore/benchmark.html
-These are all combinational circuits (c stands for combinational perhaps?)
+These are all combinational circuits (c stands for combinational)
 c2670
 c3540
 c5315

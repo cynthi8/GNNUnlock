@@ -610,7 +610,7 @@ def module_block(module, outputs, inputs, logic_block, module_comment):
         '\n'
         f'  input {unroll(inputs)};\n'
         f'  output {unroll(outputs)};\n'
-        f'  {logic_block}'
+        f'{logic_block}'
         f'endmodule\n'
         f'{module_comment}'
 
@@ -651,23 +651,24 @@ def ham_dist_block(wire1, wire2, bit_length, output):
         string -- Verilog code of the hamming distance calculator
     """
     return (
-        f'integer {output}, idx;\n'
-        f'wire [{bit_length-1}:0] diff;\n'
-        f'assign diff = {wire1} ^ {wire2};\n\n'
-        f'always@* begin\n'
-        f'  {output} = 0;\n'
-        f'  for(idx=0; idx<{bit_length}; idx=idx+1) {output} = {output} + diff[idx];\n'
-        f'end\n\n'
+        f'  integer {output}, idx;\n'
+        f'  wire [{bit_length-1}:0] diff;\n'
+        f'  assign diff = {wire1} ^ {wire2};\n\n'
+        f'  always@* begin\n'
+        f'    {output} = 0;\n'
+        f'    for(idx=0; idx<{bit_length}; idx=idx+1) {output} = {output} + diff[idx];\n'
+        f'  end\n\n'
     )
 
 
-def pointfunc(design_file_path, enc_type, key_size, encrypted_file_path):
+def pointfunc(design_file_path, enc_type, key_size, h_value, encrypted_file_path):
     """Function to perform point-function based encryption.
     
     Arguments:
         design_file_path {string} -- Path to unencrypted verilog file
         enc_type {string} -- Encryption code (SR/NR/TR/FR)
         key_size {int} -- Key size
+        h_value {int} -- Hamming distance for SFLL-HD (only applies when enc_type == FR)
         encrypted_file_path {string} -- Path to encrypted verilog file
     
     Raises:
@@ -690,7 +691,7 @@ def pointfunc(design_file_path, enc_type, key_size, encrypted_file_path):
         OriginalCircuit.add_node(keyinput, name=keyinput, type='INPUT')
 
     # Add flip signal
-    h_value = 2                 # For SFLL-HD(h)
+    assert 0 <= h_value <= key_size
     sat_vul_key_size = 0
     sat_res_key_size = key_size
     fanin = []
@@ -763,8 +764,8 @@ def pointfunc(design_file_path, enc_type, key_size, encrypted_file_path):
         )
     elif enc_type=='FR':
         flip_logic = (
-            f"  {ham_dist_block('sat_res_inputs', 'keyvalue', pi_count, 'ham_dist_peturb')}\n"
-            f"  {ham_dist_block('sat_res_inputs', 'keyinputs', pi_count, 'ham_dist_restore')}\n"
+            f"{ham_dist_block('sat_res_inputs', 'keyvalue', pi_count, 'ham_dist_peturb')}"
+            f"{ham_dist_block('sat_res_inputs', 'keyinputs', pi_count, 'ham_dist_restore')}"
             f'  assign {flip_signal} = ( (ham_dist_peturb=={h_value}) ^ (ham_dist_restore=={h_value}) ) ? \'b1 : \'b0;'
         )
 
@@ -774,13 +775,13 @@ def pointfunc(design_file_path, enc_type, key_size, encrypted_file_path):
         f'  assign sat_res_inputs[{pi_count-1}:0] = {{{unroll(sat_res_inputs)}}};\n'
         f'  wire [{sat_res_key_size-1}:0] keyinputs, keyvalue;\n'
         f'  assign keyinputs[{sat_res_key_size-1}:0] = {{{unroll(sat_res_key_inputs)}}};\n'
-        f'  assign keyvalue[{sat_res_key_size-1}:0] = {sat_res_key_size}\'b{sat_res_key_value};\n'
+        f'  assign keyvalue[{sat_res_key_size-1}:0] = {sat_res_key_size}\'b{sat_res_key_value};\n\n'
         f'{flip_logic}\n'
     )
     
     sat_hard_block_outputs = [flip_signal]
     sat_hard_block_inputs = sat_res_inputs + sat_res_key_inputs
-    sat_hard_block_module = module_block('SatHard', sat_hard_block_outputs, sat_hard_block_inputs, sat_hard_block_logic, '/*************** SatHard block ***************/')
+    sat_hard_block_module = module_block('SatHard', sat_hard_block_outputs, sat_hard_block_inputs, sat_hard_block_logic, '/*************** SatHard block ***************/\n')
     sat_hard_block_instance = instantiation_block('SatHard', 'block1', sat_hard_block_outputs, sat_hard_block_inputs)
 
     if Testing:

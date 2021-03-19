@@ -26,5 +26,5 @@ def test_module_block():
 
     outputs = ['output0']
     inputs = ['input0', 'input1', 'input2']
-    logic_block = 'output0 = input0 & input1 & input2;\n'
+    logic_block = '  output0 = input0 & input1 & input2;\n'
     assert encrypt.module_block('And3', outputs, inputs, logic_block, '*** Super Cool And3 Module ***\n') == signature
