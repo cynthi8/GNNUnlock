@@ -6,11 +6,11 @@ from pathlib import Path
 import read
 import write
 
-benchmark_dir = './Benchmarks'
+benchmark_dir = 'Benchmarks'
 ISCAS_85_sub_dir = 'ISCAS-85'
 ITC_99_sub_dir = 'ITC-99'
 
-verilog_benchmark_dir = './VerilogBenchmarks'
+verilog_benchmark_dir = 'VerilogBenchmarks'
 
 for sub_dir in [ISCAS_85_sub_dir, ITC_99_sub_dir]:
     for file in glob(os.path.join(benchmark_dir, sub_dir, '*.bench')):
