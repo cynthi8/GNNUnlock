@@ -32,12 +32,19 @@ import random
 
 
 # Method to read bench file
-def bench(bench_file_path):
+def bench(bench_file_path, sanitize=True):
     """
     Function to read bench file.
     :param bench_file_path(string): Path to bench file
+    :param sanitize(bool): Rename signals to Verlog/VHDL compliant syntax
     :returns: the circuit as a networkx graph 
     """
+
+    def _sanitize(name):
+        # VHDL must start with a character
+        if not name[0].isalpha():
+            name = 'i_' + name
+        return name 
 
     # Regular expression for signal extraction
     regex_signal_extract = r".*\((.*?)\).*"
@@ -59,17 +66,25 @@ def bench(bench_file_path):
                 continue
             if line.startswith("INPUT("):
                 signal = re.findall(regex_signal_extract, line)[0].strip()
+                if sanitize: 
+                    signal = _sanitize(signal)
                 circuit.add_node(signal, name=signal,type="INPUT")
             elif line.startswith("OUTPUT("):
                 signal = re.findall(regex_signal_extract, line)[0].strip()
+                if sanitize: 
+                    signal = _sanitize(signal)
                 circuit.add_node(signal + "_OUT", name=signal, type="OUTPUT")
                 edge_list.append((signal, signal + "_OUT"))
             else:
                 gate_type = re.findall(regex_gate_type_extract, line)[0].strip()
                 gate_output = re.findall(regex_gate_out_extract, line)[0].strip()
                 gate_inputs = [signal.strip() for signal in re.findall(regex_signal_extract, line)[0].strip().split(",")]
+                if sanitize: 
+                    gate_output = _sanitize(gate_output)
                 circuit.add_node(gate_output, name=gate_output, type=gate_type)
                 for gate_input in gate_inputs:
+                    if sanitize: 
+                        gate_input = _sanitize(gate_input)
                     edge_list.append((gate_input, gate_output))
     circuit.add_edges_from(edge_list)
 
