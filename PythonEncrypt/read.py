@@ -32,16 +32,15 @@ import random
 
 
 # Method to read bench file
-def bench(bench_file_path, sanitize=True):
+def bench(bench_file_path):
     """
     Function to read bench file.
     :param bench_file_path(string): Path to bench file
-    :param sanitize(bool): Rename signals to Verlog/VHDL compliant syntax
     :returns: the circuit as a networkx graph 
     """
 
     def _sanitize(name):
-        # Identifiers for VHDL/Verilog should start with a character 'N' is used in other "bench -> verilog" converters
+        # Identifiers for VHDL/Verilog should start with a character. 'N' is used in other "bench -> verilog" converters
         # http://www.pld.ttu.ee/~maksim/benchmarks/iscas85/verilog/ 
         if not name[0].isalpha():
             name = 'N' + name
@@ -55,6 +54,8 @@ def bench(bench_file_path, sanitize=True):
     # Read bench file and store in graph
     circuit = nx.DiGraph()
     edge_list = []
+    input_list = []
+    output_list = []
     try:
         bench_file = open(bench_file_path, "r")
     except IOError:
@@ -67,26 +68,43 @@ def bench(bench_file_path, sanitize=True):
                 continue
             if line.startswith("INPUT("):
                 signal = re.findall(regex_signal_extract, line)[0].strip()
-                if sanitize: 
-                    signal = _sanitize(signal)
-                circuit.add_node(signal, name=signal,type="INPUT")
+                signal = _sanitize(signal)
+                assert not signal in input_list
+                input_list.append(signal)
             elif line.startswith("OUTPUT("):
                 signal = re.findall(regex_signal_extract, line)[0].strip()
-                if sanitize: 
-                    signal = _sanitize(signal)
-                circuit.add_node(signal + "_OUT", name=signal, type="OUTPUT")
-                edge_list.append((signal, signal + "_OUT"))
+                signal = _sanitize(signal)
+                assert not signal in output_list
+                output_list.append(signal)
             else:
                 gate_type = re.findall(regex_gate_type_extract, line)[0].strip()
                 gate_output = re.findall(regex_gate_out_extract, line)[0].strip()
+                gate_output = _sanitize(gate_output)
                 gate_inputs = [signal.strip() for signal in re.findall(regex_signal_extract, line)[0].strip().split(",")]
-                if sanitize: 
-                    gate_output = _sanitize(gate_output)
                 circuit.add_node(gate_output, name=gate_output, type=gate_type)
                 for gate_input in gate_inputs:
-                    if sanitize: 
-                        gate_input = _sanitize(gate_input)
+                    gate_input = _sanitize(gate_input)
                     edge_list.append((gate_input, gate_output))
+
+        for feed_through in set(input_list).intersection(output_list):
+            # Add a buffer between feed throughs
+            gate_input = feed_through + "_I"
+            gate_output = feed_through + "_O"
+            circuit.add_node(gate_input, name=gate_input, type="INPUT")
+            circuit.add_node(gate_output, name=gate_output, type="BUFF")
+            circuit.add_node(gate_output + "_OUT", name=gate_output + "_OUT", type="OUTPUT")
+            edge_list.append((gate_input, gate_output))
+            edge_list.append((gate_output, gate_output + "_OUT"))
+            input_list.remove(feed_through)
+            output_list.remove(feed_through)
+
+        for signal in input_list:
+            circuit.add_node(signal, name=signal, type="INPUT")
+        
+        for signal in output_list:
+            edge_list.append((signal, signal + "_OUT"))
+            circuit.add_node(signal + "_OUT", name=signal, type="OUTPUT")
+
     circuit.add_edges_from(edge_list)
 
     # Return netlist graph
