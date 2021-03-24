@@ -41,9 +41,10 @@ def bench(bench_file_path, sanitize=True):
     """
 
     def _sanitize(name):
-        # VHDL must start with a character
+        # Identifiers for VHDL/Verilog should start with a character 'N' is used in other "bench -> verilog" converters
+        # http://www.pld.ttu.ee/~maksim/benchmarks/iscas85/verilog/ 
         if not name[0].isalpha():
-            name = 'i_' + name
+            name = 'N' + name
         return name 
 
     # Regular expression for signal extraction
