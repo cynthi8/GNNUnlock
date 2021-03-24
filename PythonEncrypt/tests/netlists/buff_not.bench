@@ -1,0 +1,8 @@
+INPUT(1)
+INPUT(2)
+
+OUTPUT(3)
+OUTPUT(4)
+
+3 = BUFF(1)
+4 = NOT(2)

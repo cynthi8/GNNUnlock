@@ -459,7 +459,7 @@ def verilog(verilog_file_path):
                         continue
                         # raise NameError("\nDFF output pin error - no Q or Qn detected in '" + line + "'")
 
-            elif gate_type.startswith('BUF') or gate_type.startswith('NBUFF') or gate_type.startswith('IBUFF') or gate_type.startswith('INV') or gate_type.startswith('NOT') or gate_type.startswith('DELL'):
+            elif gate_type.startswith(('BUF', 'NBUFF', 'IBUFF', 'INV', 'NOT', 'DELL')):
 
                 # Find gate input and output
                 gate_input, gate_output = '', ''
@@ -479,7 +479,7 @@ def verilog(verilog_file_path):
                             gate_input = gate_signal
 
                 # Generate gate logic
-                gate_type = 'BUFF' if gate_type.startswith('NBUFF') or gate_type.startswith('DELL') else 'NOT'
+                gate_type = 'BUFF' if gate_type.startswith(('BUF', 'NBUFF', 'DELL')) else 'NOT'
                 add_to_graph(gate_output, gate_type, [gate_input])
 
             elif gate_type.startswith('AO') or gate_type.startswith('OA'):
