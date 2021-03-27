@@ -88,13 +88,13 @@ def bench(bench_file_path):
 
         for feed_through in set(input_list).intersection(output_list):
             # Add a buffer between feed throughs
-            gate_input = feed_through + "_I"
-            gate_output = feed_through + "_O"
-            circuit.add_node(gate_input, name=gate_input, type="INPUT")
-            circuit.add_node(gate_output, name=gate_output, type="BUFF")
-            circuit.add_node(gate_output + "_OUT", name=gate_output + "_OUT", type="OUTPUT")
-            edge_list.append((gate_input, gate_output))
-            edge_list.append((gate_output, gate_output + "_OUT"))
+            buffer_input = feed_through
+            buffer_output = feed_through + "_BUFF"
+            circuit.add_node(buffer_input, name=buffer_input, type="INPUT")
+            circuit.add_node(buffer_output, name=buffer_output, type="BUFF")
+            circuit.add_node(buffer_output + "_OUT", name=buffer_output + "_OUT", type="OUTPUT")
+            edge_list.append((buffer_input, buffer_output))
+            edge_list.append((buffer_output, buffer_output + "_OUT"))
             input_list.remove(feed_through)
             output_list.remove(feed_through)
 
