@@ -47,7 +47,7 @@ assert file_count(dest_dir) == 36
 key_sizes = [8, 16, 32, 64]
 h_values = [0, 2]
 for h in h_values:
-    lock_type = f'SFLL-HD({h})'
+    lock_type = f'SFLL_HD_{h}'
     dest_dir = os.path.join(locked_netlists_path, lock_type, ISCAS_85_sub_dir)
     Path(dest_dir).mkdir(parents=True, exist_ok=True)
     for entry in os.scandir(os.path.join(verilog_benchmark_dir, ISCAS_85_sub_dir)):
@@ -63,7 +63,7 @@ for h in h_values:
 key_sizes = [32, 64, 128]
 h_values = [0, 2, 4]
 for h in h_values:
-    lock_type = f'SFLL-HD({h})'
+    lock_type = f'SFLL_HD_{h}'
     dest_dir = os.path.join(locked_netlists_path, lock_type, ITC_99_sub_dir)
     Path(dest_dir).mkdir(parents=True, exist_ok=True)
     for entry in os.scandir(os.path.join(verilog_benchmark_dir, ITC_99_sub_dir)):
