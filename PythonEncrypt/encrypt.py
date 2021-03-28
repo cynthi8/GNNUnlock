@@ -7,7 +7,7 @@ Valid encryption codes:
     SR -- SARLock
     NR -- Anti-SAT
     TR -- TTLock
-    FR -- SFLL-HD(2)
+    FR -- SFLL-HD
     CR -- Cyclic
     RC -- SRCLock
 """
@@ -28,6 +28,9 @@ import write
 
 # Set to true if testing mode needs to be activated
 Testing = False
+
+def print_progress_step():
+    print('.', end='', flush=True)
 
 def cyclic(design_file_path, enc_type, key_size, encrypted_file_path):
     """Function to perform cyclic encryption.
@@ -118,7 +121,7 @@ def cyclic(design_file_path, enc_type, key_size, encrypted_file_path):
     except (nx.NetworkXError , nx.NetworkXUnfeasible) as err:
         raise SystemExit(f"Circuit must be a DAG.\nNetworkx returned error {err}")
     sorted_gates = [gate for gate in sorted_gates if OriginalCircuit.nodes[gate]['name'] not in primary_inputs.union(primary_outputs)]
-    print('.', end='', flush=True)
+    print_progress_step()
 
     # Find suitable locations for gates
     gate_outputs = []
@@ -203,7 +206,7 @@ def cyclic(design_file_path, enc_type, key_size, encrypted_file_path):
             sgr_gates.append(r_gate)
             sgr_correct_outputs[r_gate] = random.choice(list(OriginalCircuit.predecessors(r_gate)))
             sgr_gate_count += 1
-    print('.', end='', flush=True)
+    print_progress_step()
 
     # Generate mux logic
     keyvalue = format(random.getrandbits(key_size), f'0{key_size}b')
@@ -284,7 +287,7 @@ def cyclic(design_file_path, enc_type, key_size, encrypted_file_path):
 
     OriginalCircuit.remove_edges_from(edges_to_be_removed)
     assert sg_index==sgr_gate_count
-    print('.', end='', flush=True)
+    print_progress_step()
     
     if True:
         # Write circuit to enc file
@@ -597,7 +600,6 @@ def module_block(module, outputs, inputs, logic_block, module_comment):
         logic_block {string} -- Verilog code of the logic that is contained by the module
         module_comment {string} -- Module comment that is placed at the start and end of the module
 
-
     Raises:
         None
 
@@ -724,13 +726,8 @@ def pointfunc(design_file_path, enc_type, key_size, h_value, encrypted_file_path
     # Write circuit to temp file
     temp_file_path = encrypted_file_path
     write.verilog(OriginalCircuit, temp_file_path)
-    print('.', end='', flush=True)
+    print_progress_step()
 
-    # Read temp file
-    with open(temp_file_path, 'r') as temp_file:
-        original_netlist = temp_file.readlines()
-    os.remove(temp_file_path)
-    
     # Add extra keys to design
     if enc_type=='NR':
         pi_count = int(sat_res_key_size/2)+1 if sat_res_key_size%2 else int(sat_res_key_size/2)
@@ -787,7 +784,12 @@ def pointfunc(design_file_path, enc_type, key_size, h_value, encrypted_file_path
     if Testing:
         pdb.set_trace()
 
-    print('.', end='', flush=True)
+    print_progress_step()
+
+    # Read temp file
+    with open(temp_file_path, 'r') as temp_file:
+        original_netlist = temp_file.readlines()
+    os.remove(temp_file_path)
     
     # Modify netlist by adding SatHard block
     edited_netlist = [f'//key={sat_res_key_value}\n']
@@ -798,7 +800,7 @@ def pointfunc(design_file_path, enc_type, key_size, h_value, encrypted_file_path
         if any(stripped_line.startswith(special_item) for special_item in ['//','`']) or not stripped_line:
             edited_netlist.append(line)
             continue
-        if stripped_line.startswith('module') or stripped_line.startswith('input'):
+        if stripped_line.startswith(('module', 'input')):
             # edited_netlist.append(line.replace(f');', f', {unroll(sat_res_key_inputs)});'))
             edited_netlist.append(line)
         elif stripped_line.startswith('endmodule'):
@@ -810,7 +812,7 @@ def pointfunc(design_file_path, enc_type, key_size, h_value, encrypted_file_path
             ]
         else:
             edited_netlist.append(line)
-    print('.', end='', flush=True)
+    print_progress_step()
     if Testing:
         pdb.set_trace()
     
