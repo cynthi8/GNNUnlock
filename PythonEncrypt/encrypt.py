@@ -21,6 +21,8 @@ import networkx as nx
 import random
 import shutil
 import pdb
+from pathlib import Path
+
 
 import find
 import read
@@ -634,7 +636,7 @@ def instantiation_block(module, instance_name, outputs, inputs):
         string -- Verilog code of the instantiation block
     """
     return (
-        f'{module} {instance_name} ({unroll(outputs)}, {unroll(inputs)});\n'
+        f'  {module} {instance_name} ({unroll(outputs)}, {unroll(inputs)});\n'
     )
 
 def ham_dist_block(wire1, wire2, bit_length, output):
@@ -687,17 +689,14 @@ def pointfunc(design_file_path, enc_type, key_size, h_value, encrypted_file_path
 
     # Read original circuit
     OriginalCircuit = read.verilog(design_file_path)
+    primary_outputs = {sigattr['name'] for signal,sigattr in OriginalCircuit.nodes.items() if sigattr['type']=='OUTPUT'}
+    original_primary_inputs = [sigattr['name'] for signal,sigattr in OriginalCircuit.nodes.items() if sigattr['type']=='INPUT']
 
-    # Add key inputs
-    for keyinput in [f'keyinput{idx}' for idx in range(key_size)]:
-        OriginalCircuit.add_node(keyinput, name=keyinput, type='INPUT')
-
-    # Add flip signal
+    # Select output to lock
     sat_vul_key_size = 0
     sat_res_key_size = key_size
     fanin = []
     invalid_pi = set()
-    primary_outputs = {sigattr['name'] for signal,sigattr in OriginalCircuit.nodes.items() if sigattr['type']=='OUTPUT'}
     primary_output = ''
     while True: # This loop tries to find a primary output with a really big input cone of influence (more than key bit size)
         valid_po = primary_outputs.difference(invalid_pi)
@@ -711,114 +710,159 @@ def pointfunc(design_file_path, enc_type, key_size, h_value, encrypted_file_path
         if len(fanin)>sat_res_key_size:
             break
         invalid_pi.add(primary_output)
-    po_replace, flip_signal = f'{primary_output}_in', 'flip_signal'
+
+    # Insert XOR gate(s) before the selected output
+    po_replace = f'{primary_output}_in'
     OriginalCircuit.add_node(po_replace, name=po_replace, type=OriginalCircuit.nodes[primary_output]['type'])
     OriginalCircuit.add_edges_from(itertools.product(OriginalCircuit.predecessors(primary_output), [po_replace]))
     OriginalCircuit.remove_edges_from(itertools.product(OriginalCircuit.predecessors(primary_output), [primary_output]))
     OriginalCircuit.nodes[primary_output]['type'] = 'XOR'
-    OriginalCircuit.add_edge(po_replace, primary_output)
-    OriginalCircuit.add_node(flip_signal, name=flip_signal, type='REMOVE')
-    OriginalCircuit.add_edge(flip_signal, primary_output)
-    OriginalCircuit.add_edge(primary_output, flip_signal)
-    if Testing:
-        pdb.set_trace()
+    if enc_type in ['SR', 'NR']:
+        # SATLock and AntiSAT use a single flip_signal
+        flip_signal = 'flip_signal'
+        top_wires = [flip_signal]
+        OriginalCircuit.add_edge(po_replace, primary_output)
+        OriginalCircuit.add_node(flip_signal, name=flip_signal, type='INPUT')
+        OriginalCircuit.add_edge(flip_signal, primary_output)
+    elif enc_type in ['TR', 'FR']:
+        # TTLL and SFLL use two flip signals
+        perturb_signal, restore_signal = 'perturb_signal', 'restore_signal'
+        top_wires = [perturb_signal, restore_signal]
+        po_perturb = f'{primary_output}_pert'
+        OriginalCircuit.add_node(perturb_signal, name=perturb_signal, type='INPUT')
+        OriginalCircuit.add_node(restore_signal, name=restore_signal, type='INPUT')
+        OriginalCircuit.add_node(po_perturb, name=po_perturb, type='XOR')
+        OriginalCircuit.add_edge(po_replace, po_perturb)
+        OriginalCircuit.add_edge(perturb_signal, po_perturb)
+        OriginalCircuit.add_edge(po_perturb, primary_output)
+        OriginalCircuit.add_edge(restore_signal, primary_output)
 
-    # Write circuit to temp file
+    # Write circuit to temp file (converts the circuit into a module)
     temp_file_path = encrypted_file_path
     write.verilog(OriginalCircuit, temp_file_path)
+
     print_progress_step()
 
-    # Add extra keys to design
+    # Select SAT resistant inputs
     if enc_type=='NR':
         pi_count = int(sat_res_key_size/2)+1 if sat_res_key_size%2 else int(sat_res_key_size/2)
     else:
         pi_count = sat_res_key_size
     sat_res_inputs = random.sample(fanin, pi_count)
     assert len(sat_res_inputs)==len(set(sat_res_inputs))
+
+    # Generate random key value
     sat_res_key_value = format(random.getrandbits(sat_res_key_size), f'0{sat_res_key_size}b')
+
+    # Generate key inputs
     sat_res_key_inputs = [f'keyinput{keybit}' for keybit in range(sat_vul_key_size, sat_vul_key_size+sat_res_key_size)]
-    if Testing:
-        pdb.set_trace()
 
-    # Generate SatHard block
-    new_line = '\n'
-    if enc_type=='SR':
-        flip_logic = f'\n  assign {flip_signal} = ( (keyinputs!=keyvalue) & (sat_res_inputs==keyinputs) ) ? \'b1 : \'b0;'
-    elif enc_type=='NR':
-        flip_logic = (
-            f'  wire g, g_bar;\n'
-            f'  assign g = &(keyinputs[{pi_count-1}:0] ^ sat_res_inputs ^ keyvalue[{pi_count-1}:0]);\n'
-            f'  assign g_bar = ~&(keyinputs[{sat_res_key_size-1}:{pi_count}] ^ sat_res_inputs ^ keyvalue[{sat_res_key_size-1}:{pi_count}]);\n'
-            f'  assign {flip_signal} = g & g_bar;\n'
-        )
-    elif enc_type=='TR':
-        flip_logic = (
-            f'  wire perturb, restore;\n'
-            f'  assign perturb = (sat_res_inputs == keyvalue) ? \'b1 : \'b0;\n'
-            f'  assign restore = (sat_res_inputs == keyinputs) ? \'b1 : \'b0;\n'
-            f'  assign {flip_signal} = (perturb ^ restore) ? \'b1 : \'b0;'
-        )
-    elif enc_type=='FR':
-        assert 0 <= h_value <= key_size
-        flip_logic = (
-            f"{ham_dist_block('sat_res_inputs', 'keyvalue', pi_count, 'ham_dist_peturb')}"
-            f"{ham_dist_block('sat_res_inputs', 'keyinputs', pi_count, 'ham_dist_restore')}"
-            f'  assign {flip_signal} = ( (ham_dist_peturb=={h_value}) ^ (ham_dist_restore=={h_value}) ) ? \'b1 : \'b0;'
-        )
+    # Construct verilog modules and instantiations
+    verilog_modules = ''
+    verilog_instantiations = ''
 
-    sat_hard_block_logic = (
-        f'  //SatHard key={sat_res_key_value}\n'
-        f'  wire [{pi_count-1}:0] sat_res_inputs;\n'
-        f'  assign sat_res_inputs[{pi_count-1}:0] = {{{unroll(sat_res_inputs)}}};\n'
-        f'  wire [{sat_res_key_size-1}:0] keyinputs, keyvalue;\n'
-        f'  assign keyinputs[{sat_res_key_size-1}:0] = {{{unroll(sat_res_key_inputs)}}};\n'
-        f'  assign keyvalue[{sat_res_key_size-1}:0] = {sat_res_key_size}\'b{sat_res_key_value};\n\n'
-        f'{flip_logic}\n'
-    )
-    
-    sat_hard_block_outputs = [flip_signal]
-    sat_hard_block_inputs = sat_res_inputs + sat_res_key_inputs
-    sat_hard_block_module = module_block('SatHard', sat_hard_block_outputs, sat_hard_block_inputs, sat_hard_block_logic, '/*************** SatHard block ***************/\n')
-    sat_hard_block_instance = instantiation_block('SatHard', 'block1', sat_hard_block_outputs, sat_hard_block_inputs)
-
-    if Testing:
-        pdb.set_trace()
-
-    print_progress_step()
-
-    # Read temp file
+    # Obtain main module and instantiation
+    main_module_name = Path(temp_file_path).stem
     with open(temp_file_path, 'r') as temp_file:
-        original_netlist = temp_file.readlines()
+        main_module = temp_file.read()
     os.remove(temp_file_path)
+
+    main_block_outputs = {sigattr['name'] for signal,sigattr in OriginalCircuit.nodes.items() if sigattr['type']=='OUTPUT'}
+    main_block_inputs = {sigattr['name'] for signal,sigattr in OriginalCircuit.nodes.items() if sigattr['type']=='INPUT'}
+
+    verilog_modules += main_module
+    verilog_instantiations += instantiation_block(main_module_name, 'main', main_block_outputs, main_block_inputs)
+
+    # Construct logic locking modules and instantiations
+    if enc_type in ['SR', 'NR']:
+        # Build SatHard module 
+        if enc_type=='SR':
+            flip_logic = f'\n  assign {flip_signal} = ( (keyinputs!=keyvalue) & (sat_res_inputs==keyinputs) ) ? \'b1 : \'b0;'
+        elif enc_type=='NR':
+            flip_logic = (
+                f'  wire g, g_bar;\n'
+                f'  assign g = &(keyinputs[{pi_count-1}:0] ^ sat_res_inputs ^ keyvalue[{pi_count-1}:0]);\n'
+                f'  assign g_bar = ~&(keyinputs[{sat_res_key_size-1}:{pi_count}] ^ sat_res_inputs ^ keyvalue[{sat_res_key_size-1}:{pi_count}]);\n'
+                f'  assign {flip_signal} = g & g_bar;\n'
+            )
+        sat_hard_block = (
+            f'  //SatHard key={sat_res_key_value}\n'
+            f'  wire [{pi_count-1}:0] sat_res_inputs;\n'
+            f'  wire [{sat_res_key_size-1}:0] keyinputs, keyvalue;\n'
+            f'  assign sat_res_inputs[{pi_count-1}:0] = {{{unroll(sat_res_inputs)}}};\n'
+            f'  assign keyinputs[{sat_res_key_size-1}:0] = {{{unroll(sat_res_key_inputs)}}};\n'
+            f'  assign keyvalue[{sat_res_key_size-1}:0] = {sat_res_key_size}\'b{sat_res_key_value};\n\n'
+            f'{flip_logic}\n'
+        )
+        sat_hard_block_outputs = [flip_signal]
+        sat_hard_block_inputs = sat_res_inputs + sat_res_key_inputs
+        
+        verilog_modules += '\n' + module_block('SatHard', sat_hard_block_outputs, sat_hard_block_inputs, sat_hard_block, '/*************** SatHard block ***************/\n')
+        verilog_instantiations += instantiation_block('SatHard', 'flip1', sat_hard_block_outputs, sat_hard_block_inputs)
+
+    elif enc_type in ['TR', 'FR']:
+        # Build Pertub and Restore modules
+        if enc_type=='TR':
+            perturb_logic = (
+                f'  assign {perturb_signal} = (sat_res_inputs == keyvalue) ? \'b1 : \'b0;\n'
+            )
+            restore_logic = (
+                f'  assign {restore_signal} = (sat_res_inputs == keyinputs) ? \'b1 : \'b0;\n'
+            )
+        elif enc_type=='FR':
+            assert 0 <= h_value <= key_size
+            perturb_logic = (
+                f"{ham_dist_block('sat_res_inputs', 'keyvalue', pi_count, 'ham_dist_peturb')}"
+                f'  assign {perturb_signal} =  (ham_dist_peturb=={h_value}) ? \'b1 : \'b0;\n'
+            )
+            restore_logic = (
+                f"{ham_dist_block('sat_res_inputs', 'keyinputs', pi_count, 'ham_dist_restore')}"
+                f'  assign {restore_signal} = (ham_dist_restore=={h_value}) ? \'b1 : \'b0;\n'
+            )
+
+        perturb_block = (
+            f'  //SatHard key={sat_res_key_value}\n'
+            f'  wire [{pi_count-1}:0] sat_res_inputs;\n'
+            f'  wire [{sat_res_key_size-1}:0] keyvalue;\n'
+            f'  assign sat_res_inputs[{pi_count-1}:0] = {{{unroll(sat_res_inputs)}}};\n'
+            f'  assign keyvalue[{sat_res_key_size-1}:0] = {sat_res_key_size}\'b{sat_res_key_value};\n\n'
+            f'{perturb_logic}\n'
+        )
+
+        restore_block = (
+            f'  //SatHard key={sat_res_key_value}\n'
+            f'  wire [{pi_count-1}:0] sat_res_inputs;\n'
+            f'  wire [{sat_res_key_size-1}:0] keyinputs;\n'
+            f'  assign sat_res_inputs[{pi_count-1}:0] = {{{unroll(sat_res_inputs)}}};\n'
+            f'  assign keyinputs[{sat_res_key_size-1}:0] = {{{unroll(sat_res_key_inputs)}}};\n'
+            f'{restore_logic}\n'
+        )
+
+        perturb_block_outputs = [perturb_signal]
+        perturb_block_inputs = sat_res_inputs
+        verilog_modules += '\n' + module_block('Perturb', perturb_block_outputs, perturb_block_inputs, perturb_block, '/*************** Perturb block ***************/\n')
+        verilog_instantiations += instantiation_block('Perturb', 'perturb1', perturb_block_outputs, perturb_block_inputs)
     
-    # Modify netlist by adding SatHard block
-    edited_netlist = [f'//key={sat_res_key_value}\n']
-    for line in original_netlist:
-        stripped_line = line.strip()
-        if stripped_line.startswith('remove'):
-            continue
-        if any(stripped_line.startswith(special_item) for special_item in ['//','`']) or not stripped_line:
-            edited_netlist.append(line)
-            continue
-        if stripped_line.startswith(('module', 'input')):
-            # edited_netlist.append(line.replace(f');', f', {unroll(sat_res_key_inputs)});'))
-            edited_netlist.append(line)
-        elif stripped_line.startswith('endmodule'):
-            edited_netlist += [
-                sat_hard_block_instance, 
-                new_line, 
-                'endmodule\n',
-                sat_hard_block_module,
-            ]
-        else:
-            edited_netlist.append(line)
+        restore_block_outputs = [restore_signal]
+        restore_block_inputs = sat_res_inputs + sat_res_key_inputs
+        verilog_modules += '\n' + module_block('Restore', restore_block_outputs, restore_block_inputs, restore_block, '/*************** Restore block ***************/\n')
+        verilog_instantiations += instantiation_block('Restore', 'restore1', restore_block_outputs, restore_block_inputs)
+
     print_progress_step()
-    if Testing:
-        pdb.set_trace()
-    
-    # Write netlist to output file
+
+    # Construct top level module
+    top_block = (
+        f'  wire {unroll(top_wires)};\n\n'
+        f'{verilog_instantiations}'
+    )
+    top_outputs = primary_outputs
+    top_inputs = original_primary_inputs + sat_res_key_inputs
+    top_module = module_block(main_module_name + '_top', top_outputs, top_inputs, top_block, '/*************** Top Level ***************/\n')
+    verilog_modules = top_module + '\n' + verilog_modules
+
+    # Write modules to output file
     with open(encrypted_file_path, 'w') as enc_file:
-        enc_file.writelines(edited_netlist)
+        enc_file.writelines(verilog_modules)
     print(' Complete', flush=True)
 
     return True
