@@ -591,13 +591,13 @@ def cyclic(design_file_path, enc_type, key_size, encrypted_file_path):
 def unroll(list_of_strings): 
     return ', '.join(list_of_strings)
 
-def module_block(module, outputs, inputs, logic_block, module_comment):
+def module_block(module, inputs, outputs, logic_block, module_comment):
     """Function to build a Verilog module block around given logic
 
     Arguments:
         module {string} -- Name of module to be declared
-        outputs {List[string]} -- List of output ports (these are first to be consistant with rest of codebase)
         inputs {List[string]} -- List of input ports
+        outputs {List[string]} -- List of output ports
         logic_block {string} -- Verilog code of the logic that is contained by the module
         module_comment {string} -- Module comment that is placed at the start and end of the module
 
@@ -609,7 +609,7 @@ def module_block(module, outputs, inputs, logic_block, module_comment):
     """
     return (
         f'{module_comment}'
-        f'module {module} ({unroll(outputs)}, {unroll(inputs)});\n'
+        f'module {module} ({unroll(inputs)}, {unroll(outputs)});\n'
         '\n'
         f'  input {unroll(inputs)};\n'
         f'  output {unroll(outputs)};\n'
@@ -619,14 +619,14 @@ def module_block(module, outputs, inputs, logic_block, module_comment):
 
     )
 
-def instantiation_block(module, instance_name, outputs, inputs):
+def instantiation_block(module, instance_name, inputs, outputs):
     """Function to build a Verilog instantiation block (with implicit port mapping)
 
     Arguments:
         module {string} -- Name of module to be instantiated
         instance_name {string} -- Name of instance
-        outputs {List[string]} -- List of output ports (these are first to be consistant with rest of codebase)
         inputs {List[string]} -- List of input ports
+        outputs {List[string]} -- List of output ports
 
     Raises:
         None
@@ -635,7 +635,7 @@ def instantiation_block(module, instance_name, outputs, inputs):
         string -- Verilog code of the instantiation block
     """
     return (
-        f'  {module} {instance_name} ({unroll(outputs)}, {unroll(inputs)});\n'
+        f'  {module} {instance_name} ({unroll(inputs)}, {unroll(outputs)});\n'
     )
 
 def ham_dist_block(wire1, wire2, bit_length, output):
@@ -759,21 +759,20 @@ def pointfunc(design_file_path, enc_type, key_size, h_value, encrypted_file_path
     verilog_modules = ''
     verilog_instantiations = ''
 
-    # Obtain main module and instantiation
+    # Build main module and instantiation
     main_module_name = Path(temp_file_path).stem
     with open(temp_file_path, 'r') as temp_file:
         main_module = temp_file.read()
     os.remove(temp_file_path)
 
-    main_block_outputs = {sigattr['name'] for signal,sigattr in OriginalCircuit.nodes.items() if sigattr['type']=='OUTPUT'}
-    main_block_inputs = {sigattr['name'] for signal,sigattr in OriginalCircuit.nodes.items() if sigattr['type']=='INPUT'}
+    main_block_outputs = [sigattr['name'] for signal,sigattr in OriginalCircuit.nodes.items() if sigattr['type']=='OUTPUT']
+    main_block_inputs = [sigattr['name'] for signal,sigattr in OriginalCircuit.nodes.items() if sigattr['type']=='INPUT']
 
     verilog_modules += main_module
-    verilog_instantiations += instantiation_block(main_module_name, 'main', main_block_outputs, main_block_inputs)
+    verilog_instantiations += instantiation_block(main_module_name, 'main', main_block_inputs, main_block_outputs)
 
-    # Construct logic locking modules and instantiations
     if enc_type in ['SR', 'NR']:
-        # Build SatHard module 
+        # Build SatHard module and instantiation
         if enc_type=='SR':
             flip_logic = f'\n  assign {flip_signal} = ( (keyinputs!=keyvalue) & (sat_res_inputs==keyinputs) ) ? \'b1 : \'b0;'
         elif enc_type=='NR':
@@ -792,14 +791,14 @@ def pointfunc(design_file_path, enc_type, key_size, h_value, encrypted_file_path
             f'  assign keyvalue[{sat_res_key_size-1}:0] = {sat_res_key_size}\'b{sat_res_key_value};\n\n'
             f'{flip_logic}\n'
         )
-        sat_hard_block_outputs = [flip_signal]
         sat_hard_block_inputs = sat_res_inputs + sat_res_key_inputs
+        sat_hard_block_outputs = [flip_signal]
         
-        verilog_modules += '\n' + module_block('SatHard', sat_hard_block_outputs, sat_hard_block_inputs, sat_hard_block, '/*************** SatHard block ***************/\n')
-        verilog_instantiations += instantiation_block('SatHard', 'flip1', sat_hard_block_outputs, sat_hard_block_inputs)
+        verilog_modules += '\n' + module_block('SatHard', sat_hard_block_inputs, sat_hard_block_outputs, sat_hard_block, '/*************** SatHard block ***************/\n')
+        verilog_instantiations += instantiation_block('SatHard', 'flip1', sat_hard_block_inputs, sat_hard_block_outputs)
 
     elif enc_type in ['TR', 'FR']:
-        # Build Pertub and Restore modules
+        # Build Pertub and Restore modules and instantiations
         if enc_type=='TR':
             perturb_logic = (
                 f'  assign {perturb_signal} = (sat_res_inputs == keyvalue) ? \'b1 : \'b0;\n'
@@ -836,26 +835,28 @@ def pointfunc(design_file_path, enc_type, key_size, h_value, encrypted_file_path
             f'{restore_logic}\n'
         )
 
-        perturb_block_outputs = [perturb_signal]
         perturb_block_inputs = sat_res_inputs
-        verilog_modules += '\n' + module_block('Perturb', perturb_block_outputs, perturb_block_inputs, perturb_block, '/*************** Perturb block ***************/\n')
-        verilog_instantiations += instantiation_block('Perturb', 'perturb1', perturb_block_outputs, perturb_block_inputs)
+        perturb_block_outputs = [perturb_signal]
+
+        verilog_modules += '\n' + module_block('Perturb', perturb_block_inputs, perturb_block_outputs, perturb_block, '/*************** Perturb block ***************/\n')
+        verilog_instantiations += instantiation_block('Perturb', 'perturb1', perturb_block_inputs, perturb_block_outputs)
     
-        restore_block_outputs = [restore_signal]
         restore_block_inputs = sat_res_inputs + sat_res_key_inputs
-        verilog_modules += '\n' + module_block('Restore', restore_block_outputs, restore_block_inputs, restore_block, '/*************** Restore block ***************/\n')
-        verilog_instantiations += instantiation_block('Restore', 'restore1', restore_block_outputs, restore_block_inputs)
+        restore_block_outputs = [restore_signal]
+
+        verilog_modules += '\n' + module_block('Restore', restore_block_inputs, restore_block_outputs, restore_block, '/*************** Restore block ***************/\n')
+        verilog_instantiations += instantiation_block('Restore', 'restore1', restore_block_inputs, restore_block_outputs)
 
     print_progress_step()
 
-    # Construct top level module
+    # Build top level module
     top_block = (
         f'  wire {unroll(top_wires)};\n\n'
         f'{verilog_instantiations}'
     )
-    top_outputs = primary_outputs
     top_inputs = original_primary_inputs + sat_res_key_inputs
-    top_module = module_block(main_module_name + '_top', top_outputs, top_inputs, top_block, '/*************** Top Level ***************/\n')
+    top_outputs = primary_outputs
+    top_module = module_block(main_module_name + '_top', top_inputs, top_outputs, top_block, '/*************** Top Level ***************/\n')
     verilog_modules = top_module + '\n' + verilog_modules
 
     # Write modules to output file
