@@ -23,7 +23,6 @@ import shutil
 import pdb
 from pathlib import Path
 
-
 import find
 import read
 import write
@@ -660,7 +659,7 @@ def ham_dist_block(wire1, wire2, bit_length, output):
         f'  assign diff = {wire1} ^ {wire2};\n\n'
         f'  always@* begin\n'
         f'    {output} = 0;\n'
-        f'    for(idx=0; idx<{bit_length}; idx=idx+1) {output} = {output} + diff[idx];\n'
+        f'    for(idx=0; idx<{bit_length}; idx=idx+1) {output} = $signed($unsigned({output}) + diff[idx]);\n'
         f'  end\n\n'
     )
 
@@ -698,16 +697,15 @@ def pointfunc(design_file_path, enc_type, key_size, h_value, encrypted_file_path
     fanin = []
     invalid_pi = set()
     primary_output = ''
-    while True: # This loop tries to find a primary output with a really big input cone of influence (more than key bit size)
+    while True:
         valid_po = primary_outputs.difference(invalid_pi)
         if valid_po:
             primary_output = random.choice(list(valid_po))
-        else: # If it couldn't find any POs with big enough ICOI, fanin will be any non-PO signal (almost the whole graph)
-            fanin = [signal for signal in OriginalCircuit.nodes() if OriginalCircuit.nodes[signal]['name'] not in primary_outputs]
-            break
+        else:
+            raise ValueError(f"No PO found with enough PIs in its ICOI for {key_size} keys")
         icoi = find.input_coi([primary_output], OriginalCircuit)[primary_output]
-        fanin = [signal for signal in icoi['IS'] + icoi['PI'] if not signal.startswith('keyinput')] # fanin is all the signals in the ICOI, except for any key inputs from a previous round of logic locking
-        if len(fanin)>sat_res_key_size:
+        fanin = [signal for signal in icoi['PI'] if not signal.startswith('keyinput')] # exclude key inputs from a previous round of logic locking
+        if len(fanin)>=sat_res_key_size:
             break
         invalid_pi.add(primary_output)
 

@@ -7,7 +7,7 @@ def test_unroll_single():
     assert encrypt.unroll(['some string']) == 'some string'
 
 def test_instantiation_block():
-    signature = 'SatHard block1 (flip_signal, U7044, R2358_U520, R2099_U33, U2521, SUB_450_U61, R2096_U24, R2358_U487, R2144_U95, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7);\n'
+    signature = '  SatHard block1 (flip_signal, U7044, R2358_U520, R2099_U33, U2521, SUB_450_U61, R2096_U24, R2358_U487, R2144_U95, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7);\n'
     inputs_1 = ['U7044', 'R2358_U520', 'R2099_U33', 'U2521', 'SUB_450_U61', 'R2096_U24', 'R2358_U487', 'R2144_U95']
     inputs_2 = ['keyinput0', 'keyinput1', 'keyinput2', 'keyinput3', 'keyinput4', 'keyinput5', 'keyinput6', 'keyinput7']
     assert encrypt.instantiation_block('SatHard', 'block1', ['flip_signal'], inputs_1 + inputs_2) == signature
