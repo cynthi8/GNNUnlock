@@ -1,13 +1,13 @@
 /*************** Top Level ***************/
-module c3540_SFLL_HD_2_32_2_top (N1947, N5078, N4815, N4028, N5192, N3987, N4944, N5231, N4145, N5002, N5045, N4589, N3833, N1713, N3195, N5120, N5361, N5360, N5121, N4667, N5102, N5047, N1, N13, N20, N33, N41, N45, N50, N58, N68, N77, N87, N97, N107, N116, N124, N125, N128, N132, N137, N143, N150, N159, N169, N179, N190, N200, N213, N222, N223, N226, N232, N238, N244, N250, N257, N264, N270, N274, N283, N294, N303, N311, N317, N322, N326, N329, N330, N343, N349, N350, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7, keyinput8, keyinput9, keyinput10, keyinput11, keyinput12, keyinput13, keyinput14, keyinput15, keyinput16, keyinput17, keyinput18, keyinput19, keyinput20, keyinput21, keyinput22, keyinput23, keyinput24, keyinput25, keyinput26, keyinput27, keyinput28, keyinput29, keyinput30, keyinput31);
+module c3540_SFLL_HD_2_32_2_top (N1, N13, N20, N33, N41, N45, N50, N58, N68, N77, N87, N97, N107, N116, N124, N125, N128, N132, N137, N143, N150, N159, N169, N179, N190, N200, N213, N222, N223, N226, N232, N238, N244, N250, N257, N264, N270, N274, N283, N294, N303, N311, N317, N322, N326, N329, N330, N343, N349, N350, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7, keyinput8, keyinput9, keyinput10, keyinput11, keyinput12, keyinput13, keyinput14, keyinput15, keyinput16, keyinput17, keyinput18, keyinput19, keyinput20, keyinput21, keyinput22, keyinput23, keyinput24, keyinput25, keyinput26, keyinput27, keyinput28, keyinput29, keyinput30, keyinput31, N4815, N3987, N5360, N5121, N5045, N5102, N5231, N3195, N4145, N5361, N5078, N3833, N1947, N5002, N5120, N5047, N4667, N4589, N4944, N1713, N5192, N4028);
 
   input N1, N13, N20, N33, N41, N45, N50, N58, N68, N77, N87, N97, N107, N116, N124, N125, N128, N132, N137, N143, N150, N159, N169, N179, N190, N200, N213, N222, N223, N226, N232, N238, N244, N250, N257, N264, N270, N274, N283, N294, N303, N311, N317, N322, N326, N329, N330, N343, N349, N350, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7, keyinput8, keyinput9, keyinput10, keyinput11, keyinput12, keyinput13, keyinput14, keyinput15, keyinput16, keyinput17, keyinput18, keyinput19, keyinput20, keyinput21, keyinput22, keyinput23, keyinput24, keyinput25, keyinput26, keyinput27, keyinput28, keyinput29, keyinput30, keyinput31;
-  output N1947, N5078, N4815, N4028, N5192, N3987, N4944, N5231, N4145, N5002, N5045, N4589, N3833, N1713, N3195, N5120, N5361, N5360, N5121, N4667, N5102, N5047;
+  output N4815, N3987, N5360, N5121, N5045, N5102, N5231, N3195, N4145, N5361, N5078, N3833, N1947, N5002, N5120, N5047, N4667, N4589, N4944, N1713, N5192, N4028;
   wire perturb_signal, restore_signal;
 
-  c3540_SFLL_HD_2_32_2 main (N1947, N5078, N4815, N4028, N5192, N3987, N4944, N5231, N4145, N5002, N5045, N4589, N3833, N1713, N3195, N5120, N5361, N5360, N5121, N4667, N5102, N5047, N128, N77, N33, N87, N213, N250, N107, N226, N244, N350, N326, N222, N45, N264, N349, N200, N50, N270, N257, N13, N137, N132, N303, N159, N116, N150, N283, N274, N343, N169, N58, N322, N97, N238, perturb_signal, N143, N125, N179, N190, N1, N68, N329, N223, N232, N317, N330, restore_signal, N311, N20, N124, N41, N294);
-  Perturb perturb1 (perturb_signal, N190, N226, N274, N58, N50, N294, N326, N283, N1, N244, N169, N311, N150, N250, N303, N213, N232, N107, N330, N116, N41, N45, N238, N200, N13, N264, N77, N343, N97, N20, N68, N349);
-  Restore restore1 (restore_signal, N190, N226, N274, N58, N50, N294, N326, N283, N1, N244, N169, N311, N150, N250, N303, N213, N232, N107, N330, N116, N41, N45, N238, N200, N13, N264, N77, N343, N97, N20, N68, N349, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7, keyinput8, keyinput9, keyinput10, keyinput11, keyinput12, keyinput13, keyinput14, keyinput15, keyinput16, keyinput17, keyinput18, keyinput19, keyinput20, keyinput21, keyinput22, keyinput23, keyinput24, keyinput25, keyinput26, keyinput27, keyinput28, keyinput29, keyinput30, keyinput31);
+  c3540_SFLL_HD_2_32_2 main (N1, N13, N20, N33, N41, N45, N50, N58, N68, N77, N87, N97, N107, N116, N124, N125, N128, N132, N137, N143, N150, N159, N169, N179, N190, N200, N213, N222, N223, N226, N232, N238, N244, N250, N257, N264, N270, N274, N283, N294, N303, N311, N317, N322, N326, N329, N330, N343, N349, N350, perturb_signal, restore_signal, N1713, N1947, N3195, N3833, N3987, N4028, N4145, N4589, N4667, N4815, N4944, N5002, N5045, N5047, N5078, N5102, N5120, N5121, N5192, N5231, N5360, N5361);
+  Perturb perturb1 (N45, N1, N244, N226, N303, N257, N238, N274, N41, N326, N77, N317, N33, N50, N343, N270, N68, N330, N179, N232, N20, N107, N13, N97, N116, N264, N322, N169, N200, N283, N213, N159, perturb_signal);
+  Restore restore1 (N45, N1, N244, N226, N303, N257, N238, N274, N41, N326, N77, N317, N33, N50, N343, N270, N68, N330, N179, N232, N20, N107, N13, N97, N116, N264, N322, N169, N200, N283, N213, N159, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7, keyinput8, keyinput9, keyinput10, keyinput11, keyinput12, keyinput13, keyinput14, keyinput15, keyinput16, keyinput17, keyinput18, keyinput19, keyinput20, keyinput21, keyinput22, keyinput23, keyinput24, keyinput25, keyinput26, keyinput27, keyinput28, keyinput29, keyinput30, keyinput31, restore_signal);
 endmodule
 /*************** Top Level ***************/
 
@@ -1693,15 +1693,15 @@ module c3540_SFLL_HD_2_32_2(N1, N13, N20, N33, N41, N45, N50, N58, N68, N77, N87
 endmodule
 
 /*************** Perturb block ***************/
-module Perturb (perturb_signal, N190, N226, N274, N58, N50, N294, N326, N283, N1, N244, N169, N311, N150, N250, N303, N213, N232, N107, N330, N116, N41, N45, N238, N200, N13, N264, N77, N343, N97, N20, N68, N349);
+module Perturb (N45, N1, N244, N226, N303, N257, N238, N274, N41, N326, N77, N317, N33, N50, N343, N270, N68, N330, N179, N232, N20, N107, N13, N97, N116, N264, N322, N169, N200, N283, N213, N159, perturb_signal);
 
-  input N190, N226, N274, N58, N50, N294, N326, N283, N1, N244, N169, N311, N150, N250, N303, N213, N232, N107, N330, N116, N41, N45, N238, N200, N13, N264, N77, N343, N97, N20, N68, N349;
+  input N45, N1, N244, N226, N303, N257, N238, N274, N41, N326, N77, N317, N33, N50, N343, N270, N68, N330, N179, N232, N20, N107, N13, N97, N116, N264, N322, N169, N200, N283, N213, N159;
   output perturb_signal;
-  //SatHard key=01011011000101000010001101110010
+  //SatHard key=11110110011001001001110110101110
   wire [31:0] sat_res_inputs;
   wire [31:0] keyvalue;
-  assign sat_res_inputs[31:0] = {N190, N226, N274, N58, N50, N294, N326, N283, N1, N244, N169, N311, N150, N250, N303, N213, N232, N107, N330, N116, N41, N45, N238, N200, N13, N264, N77, N343, N97, N20, N68, N349};
-  assign keyvalue[31:0] = 32'b01011011000101000010001101110010;
+  assign sat_res_inputs[31:0] = {N45, N1, N244, N226, N303, N257, N238, N274, N41, N326, N77, N317, N33, N50, N343, N270, N68, N330, N179, N232, N20, N107, N13, N97, N116, N264, N322, N169, N200, N283, N213, N159};
+  assign keyvalue[31:0] = 32'b11110110011001001001110110101110;
 
   integer ham_dist_peturb, idx;
   wire [31:0] diff;
@@ -1718,14 +1718,14 @@ endmodule
 /*************** Perturb block ***************/
 
 /*************** Restore block ***************/
-module Restore (restore_signal, N190, N226, N274, N58, N50, N294, N326, N283, N1, N244, N169, N311, N150, N250, N303, N213, N232, N107, N330, N116, N41, N45, N238, N200, N13, N264, N77, N343, N97, N20, N68, N349, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7, keyinput8, keyinput9, keyinput10, keyinput11, keyinput12, keyinput13, keyinput14, keyinput15, keyinput16, keyinput17, keyinput18, keyinput19, keyinput20, keyinput21, keyinput22, keyinput23, keyinput24, keyinput25, keyinput26, keyinput27, keyinput28, keyinput29, keyinput30, keyinput31);
+module Restore (N45, N1, N244, N226, N303, N257, N238, N274, N41, N326, N77, N317, N33, N50, N343, N270, N68, N330, N179, N232, N20, N107, N13, N97, N116, N264, N322, N169, N200, N283, N213, N159, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7, keyinput8, keyinput9, keyinput10, keyinput11, keyinput12, keyinput13, keyinput14, keyinput15, keyinput16, keyinput17, keyinput18, keyinput19, keyinput20, keyinput21, keyinput22, keyinput23, keyinput24, keyinput25, keyinput26, keyinput27, keyinput28, keyinput29, keyinput30, keyinput31, restore_signal);
 
-  input N190, N226, N274, N58, N50, N294, N326, N283, N1, N244, N169, N311, N150, N250, N303, N213, N232, N107, N330, N116, N41, N45, N238, N200, N13, N264, N77, N343, N97, N20, N68, N349, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7, keyinput8, keyinput9, keyinput10, keyinput11, keyinput12, keyinput13, keyinput14, keyinput15, keyinput16, keyinput17, keyinput18, keyinput19, keyinput20, keyinput21, keyinput22, keyinput23, keyinput24, keyinput25, keyinput26, keyinput27, keyinput28, keyinput29, keyinput30, keyinput31;
+  input N45, N1, N244, N226, N303, N257, N238, N274, N41, N326, N77, N317, N33, N50, N343, N270, N68, N330, N179, N232, N20, N107, N13, N97, N116, N264, N322, N169, N200, N283, N213, N159, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7, keyinput8, keyinput9, keyinput10, keyinput11, keyinput12, keyinput13, keyinput14, keyinput15, keyinput16, keyinput17, keyinput18, keyinput19, keyinput20, keyinput21, keyinput22, keyinput23, keyinput24, keyinput25, keyinput26, keyinput27, keyinput28, keyinput29, keyinput30, keyinput31;
   output restore_signal;
-  //SatHard key=01011011000101000010001101110010
+  //SatHard key=11110110011001001001110110101110
   wire [31:0] sat_res_inputs;
   wire [31:0] keyinputs;
-  assign sat_res_inputs[31:0] = {N190, N226, N274, N58, N50, N294, N326, N283, N1, N244, N169, N311, N150, N250, N303, N213, N232, N107, N330, N116, N41, N45, N238, N200, N13, N264, N77, N343, N97, N20, N68, N349};
+  assign sat_res_inputs[31:0] = {N45, N1, N244, N226, N303, N257, N238, N274, N41, N326, N77, N317, N33, N50, N343, N270, N68, N330, N179, N232, N20, N107, N13, N97, N116, N264, N322, N169, N200, N283, N213, N159};
   assign keyinputs[31:0] = {keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7, keyinput8, keyinput9, keyinput10, keyinput11, keyinput12, keyinput13, keyinput14, keyinput15, keyinput16, keyinput17, keyinput18, keyinput19, keyinput20, keyinput21, keyinput22, keyinput23, keyinput24, keyinput25, keyinput26, keyinput27, keyinput28, keyinput29, keyinput30, keyinput31};
   integer ham_dist_restore, idx;
   wire [31:0] diff;
