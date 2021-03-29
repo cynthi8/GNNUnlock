@@ -1,13 +1,13 @@
 /*************** Top Level ***************/
-module c3540_SFLL_HD_0_8_2_top (N1947, N5078, N4815, N4028, N5192, N3987, N4944, N5231, N4145, N5002, N5045, N4589, N3833, N1713, N3195, N5120, N5361, N5360, N5121, N4667, N5102, N5047, N1, N13, N20, N33, N41, N45, N50, N58, N68, N77, N87, N97, N107, N116, N124, N125, N128, N132, N137, N143, N150, N159, N169, N179, N190, N200, N213, N222, N223, N226, N232, N238, N244, N250, N257, N264, N270, N274, N283, N294, N303, N311, N317, N322, N326, N329, N330, N343, N349, N350, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7);
+module c3540_SFLL_HD_0_8_2_top (N1, N13, N20, N33, N41, N45, N50, N58, N68, N77, N87, N97, N107, N116, N124, N125, N128, N132, N137, N143, N150, N159, N169, N179, N190, N200, N213, N222, N223, N226, N232, N238, N244, N250, N257, N264, N270, N274, N283, N294, N303, N311, N317, N322, N326, N329, N330, N343, N349, N350, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7, N4815, N3987, N5360, N5121, N5045, N5102, N5231, N3195, N4145, N5361, N5078, N3833, N1947, N5002, N5120, N5047, N4667, N4589, N4944, N1713, N5192, N4028);
 
   input N1, N13, N20, N33, N41, N45, N50, N58, N68, N77, N87, N97, N107, N116, N124, N125, N128, N132, N137, N143, N150, N159, N169, N179, N190, N200, N213, N222, N223, N226, N232, N238, N244, N250, N257, N264, N270, N274, N283, N294, N303, N311, N317, N322, N326, N329, N330, N343, N349, N350, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7;
-  output N1947, N5078, N4815, N4028, N5192, N3987, N4944, N5231, N4145, N5002, N5045, N4589, N3833, N1713, N3195, N5120, N5361, N5360, N5121, N4667, N5102, N5047;
+  output N4815, N3987, N5360, N5121, N5045, N5102, N5231, N3195, N4145, N5361, N5078, N3833, N1947, N5002, N5120, N5047, N4667, N4589, N4944, N1713, N5192, N4028;
   wire perturb_signal, restore_signal;
 
-  c3540_SFLL_HD_0_8_2 main (N1947, N5078, N4815, N4028, N5192, N3987, N4944, N5231, N4145, N5002, N5045, N4589, N3833, N1713, N3195, N5120, N5361, N5360, N5121, N4667, N5102, N5047, N128, N77, N33, N87, N213, N250, N107, N226, N244, N350, N326, N222, N45, N264, N349, N200, N50, N270, N257, N13, N137, N132, N303, N159, N116, N150, N283, N274, N343, N169, N58, N322, N97, N238, perturb_signal, N143, N125, N179, N190, N1, N68, N329, N223, N232, N317, N330, restore_signal, N311, N20, N124, N41, N294);
-  Perturb perturb1 (perturb_signal, N179, N311, N68, N244, N132, N125, N124, N270);
-  Restore restore1 (restore_signal, N179, N311, N68, N244, N132, N125, N124, N270, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7);
+  c3540_SFLL_HD_0_8_2 main (N1, N13, N20, N33, N41, N45, N50, N58, N68, N77, N87, N97, N107, N116, N124, N125, N128, N132, N137, N143, N150, N159, N169, N179, N190, N200, N213, N222, N223, N226, N232, N238, N244, N250, N257, N264, N270, N274, N283, N294, N303, N311, N317, N322, N326, N329, N330, N343, N349, N350, perturb_signal, restore_signal, N1713, N1947, N3195, N3833, N3987, N4028, N4145, N4589, N4667, N4815, N4944, N5002, N5045, N5047, N5078, N5102, N5120, N5121, N5192, N5231, N5360, N5361);
+  Perturb perturb1 (N179, N326, N50, N77, N132, N150, N125, N329, perturb_signal);
+  Restore restore1 (N179, N326, N50, N77, N132, N150, N125, N329, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7, restore_signal);
 endmodule
 /*************** Top Level ***************/
 
@@ -1693,15 +1693,15 @@ module c3540_SFLL_HD_0_8_2(N1, N13, N20, N33, N41, N45, N50, N58, N68, N77, N87,
 endmodule
 
 /*************** Perturb block ***************/
-module Perturb (perturb_signal, N179, N311, N68, N244, N132, N125, N124, N270);
+module Perturb (N179, N326, N50, N77, N132, N150, N125, N329, perturb_signal);
 
-  input N179, N311, N68, N244, N132, N125, N124, N270;
+  input N179, N326, N50, N77, N132, N150, N125, N329;
   output perturb_signal;
-  //SatHard key=11101000
+  //SatHard key=01111110
   wire [7:0] sat_res_inputs;
   wire [7:0] keyvalue;
-  assign sat_res_inputs[7:0] = {N179, N311, N68, N244, N132, N125, N124, N270};
-  assign keyvalue[7:0] = 8'b11101000;
+  assign sat_res_inputs[7:0] = {N179, N326, N50, N77, N132, N150, N125, N329};
+  assign keyvalue[7:0] = 8'b01111110;
 
   integer ham_dist_peturb, idx;
   wire [7:0] diff;
@@ -1718,14 +1718,14 @@ endmodule
 /*************** Perturb block ***************/
 
 /*************** Restore block ***************/
-module Restore (restore_signal, N179, N311, N68, N244, N132, N125, N124, N270, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7);
+module Restore (N179, N326, N50, N77, N132, N150, N125, N329, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7, restore_signal);
 
-  input N179, N311, N68, N244, N132, N125, N124, N270, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7;
+  input N179, N326, N50, N77, N132, N150, N125, N329, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7;
   output restore_signal;
-  //SatHard key=11101000
+  //SatHard key=01111110
   wire [7:0] sat_res_inputs;
   wire [7:0] keyinputs;
-  assign sat_res_inputs[7:0] = {N179, N311, N68, N244, N132, N125, N124, N270};
+  assign sat_res_inputs[7:0] = {N179, N326, N50, N77, N132, N150, N125, N329};
   assign keyinputs[7:0] = {keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7};
   integer ham_dist_restore, idx;
   wire [7:0] diff;
