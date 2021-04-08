@@ -1,12 +1,12 @@
 /*************** Top Level ***************/
-module c3540_AntiSAT_32_1_top (N1, N13, N20, N33, N41, N45, N50, N58, N68, N77, N87, N97, N107, N116, N124, N125, N128, N132, N137, N143, N150, N159, N169, N179, N190, N200, N213, N222, N223, N226, N232, N238, N244, N250, N257, N264, N270, N274, N283, N294, N303, N311, N317, N322, N326, N329, N330, N343, N349, N350, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7, keyinput8, keyinput9, keyinput10, keyinput11, keyinput12, keyinput13, keyinput14, keyinput15, keyinput16, keyinput17, keyinput18, keyinput19, keyinput20, keyinput21, keyinput22, keyinput23, keyinput24, keyinput25, keyinput26, keyinput27, keyinput28, keyinput29, keyinput30, keyinput31, N4815, N3987, N5360, N5121, N5045, N5102, N5231, N3195, N4145, N5361, N5078, N3833, N1947, N5002, N5120, N5047, N4667, N4589, N4944, N1713, N5192, N4028);
+module c3540_AntiSAT_32_1_top (N1, N13, N20, N33, N41, N45, N50, N58, N68, N77, N87, N97, N107, N116, N124, N125, N128, N132, N137, N143, N150, N159, N169, N179, N190, N200, N213, N222, N223, N226, N232, N238, N244, N250, N257, N264, N270, N274, N283, N294, N303, N311, N317, N322, N326, N329, N330, N343, N349, N350, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7, keyinput8, keyinput9, keyinput10, keyinput11, keyinput12, keyinput13, keyinput14, keyinput15, keyinput16, keyinput17, keyinput18, keyinput19, keyinput20, keyinput21, keyinput22, keyinput23, keyinput24, keyinput25, keyinput26, keyinput27, keyinput28, keyinput29, keyinput30, keyinput31, N4028, N5121, N4589, N5192, N1713, N5361, N5231, N5360, N5120, N1947, N4667, N5045, N3195, N4815, N3987, N5047, N5102, N3833, N4145, N4944, N5002, N5078);
 
   input N1, N13, N20, N33, N41, N45, N50, N58, N68, N77, N87, N97, N107, N116, N124, N125, N128, N132, N137, N143, N150, N159, N169, N179, N190, N200, N213, N222, N223, N226, N232, N238, N244, N250, N257, N264, N270, N274, N283, N294, N303, N311, N317, N322, N326, N329, N330, N343, N349, N350, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7, keyinput8, keyinput9, keyinput10, keyinput11, keyinput12, keyinput13, keyinput14, keyinput15, keyinput16, keyinput17, keyinput18, keyinput19, keyinput20, keyinput21, keyinput22, keyinput23, keyinput24, keyinput25, keyinput26, keyinput27, keyinput28, keyinput29, keyinput30, keyinput31;
-  output N4815, N3987, N5360, N5121, N5045, N5102, N5231, N3195, N4145, N5361, N5078, N3833, N1947, N5002, N5120, N5047, N4667, N4589, N4944, N1713, N5192, N4028;
+  output N4028, N5121, N4589, N5192, N1713, N5361, N5231, N5360, N5120, N1947, N4667, N5045, N3195, N4815, N3987, N5047, N5102, N3833, N4145, N4944, N5002, N5078;
   wire flip_signal;
 
   c3540_AntiSAT_32_1 main (N1, N13, N20, N33, N41, N45, N50, N58, N68, N77, N87, N97, N107, N116, N124, N125, N128, N132, N137, N143, N150, N159, N169, N179, N190, N200, N213, N222, N223, N226, N232, N238, N244, N250, N257, N264, N270, N274, N283, N294, N303, N311, N317, N322, N326, N329, N330, N343, N349, N350, flip_signal, N1713, N1947, N3195, N3833, N3987, N4028, N4145, N4589, N4667, N4815, N4944, N5002, N5045, N5047, N5078, N5102, N5120, N5121, N5192, N5231, N5360, N5361);
-  SatHard flip1 (N68, N13, N20, N33, N326, N107, N125, N137, N274, N264, N143, N97, N132, N124, N317, N226, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7, keyinput8, keyinput9, keyinput10, keyinput11, keyinput12, keyinput13, keyinput14, keyinput15, keyinput16, keyinput17, keyinput18, keyinput19, keyinput20, keyinput21, keyinput22, keyinput23, keyinput24, keyinput25, keyinput26, keyinput27, keyinput28, keyinput29, keyinput30, keyinput31, flip_signal);
+  SatHard flip (N223, N124, N97, N169, N45, N274, N58, N50, N125, N222, N226, N270, N179, N264, N143, N213, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7, keyinput8, keyinput9, keyinput10, keyinput11, keyinput12, keyinput13, keyinput14, keyinput15, keyinput16, keyinput17, keyinput18, keyinput19, keyinput20, keyinput21, keyinput22, keyinput23, keyinput24, keyinput25, keyinput26, keyinput27, keyinput28, keyinput29, keyinput30, keyinput31, flip_signal);
 endmodule
 /*************** Top Level ***************/
 
@@ -1691,16 +1691,16 @@ module c3540_AntiSAT_32_1(N1, N13, N20, N33, N41, N45, N50, N58, N68, N77, N87, 
 endmodule
 
 /*************** SatHard block ***************/
-module SatHard (N68, N13, N20, N33, N326, N107, N125, N137, N274, N264, N143, N97, N132, N124, N317, N226, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7, keyinput8, keyinput9, keyinput10, keyinput11, keyinput12, keyinput13, keyinput14, keyinput15, keyinput16, keyinput17, keyinput18, keyinput19, keyinput20, keyinput21, keyinput22, keyinput23, keyinput24, keyinput25, keyinput26, keyinput27, keyinput28, keyinput29, keyinput30, keyinput31, flip_signal);
+module SatHard (N223, N124, N97, N169, N45, N274, N58, N50, N125, N222, N226, N270, N179, N264, N143, N213, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7, keyinput8, keyinput9, keyinput10, keyinput11, keyinput12, keyinput13, keyinput14, keyinput15, keyinput16, keyinput17, keyinput18, keyinput19, keyinput20, keyinput21, keyinput22, keyinput23, keyinput24, keyinput25, keyinput26, keyinput27, keyinput28, keyinput29, keyinput30, keyinput31, flip_signal);
 
-  input N68, N13, N20, N33, N326, N107, N125, N137, N274, N264, N143, N97, N132, N124, N317, N226, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7, keyinput8, keyinput9, keyinput10, keyinput11, keyinput12, keyinput13, keyinput14, keyinput15, keyinput16, keyinput17, keyinput18, keyinput19, keyinput20, keyinput21, keyinput22, keyinput23, keyinput24, keyinput25, keyinput26, keyinput27, keyinput28, keyinput29, keyinput30, keyinput31;
+  input N223, N124, N97, N169, N45, N274, N58, N50, N125, N222, N226, N270, N179, N264, N143, N213, keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7, keyinput8, keyinput9, keyinput10, keyinput11, keyinput12, keyinput13, keyinput14, keyinput15, keyinput16, keyinput17, keyinput18, keyinput19, keyinput20, keyinput21, keyinput22, keyinput23, keyinput24, keyinput25, keyinput26, keyinput27, keyinput28, keyinput29, keyinput30, keyinput31;
   output flip_signal;
-  //SatHard key=10010100100111000000111010001110
+  //SatHard key=00011100010101011001110010011010
   wire [15:0] sat_res_inputs;
   wire [31:0] keyinputs, keyvalue;
-  assign sat_res_inputs[15:0] = {N68, N13, N20, N33, N326, N107, N125, N137, N274, N264, N143, N97, N132, N124, N317, N226};
+  assign sat_res_inputs[15:0] = {N223, N124, N97, N169, N45, N274, N58, N50, N125, N222, N226, N270, N179, N264, N143, N213};
   assign keyinputs[31:0] = {keyinput0, keyinput1, keyinput2, keyinput3, keyinput4, keyinput5, keyinput6, keyinput7, keyinput8, keyinput9, keyinput10, keyinput11, keyinput12, keyinput13, keyinput14, keyinput15, keyinput16, keyinput17, keyinput18, keyinput19, keyinput20, keyinput21, keyinput22, keyinput23, keyinput24, keyinput25, keyinput26, keyinput27, keyinput28, keyinput29, keyinput30, keyinput31};
-  assign keyvalue[31:0] = 32'b10010100100111000000111010001110;
+  assign keyvalue[31:0] = 32'b00011100010101011001110010011010;
 
   wire g, g_bar;
   assign g = &(keyinputs[15:0] ^ sat_res_inputs ^ keyvalue[15:0]);
