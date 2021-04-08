@@ -795,7 +795,7 @@ def pointfunc(design_file_path, enc_type, key_size, h_value, encrypted_file_path
         sat_hard_block_outputs = [flip_signal]
         
         verilog_modules += '\n' + module_block('SatHard', sat_hard_block_inputs, sat_hard_block_outputs, sat_hard_block, '/*************** SatHard block ***************/\n')
-        verilog_instantiations += instantiation_block('SatHard', 'flip1', sat_hard_block_inputs, sat_hard_block_outputs)
+        verilog_instantiations += instantiation_block('SatHard', 'flip', sat_hard_block_inputs, sat_hard_block_outputs)
 
     elif enc_type in ['TR', 'FR']:
         # Build Pertub and Restore modules and instantiations
@@ -839,13 +839,13 @@ def pointfunc(design_file_path, enc_type, key_size, h_value, encrypted_file_path
         perturb_block_outputs = [perturb_signal]
 
         verilog_modules += '\n' + module_block('Perturb', perturb_block_inputs, perturb_block_outputs, perturb_block, '/*************** Perturb block ***************/\n')
-        verilog_instantiations += instantiation_block('Perturb', 'perturb1', perturb_block_inputs, perturb_block_outputs)
+        verilog_instantiations += instantiation_block('Perturb', 'perturb', perturb_block_inputs, perturb_block_outputs)
     
         restore_block_inputs = sat_res_inputs + sat_res_key_inputs
         restore_block_outputs = [restore_signal]
 
         verilog_modules += '\n' + module_block('Restore', restore_block_inputs, restore_block_outputs, restore_block, '/*************** Restore block ***************/\n')
-        verilog_instantiations += instantiation_block('Restore', 'restore1', restore_block_inputs, restore_block_outputs)
+        verilog_instantiations += instantiation_block('Restore', 'restore', restore_block_inputs, restore_block_outputs)
 
     print_progress_step()
 
