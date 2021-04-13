@@ -1,0 +1,12 @@
+# .synopsys_dc.setup file for working with saed90nm_typ_ht
+# Erin Cold 2021-3-20
+
+# The saed90nm_typ_ht.db should be in ./db folder
+
+# Sets search path and libraries
+set search_path [concat $search_path ./db]
+set target_library {saed90nm_typ_ht.db};
+set link_library {saed90nm_typ_ht.db};
+set symbol_library {saed90nm.sdb};
+
+define_design_lib work -path work;
