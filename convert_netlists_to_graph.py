@@ -32,7 +32,8 @@ feature_list = primary_signal_types + ['in_degree', 'out_degree',
 'NBUFFX2', 'AO21X1', 'NOR4X0', 'XOR3X1', 'OAI21X1', 'OA21X1', 'NAND3X0', 'MUX21X1', 
 'AO22X1', 'NOR3X0', 'AOI22X1', 'AOI222X1', 'AOI221X1', 'XNOR2X1', 'OR2X1', 'NOR2X0', 
 'AND4X1', 'OAI22X1', 'OA22X1', 'XNOR3X1', 'NAND2X0', 'XOR2X1', 'AND2X1', 'NAND4X0', 
-'INVX0', 'AO221X1', 'AO222X1', 'OAI221X1', 'INVX2', 'OA221X1', 'OR4X1', 'AND3X1', 'AOI21X1']
+'INVX0', 'AO221X1', 'AO222X1', 'OAI221X1', 'INVX2', 'OA221X1', 'OR4X1', 'AND3X1', 'AOI21X1',
+'INVX4', 'OR3X1', 'OAI222X1', 'MUX41X1', 'OA222X1']
 feature_mapping = {feature: key for key, feature in enumerate(feature_list)}
 
 # Keep track of the node index in the mega graph of all netlists
@@ -47,10 +48,12 @@ for root, dirs, files in os.walk(netlists_dir):
         if file_name.endswith('.v'):
             # Read original graph
             file_path = os.path.join(root, file_name)
+            print('Processing', file_path)
             G = read.verilogSynopsys(file_path)
 
             # Extract the role from the file name prefix
             role = file_name.split('_')[0]
+            print('Role:', role)
             if not role in roles:
                 raise ValueError('\n Unrecognized node role -' + role + ' from\n' + file_name)
 
@@ -109,7 +112,7 @@ for root, dirs, files in os.walk(netlists_dir):
             else:
                 # Save an empty matrix of the same size
                 train_matrixs.append(sp.coo_matrix(matrix.get_shape()))
-            break
+            print('Nodes added:', matrix.get_shape()[0], '\n')
 
 # Write outputs to specified directory
 os.makedirs(output_dir, exist_ok=True)
