@@ -102,10 +102,10 @@ for root, dirs, files in os.walk(netlists_dir):
             G = G.to_undirected()
 
             # Add the gate nodes to the role dict
-            roles[role].append(list(H.nodes))
+            roles[role].extend(list(H.nodes))
 
             # Add the adjacency matrix to our list
-            matrix = nx.convert_matrix.to_scipy_sparse_matrix(H, format='coo')
+            matrix = nx.convert_matrix.to_scipy_sparse_matrix(H, dtype=bool, format='coo')
             full_matrixs.append(matrix)
             if role == 'tr':
                 train_matrixs.append(matrix)
@@ -127,7 +127,7 @@ node_count = adj_full.get_shape()[0]
 
 # Save features as a numpy matrix
 assert(len(feats) == node_count)
-feats_array = np.zeros((node_count, len(feature_mapping)), dtype=int)
+feats_array = np.zeros( (node_count, len(feature_mapping)) )
 for node in feats:
     for feature in feats[node]:
         row = node
