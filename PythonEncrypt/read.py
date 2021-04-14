@@ -810,7 +810,7 @@ def verilogSynopsys(verilog_file_path):
             m = re.search(regex_assign, line) 
             gate_output = m.group(1)
             gate_input = m.group(2)
-            gate_type = 'BUFF'
+            gate_type = 'NBUFFX2'
             # Constant signals are introduced to the graph as inputs
             if gate_input == "1'b0":
                 if '1_b0' not in circuit:
