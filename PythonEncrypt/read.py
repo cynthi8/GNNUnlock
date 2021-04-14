@@ -778,7 +778,7 @@ def verilogSynopsys(verilog_file_path):
     regex_port_map = "\s*.(\S+?)\s*\(\s*(\S+)\s*\)"
 
     # Design Ware Ports
-    design_ware_input_ports = ['IN1', 'IN2', 'IN3', 'IN4', 'IN5', 'IN6', 'INP', 'S']
+    design_ware_input_ports = ['IN1', 'IN2', 'IN3', 'IN4', 'IN5', 'IN6', 'INP', 'S', 'S0', 'S1']
     design_ware_output_ports = ['Q', 'QN', 'ZN']
 
     # Not-Global variables
