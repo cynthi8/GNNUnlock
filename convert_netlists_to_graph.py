@@ -127,7 +127,7 @@ node_count = adj_full.get_shape()[0]
 
 # Save features as a numpy matrix
 assert(len(feats) == node_count)
-feats_array = np.zeros((node_count, len(feature_mapping)))
+feats_array = np.zeros((node_count, len(feature_mapping)), dtype=int)
 for node in feats:
     for feature in feats[node]:
         row = node
