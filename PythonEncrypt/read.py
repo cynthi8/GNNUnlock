@@ -752,7 +752,7 @@ def verilogSynopsys(verilog_file_path):
     """
 
     # Global variables
-    circuit = nx.Graph()
+    circuit = nx.DiGraph()
     edge_list = []
 
     # Function to add node and connection to graph
