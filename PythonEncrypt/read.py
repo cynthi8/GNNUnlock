@@ -111,6 +111,33 @@ def bench(bench_file_path):
     return circuit
 
 
+# Function to format netlist
+def format_verilog_netlist(verilog_file_path):
+    # Read circuit
+    netlist = []
+    full_line = ''
+    for line in open(verilog_file_path, 'r'):
+        line = line.strip()
+        if not line or line.startswith('//'):
+            continue
+        if full_line and full_line[-1] == ",":
+            full_line += " "
+        if 'endmodule' in line:
+            full_line += line[:line.index('endmodule')].strip()
+            if full_line:
+                netlist.append(full_line)
+                full_line = ''
+            netlist.append('endmodule')
+            continue
+        if ';' in line:
+            full_line += line[:line.index(';')+1].strip()
+            netlist.append(full_line)
+            full_line = line[line.index(';')+1:].strip()
+        else:
+            full_line += line
+    
+    return netlist
+
 # Method to read verilog file
 def verilog(verilog_file_path):
     """
@@ -143,32 +170,6 @@ def verilog(verilog_file_path):
             return re.sub('[^0-9a-zA-Z_]+', '', signal_name)
         return re.sub('[^0-9a-zA-Z_]+', '_', signal_name)
 
-    # Function to format netlist
-    def format_netlist(verilog_file_path):
-        # Read circuit
-        netlist = []
-        full_line = ''
-        for line in open(verilog_file_path, 'r'):
-            line = line.strip()
-            if not line or line.startswith('//'):
-                continue
-            if full_line and full_line[-1] == ",":
-                full_line += " "
-            if 'endmodule' in line:
-                full_line += line[:line.index('endmodule')].strip()
-                if full_line:
-                    netlist.append(full_line)
-                    full_line = ''
-                netlist.append('endmodule')
-                continue
-            if ';' in line:
-                full_line += line[:line.index(';')+1].strip()
-                netlist.append(full_line)
-                full_line = line[line.index(';')+1:].strip()
-            else:
-                full_line += line
-        
-        return netlist
     
     # Function to add new signal
     def create_signal():
@@ -225,7 +226,7 @@ def verilog(verilog_file_path):
     
     # Global variables
     primary_inputs, key_inputs, primary_outputs, clock_signals = [], [], [], []
-    netlist = format_netlist(verilog_file_path)
+    netlist = format_verilog_netlist(verilog_file_path)
 
     # Read verilog file and store in graph
     dff_module = False
@@ -741,3 +742,116 @@ def vhdl(vhdl_file_path):
 
     # Return netlist graph
     return circuit
+
+def verilogSynopsys(verilog_file_path):
+    """
+    Function to read a single module verilog gate level file that has been
+    synthesized by Synopsys Design Compiler and uses Design Ware components
+    :param verilog_file_path(string): Path to verilog file
+    :returns: the circuit as an Undirected networkx graph
+    """
+
+    # Global variables
+    circuit = nx.DiGraph()
+    edge_list = []
+
+    # Function to add node and connection to graph
+    def add_to_graph(gate_output, gate_type, gate_inputs):
+        nonlocal circuit, edge_list
+
+        if gate_output not in circuit:
+            circuit.add_node(gate_output, name=gate_output, type=gate_type)
+        else:
+            if circuit.nodes[gate_output]['type'] != gate_type:
+                raise ValueError("Gate type mismatch on " + gate_output + " - " + circuit.nodes[gate_output]['type'] + " and " + gate_type)
+        for gate_input in gate_inputs:
+            edge_list.append((gate_input, gate_output))
+    
+    # Regex pattern to extract the signal names from input, output, or wire lines
+    regex_signal_list = r"(\S+)\s*(?:,|;)"
+
+    # Regex pattern to extract the signal names in an assign statment
+    regex_assign = r"(\S+)\s*=\s*(\S+)\s*;"
+
+    # Regex patterns to extract the module name and mapping from an instantiation
+    regex_module_instantiation = r"^(\S+)\s+(\S+)\s+\((.*)\);"
+    regex_port_map = "\s*.(\S+?)\s*\(\s*(\S+)\s*\)"
+
+    # Design Ware Ports
+    design_ware_input_ports = ['IN1', 'IN2', 'IN3', 'IN4', 'IN5', 'IN6', 'INP', 'S', 'S0', 'S1']
+    design_ware_output_ports = ['Q', 'QN', 'ZN']
+
+    # Not-Global variables
+    netlist = format_verilog_netlist(verilog_file_path)
+    internal_signals = []
+
+    # Process each line in the netlist
+    for line in netlist:
+        line = line.strip()
+        if not line or line.startswith(('//', 'module', 'endmodule')):
+            continue
+        elif line.startswith('input'):
+            for m in re.finditer(regex_signal_list, line):
+                primary_input = m.group(1)
+                if primary_input.lower().startswith('keyinput'):
+                    circuit.add_node(primary_input, name=primary_input, type='KEY_INPUT')
+                else:
+                    circuit.add_node(primary_input, name=primary_input, type='INPUT')
+        elif line.startswith('output'):
+            for m in re.finditer(regex_signal_list, line):
+                primary_output = m.group(1)
+                circuit.add_node(primary_output+'_OUT', name=primary_output, type='OUTPUT')
+                edge_list.append((primary_output, primary_output+'_OUT'))
+        elif line.startswith('wire'):
+            for m in re.finditer(regex_signal_list, line):
+                signal = m.group(1)
+                internal_signals.append(signal)
+        elif line.startswith('assign'):
+            m = re.search(regex_assign, line) 
+            gate_output = m.group(1)
+            gate_input = m.group(2)
+            gate_type = 'NBUFFX2'
+            # Constant signals are introduced to the graph as inputs
+            if gate_input == "1'b0":
+                if '1_b0' not in circuit:
+                    circuit.add_node('1_b0', name='1_b0', type='INPUT')
+                gate_input = '1_b0'
+            elif gate_input == "1'b1":
+                if '1_b1' not in circuit:
+                    primary_inputs.append('1_b1')
+                gate_input = '1_b1'
+            add_to_graph(gate_output, gate_type, [gate_input])
+        else:
+            # Handle module instantiation case
+            m = re.search(regex_module_instantiation, line)
+            module_name = m.group(1)
+            instance_name = m.group(2)
+            port_mapping = m.group(3)
+
+            # Extract the input and output gate signals from the instantiation mapping
+            gate_inputs = []
+            gate_output = None
+            for port_map in port_mapping.split(','):
+                m = re.search(regex_port_map, port_map)
+                internal_port = m.group(1)
+                external_port = m.group(2)
+                if internal_port in design_ware_input_ports:
+                    gate_inputs.append(external_port)
+                elif internal_port in design_ware_output_ports:
+                    if gate_output:
+                        raise ValueError("\nOutput for this gate has already been assigned - " + gate_output + "\n" + line)
+                    gate_output = external_port
+                else:
+                    raise ValueError("\nUnknown port name - " + internal_port + " from\n" + line)
+            if not gate_output:
+                raise ValueError("\nNo output was assigned for this gate\n" + line)
+
+            # Add the extracted gate to the graph
+            add_to_graph(gate_output, module_name, gate_inputs)
+
+    for internal_signal in internal_signals:
+        assert internal_signal in circuit
+        
+    circuit.add_edges_from(edge_list)
+    return circuit
+
