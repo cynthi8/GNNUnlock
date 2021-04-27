@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////
-// Created by: Synopsys DC Expert(TM) in wire load mode
+// Created by: Synopsys DC Ultra(TM) in wire load mode
 // Version   : O-2018.06-SP1
-// Date      : Thu Apr  8 02:38:42 2021
+// Date      : Sat Apr 24 21:27:21 2021
 /////////////////////////////////////////////////////////////
 
 
@@ -109,57 +109,63 @@ module c2670_SFLL_HD_0_32_1_top ( N145, N153, N162, N168, N172, N210, N190,
          N207_BUFF, N163_BUFF, N172_BUFF, N180_BUFF, N177_BUFF, N209_BUFF,
          N174_BUFF, N147_BUFF, N165_BUFF, N185_BUFF, N211_BUFF, N171_BUFF,
          N168_BUFF, N216_BUFF, N175_BUFF, N181_BUFF, perturb_signal,
-         restore_signal, \main/n196 , \main/n195 , \main/n194 , \main/n193 ,
-         \main/n192 , \main/n191 , \main/n190 , \main/n189 , \main/n188 ,
-         \main/n187 , \main/n186 , \main/n185 , \main/n184 , \main/n183 ,
-         \main/n182 , \main/n181 , \main/n180 , \main/n179 , \main/n178 ,
-         \main/n177 , \main/n176 , \main/n175 , \main/n174 , \main/n173 ,
-         \main/n172 , \main/n171 , \main/n170 , \main/n169 , \main/n168 ,
-         \main/n167 , \main/n166 , \main/n165 , \main/n164 , \main/n163 ,
-         \main/n162 , \main/n161 , \main/n160 , \main/n159 , \main/n158 ,
-         \main/n157 , \main/n156 , \main/n155 , \main/n154 , \main/n153 ,
-         \main/n152 , \main/n151 , \main/n150 , \main/n149 , \main/n148 ,
-         \main/n147 , \main/n146 , \main/n145 , \main/n144 , \main/n143 ,
-         \main/n142 , \main/n141 , \main/n140 , \main/n139 , \main/n138 ,
-         \main/n137 , \main/n136 , \main/n135 , \main/n134 , \main/n133 ,
-         \main/n132 , \main/n131 , \main/n130 , \main/n129 , \main/n128 ,
-         \main/n127 , \main/n126 , \main/n125 , \main/n124 , \main/n123 ,
-         \main/n122 , \main/n121 , \main/n120 , \main/n119 , \main/n118 ,
-         \main/n117 , \main/n116 , \main/n115 , \main/n114 , \main/n113 ,
-         \main/n112 , \main/n111 , \main/n110 , \main/n109 , \main/n108 ,
-         \main/n107 , \main/n106 , \main/n105 , \main/n104 , \main/n103 ,
-         \main/n102 , \main/n101 , \main/n100 , \main/n99 , \main/n98 ,
-         \main/n97 , \main/n96 , \main/n95 , \main/n94 , \main/n93 ,
-         \main/n92 , \main/n91 , \main/n90 , \main/n89 , \main/n88 ,
-         \main/n87 , \main/n86 , \main/n85 , \main/n84 , \main/n83 ,
-         \main/n82 , \main/n81 , \main/n80 , \main/n79 , \main/n78 ,
-         \main/n77 , \main/n76 , \main/n75 , \main/n74 , \main/n73 ,
-         \main/n72 , \main/n71 , \main/n70 , \main/n69 , \main/n68 ,
-         \main/n67 , \main/n66 , \main/n65 , \main/n64 , \main/n63 ,
-         \main/n62 , \main/n61 , \main/n60 , \main/n59 , \main/n58 ,
-         \main/n57 , \main/n56 , \main/n55 , \main/n54 , \main/n53 ,
-         \main/n52 , \main/n51 , \main/n50 , \main/n49 , \main/n48 ,
-         \main/n47 , \main/n46 , \main/n45 , \main/n44 , \main/n43 ,
-         \main/n42 , \main/n41 , \main/n40 , \main/n39 , \main/n38 ,
-         \main/n37 , \main/n36 , \main/n35 , \main/n34 , \main/n33 ,
-         \main/n32 , \main/n31 , \main/n30 , \main/n29 , \main/n28 ,
-         \main/n27 , \main/n26 , \main/n25 , \main/n24 , \main/n23 ,
-         \main/n22 , \main/n21 , \main/n20 , \main/n19 , \main/n18 ,
-         \main/n17 , \main/n16 , \main/n15 , \main/n14 , \main/n13 ,
-         \main/n12 , \main/n11 , \main/n10 , \main/n9 , \main/n8 , \main/n7 ,
-         \main/n6 , \main/n5 , \main/n4 , \main/n3 , \main/n2 , \main/n1 ,
-         \perturb/n10 , \perturb/n9 , \perturb/n8 , \perturb/n7 , \perturb/n6 ,
-         \perturb/n5 , \perturb/n4 , \perturb/n3 , \perturb/n2 , \perturb/n1 ,
-         \restore/n42 , \restore/n41 , \restore/n40 , \restore/n39 ,
-         \restore/n38 , \restore/n37 , \restore/n36 , \restore/n35 ,
-         \restore/n34 , \restore/n33 , \restore/n32 , \restore/n31 ,
-         \restore/n30 , \restore/n29 , \restore/n28 , \restore/n27 ,
-         \restore/n26 , \restore/n25 , \restore/n24 , \restore/n23 ,
-         \restore/n22 , \restore/n21 , \restore/n20 , \restore/n19 ,
-         \restore/n18 , \restore/n17 , \restore/n16 , \restore/n15 ,
-         \restore/n14 , \restore/n13 , \restore/n12 , \restore/n11 ,
-         \restore/n10 , \restore/n9 , \restore/n8 , \restore/n7 , \restore/n6 ,
-         \restore/n5 , \restore/n4 , \restore/n3 , \restore/n2 , \restore/n1 ;
+         restore_signal, \main/n224 , \main/n223 , \main/n222 , \main/n221 ,
+         \main/n220 , \main/n219 , \main/n218 , \main/n217 , \main/n216 ,
+         \main/n215 , \main/n214 , \main/n213 , \main/n212 , \main/n211 ,
+         \main/n210 , \main/n209 , \main/n208 , \main/n207 , \main/n206 ,
+         \main/n205 , \main/n204 , \main/n203 , \main/n202 , \main/n201 ,
+         \main/n200 , \main/n199 , \main/n198 , \main/n197 , \main/n196 ,
+         \main/n195 , \main/n194 , \main/n193 , \main/n192 , \main/n191 ,
+         \main/n190 , \main/n189 , \main/n188 , \main/n187 , \main/n186 ,
+         \main/n185 , \main/n184 , \main/n183 , \main/n182 , \main/n181 ,
+         \main/n180 , \main/n179 , \main/n178 , \main/n177 , \main/n176 ,
+         \main/n175 , \main/n174 , \main/n173 , \main/n172 , \main/n171 ,
+         \main/n170 , \main/n169 , \main/n168 , \main/n167 , \main/n166 ,
+         \main/n165 , \main/n164 , \main/n163 , \main/n162 , \main/n161 ,
+         \main/n160 , \main/n159 , \main/n158 , \main/n157 , \main/n156 ,
+         \main/n155 , \main/n154 , \main/n153 , \main/n152 , \main/n151 ,
+         \main/n150 , \main/n149 , \main/n148 , \main/n147 , \main/n146 ,
+         \main/n145 , \main/n144 , \main/n143 , \main/n142 , \main/n141 ,
+         \main/n140 , \main/n139 , \main/n138 , \main/n137 , \main/n136 ,
+         \main/n135 , \main/n134 , \main/n133 , \main/n132 , \main/n131 ,
+         \main/n130 , \main/n129 , \main/n128 , \main/n127 , \main/n126 ,
+         \main/n125 , \main/n124 , \main/n123 , \main/n122 , \main/n121 ,
+         \main/n120 , \main/n119 , \main/n118 , \main/n117 , \main/n116 ,
+         \main/n115 , \main/n114 , \main/n113 , \main/n112 , \main/n111 ,
+         \main/n110 , \main/n109 , \main/n108 , \main/n107 , \main/n106 ,
+         \main/n105 , \main/n104 , \main/n103 , \main/n102 , \main/n101 ,
+         \main/n100 , \main/n99 , \main/n98 , \main/n97 , \main/n96 ,
+         \main/n95 , \main/n94 , \main/n93 , \main/n92 , \main/n91 ,
+         \main/n90 , \main/n89 , \main/n88 , \main/n87 , \main/n86 ,
+         \main/n85 , \main/n84 , \main/n83 , \main/n82 , \main/n81 ,
+         \main/n80 , \main/n79 , \main/n78 , \main/n77 , \main/n76 ,
+         \main/n75 , \main/n74 , \main/n73 , \main/n72 , \main/n71 ,
+         \main/n70 , \main/n69 , \main/n68 , \main/n67 , \main/n66 ,
+         \main/n65 , \main/n64 , \main/n63 , \main/n62 , \main/n61 ,
+         \main/n60 , \main/n59 , \main/n58 , \main/n57 , \main/n56 ,
+         \main/n55 , \main/n54 , \main/n53 , \main/n52 , \main/n51 ,
+         \main/n50 , \main/n49 , \main/n48 , \main/n47 , \main/n46 ,
+         \main/n45 , \main/n44 , \main/n43 , \main/n42 , \main/n41 ,
+         \main/n40 , \main/n39 , \main/n38 , \main/n37 , \main/n36 ,
+         \main/n35 , \main/n34 , \main/n33 , \main/n32 , \main/n31 ,
+         \main/n30 , \main/n29 , \main/n28 , \main/n27 , \main/n26 ,
+         \main/n25 , \main/n24 , \main/n23 , \main/n22 , \main/n21 ,
+         \main/n20 , \main/n19 , \main/n18 , \main/n17 , \main/n16 ,
+         \main/n15 , \main/n14 , \main/n13 , \main/n12 , \main/n11 ,
+         \main/n10 , \main/n9 , \main/n8 , \main/n7 , \main/n6 , \main/n5 ,
+         \main/n4 , \main/n3 , \main/n2 , \main/n1 , \perturb/n10 ,
+         \perturb/n9 , \perturb/n8 , \perturb/n7 , \perturb/n6 , \perturb/n5 ,
+         \perturb/n4 , \perturb/n3 , \perturb/n2 , \perturb/n1 , \restore/n42 ,
+         \restore/n41 , \restore/n40 , \restore/n39 , \restore/n38 ,
+         \restore/n37 , \restore/n36 , \restore/n35 , \restore/n34 ,
+         \restore/n33 , \restore/n32 , \restore/n31 , \restore/n30 ,
+         \restore/n29 , \restore/n28 , \restore/n27 , \restore/n26 ,
+         \restore/n25 , \restore/n24 , \restore/n23 , \restore/n22 ,
+         \restore/n21 , \restore/n20 , \restore/n19 , \restore/n18 ,
+         \restore/n17 , \restore/n16 , \restore/n15 , \restore/n14 ,
+         \restore/n13 , \restore/n12 , \restore/n11 , \restore/n10 ,
+         \restore/n9 , \restore/n8 , \restore/n7 , \restore/n6 , \restore/n5 ,
+         \restore/n4 , \restore/n3 , \restore/n2 , \restore/n1 ;
   assign N3804 = N3803;
   assign N214_BUFF = N214;
   assign N217_BUFF = N217;
@@ -228,7 +234,6 @@ module c2670_SFLL_HD_0_32_1_top ( N145, N153, N162, N168, N172, N210, N190,
   assign N146_BUFF = N146;
   assign N200_BUFF = N200;
   assign N149_BUFF = N149;
-  assign N3875 = 1'b0;
   assign N150_BUFF = N150;
   assign N153_BUFF = N153;
   assign N204_BUFF = N204;
@@ -250,436 +255,478 @@ module c2670_SFLL_HD_0_32_1_top ( N145, N153, N162, N168, N172, N210, N190,
   assign N216_BUFF = N216;
   assign N175_BUFF = N175;
   assign N181_BUFF = N181;
+  assign N3875 = 1'b0;
 
-  AND2X1 \main/U246  ( .IN1(N94), .IN2(N398), .Q(N1026) );
-  NAND2X0 \main/U245  ( .IN1(N7), .IN2(N237), .QN(N1028) );
-  INVX0 \main/U244  ( .INP(N1028), .ZN(\main/n196 ) );
-  NAND2X0 \main/U243  ( .IN1(N231), .IN2(\main/n196 ), .QN(N1029) );
-  NAND4X0 \main/U242  ( .IN1(N132), .IN2(N96), .IN3(N82), .IN4(N44), .QN(
-        \main/n184 ) );
-  NAND4X0 \main/U241  ( .IN1(N120), .IN2(N108), .IN3(N69), .IN4(N57), .QN(
-        \main/n185 ) );
-  NOR2X0 \main/U240  ( .IN1(\main/n184 ), .IN2(\main/n185 ), .QN(N1277) );
-  NAND2X0 \main/U239  ( .IN1(N325), .IN2(\main/n196 ), .QN(N1269) );
-  INVX0 \main/U238  ( .INP(N234), .ZN(\main/n195 ) );
-  NOR2X0 \main/U237  ( .IN1(\main/n195 ), .IN2(N227), .QN(\main/n111 ) );
-  INVX0 \main/U236  ( .INP(N227), .ZN(\main/n189 ) );
-  NOR2X0 \main/U235  ( .IN1(\main/n189 ), .IN2(N234), .QN(\main/n112 ) );
-  NOR2X0 \main/U234  ( .IN1(\main/n195 ), .IN2(\main/n189 ), .QN(\main/n114 )
+  AO21X1 \main/U274  ( .IN1(N3), .IN2(N1), .IN3(\main/n224 ), .Q(N1971) );
+  NAND3X0 \main/U273  ( .IN1(N1726), .IN2(N237), .IN3(N224), .QN(\main/n224 )
          );
-  NOR2X0 \main/U233  ( .IN1(N227), .IN2(N234), .QN(\main/n115 ) );
-  AO22X1 \main/U232  ( .IN1(N78), .IN2(\main/n114 ), .IN3(N91), .IN4(
-        \main/n115 ), .Q(\main/n194 ) );
-  AO221X1 \main/U231  ( .IN1(N65), .IN2(\main/n111 ), .IN3(N53), .IN4(
-        \main/n112 ), .IN5(\main/n194 ), .Q(N2010) );
-  AO22X1 \main/U230  ( .IN1(N77), .IN2(\main/n114 ), .IN3(N90), .IN4(
-        \main/n115 ), .Q(\main/n193 ) );
-  AO221X1 \main/U229  ( .IN1(N64), .IN2(\main/n111 ), .IN3(N52), .IN4(
-        \main/n112 ), .IN5(\main/n193 ), .Q(N2012) );
-  AO22X1 \main/U228  ( .IN1(N76), .IN2(\main/n114 ), .IN3(N89), .IN4(
-        \main/n115 ), .Q(\main/n192 ) );
-  AO221X1 \main/U227  ( .IN1(N63), .IN2(\main/n111 ), .IN3(N51), .IN4(
-        \main/n112 ), .IN5(\main/n192 ), .Q(N2014) );
-  AO22X1 \main/U226  ( .IN1(N75), .IN2(\main/n114 ), .IN3(N88), .IN4(
-        \main/n115 ), .Q(\main/n191 ) );
-  AO221X1 \main/U225  ( .IN1(N62), .IN2(\main/n111 ), .IN3(N50), .IN4(
-        \main/n112 ), .IN5(\main/n191 ), .Q(N2016) );
-  AO21X1 \main/U224  ( .IN1(N49), .IN2(\main/n112 ), .IN3(\main/n111 ), .Q(
-        \main/n190 ) );
-  AO221X1 \main/U223  ( .IN1(N87), .IN2(\main/n189 ), .IN3(N74), .IN4(N234), 
-        .IN5(\main/n190 ), .Q(N2018) );
-  AO22X1 \main/U222  ( .IN1(N73), .IN2(\main/n114 ), .IN3(N86), .IN4(
-        \main/n115 ), .Q(\main/n188 ) );
-  AO221X1 \main/U221  ( .IN1(N61), .IN2(\main/n111 ), .IN3(N48), .IN4(
-        \main/n112 ), .IN5(\main/n188 ), .Q(N2020) );
-  AO22X1 \main/U220  ( .IN1(N72), .IN2(\main/n114 ), .IN3(N85), .IN4(
-        \main/n115 ), .Q(\main/n187 ) );
-  AO221X1 \main/U219  ( .IN1(N60), .IN2(\main/n111 ), .IN3(N47), .IN4(
-        \main/n112 ), .IN5(\main/n187 ), .Q(N2022) );
-  AO22X1 \main/U218  ( .IN1(N68), .IN2(\main/n114 ), .IN3(N81), .IN4(
-        \main/n115 ), .Q(\main/n186 ) );
-  AO221X1 \main/U217  ( .IN1(N56), .IN2(\main/n111 ), .IN3(N43), .IN4(
-        \main/n112 ), .IN5(\main/n186 ), .Q(\main/n179 ) );
-  INVX0 \main/U216  ( .INP(\main/n179 ), .ZN(\main/n89 ) );
-  NAND2X0 \main/U215  ( .IN1(N241), .IN2(\main/n89 ), .QN(N1969) );
-  AO22X1 \main/U214  ( .IN1(N325), .IN2(\main/n184 ), .IN3(N231), .IN4(
-        \main/n185 ), .Q(\main/n5 ) );
-  INVX0 \main/U213  ( .INP(\main/n5 ), .ZN(N1726) );
-  NAND3X0 \main/U212  ( .IN1(N237), .IN2(N1726), .IN3(N224), .QN(\main/n182 )
-         );
-  INVX0 \main/U211  ( .INP(\main/n182 ), .ZN(\main/n183 ) );
-  NAND2X0 \main/U210  ( .IN1(N36), .IN2(\main/n183 ), .QN(N1970) );
-  AO21X1 \main/U209  ( .IN1(N3), .IN2(N1), .IN3(\main/n182 ), .Q(N1971) );
-  AO22X1 \main/U208  ( .IN1(N79), .IN2(\main/n114 ), .IN3(N92), .IN4(
-        \main/n115 ), .Q(\main/n181 ) );
-  AO221X1 \main/U207  ( .IN1(N66), .IN2(\main/n111 ), .IN3(N54), .IN4(
-        \main/n112 ), .IN5(\main/n181 ), .Q(\main/n108 ) );
-  MUX21X1 \main/U206  ( .IN1(\main/n108 ), .IN2(N2012), .S(N246), .Q(N2387) );
-  MUX21X1 \main/U205  ( .IN1(N2010), .IN2(N2014), .S(N246), .Q(N2389) );
-  OR2X1 \main/U204  ( .IN1(N230), .IN2(\main/n108 ), .Q(\main/n105 ) );
-  INVX0 \main/U203  ( .INP(N241), .ZN(\main/n180 ) );
-  AO21X1 \main/U202  ( .IN1(\main/n105 ), .IN2(\main/n180 ), .IN3(\main/n108 ), 
-        .Q(N2496) );
-  MUX21X1 \main/U201  ( .IN1(\main/n179 ), .IN2(\main/n105 ), .S(N246), .Q(
-        N2643) );
-  INVX0 \main/U200  ( .INP(N322), .ZN(\main/n178 ) );
-  INVX0 \main/U199  ( .INP(N319), .ZN(\main/n177 ) );
-  NOR2X0 \main/U198  ( .IN1(\main/n178 ), .IN2(\main/n177 ), .QN(\main/n31 )
-         );
-  NOR2X0 \main/U197  ( .IN1(\main/n178 ), .IN2(N319), .QN(\main/n32 ) );
-  NOR2X0 \main/U196  ( .IN1(\main/n177 ), .IN2(N322), .QN(\main/n34 ) );
-  NOR2X0 \main/U195  ( .IN1(N319), .IN2(N322), .QN(\main/n35 ) );
-  AO22X1 \main/U194  ( .IN1(N99), .IN2(\main/n34 ), .IN3(N135), .IN4(
-        \main/n35 ), .Q(\main/n176 ) );
-  AO221X1 \main/U193  ( .IN1(N111), .IN2(\main/n31 ), .IN3(N123), .IN4(
-        \main/n32 ), .IN5(\main/n176 ), .Q(\main/n30 ) );
-  XOR2X1 \main/U192  ( .IN1(\main/n30 ), .IN2(N313), .Q(\main/n174 ) );
-  INVX0 \main/U191  ( .INP(N316), .ZN(\main/n175 ) );
-  NAND2X0 \main/U190  ( .IN1(\main/n174 ), .IN2(\main/n175 ), .QN(N2891) );
-  XOR2X1 \main/U189  ( .IN1(N5), .IN2(N266), .Q(\main/n170 ) );
-  INVX0 \main/U188  ( .INP(N272), .ZN(\main/n74 ) );
-  XNOR2X1 \main/U187  ( .IN1(\main/n74 ), .IN2(N22), .Q(\main/n171 ) );
-  INVX0 \main/U186  ( .INP(N269), .ZN(\main/n71 ) );
-  XNOR2X1 \main/U185  ( .IN1(\main/n71 ), .IN2(N21), .Q(\main/n172 ) );
-  INVX0 \main/U184  ( .INP(N256), .ZN(\main/n88 ) );
-  XNOR2X1 \main/U183  ( .IN1(\main/n88 ), .IN2(N19), .Q(\main/n173 ) );
-  NAND4X0 \main/U182  ( .IN1(\main/n170 ), .IN2(\main/n171 ), .IN3(\main/n172 ), .IN4(\main/n173 ), .QN(\main/n164 ) );
-  INVX0 \main/U181  ( .INP(N2016), .ZN(N1819) );
-  XNOR2X1 \main/U180  ( .IN1(N1819), .IN2(N272), .Q(\main/n166 ) );
-  INVX0 \main/U179  ( .INP(N2014), .ZN(N1820) );
-  XNOR2X1 \main/U178  ( .IN1(N1820), .IN2(N269), .Q(\main/n167 ) );
-  INVX0 \main/U177  ( .INP(N2012), .ZN(N1821) );
-  XNOR2X1 \main/U176  ( .IN1(N1821), .IN2(N266), .Q(\main/n168 ) );
-  XNOR2X1 \main/U175  ( .IN1(\main/n89 ), .IN2(N256), .Q(\main/n169 ) );
-  NAND4X0 \main/U174  ( .IN1(\main/n166 ), .IN2(\main/n167 ), .IN3(\main/n168 ), .IN4(\main/n169 ), .QN(\main/n165 ) );
-  MUX21X1 \main/U173  ( .IN1(\main/n164 ), .IN2(\main/n165 ), .S(N16), .Q(
-        \main/n116 ) );
-  INVX0 \main/U172  ( .INP(N275), .ZN(\main/n60 ) );
-  XNOR2X1 \main/U171  ( .IN1(\main/n60 ), .IN2(N23), .Q(\main/n161 ) );
-  INVX0 \main/U170  ( .INP(N278), .ZN(\main/n76 ) );
-  XNOR2X1 \main/U169  ( .IN1(N6), .IN2(\main/n76 ), .Q(\main/n162 ) );
-  XOR2X1 \main/U168  ( .IN1(N281), .IN2(N24), .Q(\main/n163 ) );
-  NAND3X0 \main/U167  ( .IN1(\main/n161 ), .IN2(\main/n162 ), .IN3(\main/n163 ), .QN(\main/n156 ) );
-  INVX0 \main/U166  ( .INP(N2018), .ZN(\main/n59 ) );
-  XNOR2X1 \main/U165  ( .IN1(\main/n59 ), .IN2(N275), .Q(\main/n158 ) );
-  XOR2X1 \main/U164  ( .IN1(N2022), .IN2(N281), .Q(\main/n159 ) );
-  XNOR2X1 \main/U163  ( .IN1(N2020), .IN2(\main/n76 ), .Q(\main/n160 ) );
-  NAND3X0 \main/U162  ( .IN1(\main/n158 ), .IN2(\main/n159 ), .IN3(\main/n160 ), .QN(\main/n157 ) );
-  MUX21X1 \main/U161  ( .IN1(\main/n156 ), .IN2(\main/n157 ), .S(N16), .Q(
-        \main/n117 ) );
-  XOR2X1 \main/U160  ( .IN1(N284), .IN2(N25), .Q(\main/n155 ) );
-  NAND2X0 \main/U159  ( .IN1(N28), .IN2(\main/n155 ), .QN(\main/n151 ) );
-  AO22X1 \main/U158  ( .IN1(N95), .IN2(\main/n34 ), .IN3(N131), .IN4(
-        \main/n35 ), .Q(\main/n154 ) );
-  AO221X1 \main/U157  ( .IN1(N107), .IN2(\main/n31 ), .IN3(N119), .IN4(
-        \main/n32 ), .IN5(\main/n154 ), .Q(\main/n27 ) );
-  XOR2X1 \main/U156  ( .IN1(\main/n27 ), .IN2(N284), .Q(\main/n153 ) );
-  NAND2X0 \main/U155  ( .IN1(\main/n153 ), .IN2(\main/n30 ), .QN(\main/n152 )
-         );
-  MUX21X1 \main/U154  ( .IN1(\main/n151 ), .IN2(\main/n152 ), .S(N29), .Q(
-        \main/n118 ) );
-  XOR2X1 \main/U153  ( .IN1(N294), .IN2(N26), .Q(\main/n148 ) );
-  XOR2X1 \main/U152  ( .IN1(N33), .IN2(N297), .Q(\main/n149 ) );
-  INVX0 \main/U151  ( .INP(N287), .ZN(\main/n87 ) );
-  XNOR2X1 \main/U150  ( .IN1(N32), .IN2(\main/n87 ), .Q(\main/n150 ) );
-  AND3X1 \main/U149  ( .IN1(\main/n148 ), .IN2(\main/n149 ), .IN3(\main/n150 ), 
-        .Q(\main/n140 ) );
-  AO22X1 \main/U148  ( .IN1(N104), .IN2(\main/n34 ), .IN3(N140), .IN4(
-        \main/n35 ), .Q(\main/n147 ) );
-  AO221X1 \main/U147  ( .IN1(N116), .IN2(\main/n31 ), .IN3(N128), .IN4(
-        \main/n32 ), .IN5(\main/n147 ), .Q(\main/n24 ) );
-  XNOR2X1 \main/U146  ( .IN1(N294), .IN2(\main/n24 ), .Q(\main/n142 ) );
-  AO22X1 \main/U145  ( .IN1(N105), .IN2(\main/n34 ), .IN3(N141), .IN4(
-        \main/n35 ), .Q(\main/n146 ) );
-  AO221X1 \main/U144  ( .IN1(N117), .IN2(\main/n31 ), .IN3(N129), .IN4(
-        \main/n32 ), .IN5(\main/n146 ), .Q(\main/n25 ) );
-  XNOR2X1 \main/U143  ( .IN1(N287), .IN2(\main/n25 ), .Q(\main/n143 ) );
-  AO22X1 \main/U142  ( .IN1(N103), .IN2(\main/n34 ), .IN3(N139), .IN4(
-        \main/n35 ), .Q(\main/n145 ) );
-  AO221X1 \main/U141  ( .IN1(N115), .IN2(\main/n31 ), .IN3(N127), .IN4(
-        \main/n32 ), .IN5(\main/n145 ), .Q(\main/n22 ) );
-  XNOR2X1 \main/U140  ( .IN1(N297), .IN2(\main/n22 ), .Q(\main/n144 ) );
-  NOR3X0 \main/U139  ( .IN1(\main/n142 ), .IN2(\main/n143 ), .IN3(\main/n144 ), 
-        .QN(\main/n141 ) );
-  MUX21X1 \main/U138  ( .IN1(\main/n140 ), .IN2(\main/n141 ), .S(N29), .Q(
-        \main/n120 ) );
-  XOR2X1 \main/U137  ( .IN1(N301), .IN2(N27), .Q(\main/n137 ) );
-  XOR2X1 \main/U136  ( .IN1(N35), .IN2(N309), .Q(\main/n138 ) );
-  XOR2X1 \main/U135  ( .IN1(N34), .IN2(N305), .Q(\main/n139 ) );
-  AND3X1 \main/U134  ( .IN1(\main/n137 ), .IN2(\main/n138 ), .IN3(\main/n139 ), 
-        .Q(\main/n129 ) );
-  AO22X1 \main/U133  ( .IN1(N101), .IN2(\main/n34 ), .IN3(N137), .IN4(
-        \main/n35 ), .Q(\main/n136 ) );
-  AOI221X1 \main/U132  ( .IN1(N113), .IN2(\main/n31 ), .IN3(N125), .IN4(
-        \main/n32 ), .IN5(\main/n136 ), .QN(N1816) );
-  XOR2X1 \main/U131  ( .IN1(N305), .IN2(N1816), .Q(\main/n131 ) );
-  AO22X1 \main/U130  ( .IN1(N100), .IN2(\main/n34 ), .IN3(N136), .IN4(
-        \main/n35 ), .Q(\main/n135 ) );
-  AO221X1 \main/U129  ( .IN1(N112), .IN2(\main/n31 ), .IN3(N124), .IN4(
-        \main/n32 ), .IN5(\main/n135 ), .Q(\main/n21 ) );
-  XNOR2X1 \main/U128  ( .IN1(N309), .IN2(\main/n21 ), .Q(\main/n132 ) );
-  AO22X1 \main/U127  ( .IN1(N102), .IN2(\main/n34 ), .IN3(N138), .IN4(
-        \main/n35 ), .Q(\main/n134 ) );
-  AO221X1 \main/U126  ( .IN1(N114), .IN2(\main/n31 ), .IN3(N126), .IN4(
-        \main/n32 ), .IN5(\main/n134 ), .Q(\main/n26 ) );
-  XNOR2X1 \main/U125  ( .IN1(N301), .IN2(\main/n26 ), .Q(\main/n133 ) );
-  NOR3X0 \main/U124  ( .IN1(\main/n131 ), .IN2(\main/n132 ), .IN3(\main/n133 ), 
-        .QN(\main/n130 ) );
-  MUX21X1 \main/U123  ( .IN1(\main/n129 ), .IN2(\main/n130 ), .S(N29), .Q(
-        \main/n121 ) );
-  XNOR2X1 \main/U122  ( .IN1(N263), .IN2(N20), .Q(\main/n127 ) );
-  XNOR2X1 \main/U121  ( .IN1(N259), .IN2(N4), .Q(\main/n128 ) );
-  NOR2X0 \main/U120  ( .IN1(\main/n127 ), .IN2(\main/n128 ), .QN(\main/n123 )
-         );
-  XNOR2X1 \main/U119  ( .IN1(N259), .IN2(\main/n108 ), .Q(\main/n125 ) );
-  XNOR2X1 \main/U118  ( .IN1(N263), .IN2(N2010), .Q(\main/n126 ) );
-  NOR2X0 \main/U117  ( .IN1(\main/n125 ), .IN2(\main/n126 ), .QN(\main/n124 )
-         );
-  MUX21X1 \main/U116  ( .IN1(\main/n123 ), .IN2(\main/n124 ), .S(N16), .Q(
-        \main/n122 ) );
-  NAND4X0 \main/U115  ( .IN1(\main/n120 ), .IN2(\main/n121 ), .IN3(\main/n122 ), .IN4(N11), .QN(\main/n119 ) );
-  NOR4X0 \main/U114  ( .IN1(\main/n116 ), .IN2(\main/n117 ), .IN3(\main/n118 ), 
-        .IN4(\main/n119 ), .QN(N3038) );
-  XNOR3X1 \main/U113  ( .IN1(restore_signal), .IN2(perturb_signal), .IN3(N3038), .Q(N3079) );
-  AO22X1 \main/U112  ( .IN1(N80), .IN2(\main/n114 ), .IN3(N93), .IN4(
-        \main/n115 ), .Q(\main/n113 ) );
-  AO221X1 \main/U111  ( .IN1(N67), .IN2(\main/n111 ), .IN3(N55), .IN4(
-        \main/n112 ), .IN5(\main/n113 ), .Q(\main/n103 ) );
-  XNOR3X1 \main/U110  ( .IN1(\main/n108 ), .IN2(\main/n89 ), .IN3(\main/n105 ), 
-        .Q(\main/n110 ) );
-  NOR2X0 \main/U109  ( .IN1(N241), .IN2(\main/n110 ), .QN(\main/n109 ) );
-  XOR2X1 \main/U108  ( .IN1(\main/n103 ), .IN2(\main/n109 ), .Q(N3546) );
-  INVX0 \main/U107  ( .INP(\main/n108 ), .ZN(\main/n84 ) );
-  INVX0 \main/U106  ( .INP(N2010), .ZN(\main/n77 ) );
-  XNOR2X1 \main/U105  ( .IN1(\main/n84 ), .IN2(\main/n77 ), .Q(\main/n107 ) );
-  XOR3X1 \main/U104  ( .IN1(\main/n89 ), .IN2(\main/n103 ), .IN3(\main/n107 ), 
-        .Q(\main/n11 ) );
-  XNOR2X1 \main/U103  ( .IN1(N1819), .IN2(\main/n59 ), .Q(\main/n106 ) );
-  XOR3X1 \main/U102  ( .IN1(N2022), .IN2(N2020), .IN3(\main/n106 ), .Q(
-        \main/n9 ) );
-  XNOR3X1 \main/U101  ( .IN1(\main/n105 ), .IN2(\main/n11 ), .IN3(\main/n9 ), 
-        .Q(\main/n104 ) );
-  MUX21X1 \main/U100  ( .IN1(\main/n103 ), .IN2(\main/n104 ), .S(N246), .Q(
-        N3803) );
-  XNOR2X1 \main/U99  ( .IN1(N352), .IN2(\main/n87 ), .Q(\main/n102 ) );
-  XNOR3X1 \main/U98  ( .IN1(N284), .IN2(\main/n76 ), .IN3(\main/n102 ), .Q(
-        \main/n100 ) );
-  XNOR3X1 \main/U97  ( .IN1(\main/n60 ), .IN2(N272), .IN3(N263), .Q(
-        \main/n101 ) );
-  XNOR3X1 \main/U96  ( .IN1(\main/n100 ), .IN2(\main/n101 ), .IN3(N266), .Q(
-        \main/n99 ) );
-  XNOR3X1 \main/U95  ( .IN1(N281), .IN2(\main/n71 ), .IN3(\main/n99 ), .Q(
-        N2971) );
-  XOR2X1 \main/U94  ( .IN1(N305), .IN2(N301), .Q(\main/n95 ) );
-  XOR2X1 \main/U93  ( .IN1(N297), .IN2(N294), .Q(\main/n96 ) );
-  XNOR2X1 \main/U92  ( .IN1(N316), .IN2(N355), .Q(\main/n98 ) );
-  XOR3X1 \main/U91  ( .IN1(N313), .IN2(N309), .IN3(\main/n98 ), .Q(\main/n97 )
-         );
-  XOR3X1 \main/U90  ( .IN1(\main/n95 ), .IN2(\main/n96 ), .IN3(\main/n97 ), 
-        .Q(N2970) );
-  INVX0 \main/U89  ( .INP(N262), .ZN(\main/n91 ) );
-  NAND2X0 \main/U88  ( .IN1(\main/n26 ), .IN2(\main/n91 ), .QN(\main/n94 ) );
-  NAND3X0 \main/U87  ( .IN1(N1816), .IN2(\main/n94 ), .IN3(N40), .QN(
-        \main/n37 ) );
-  INVX0 \main/U86  ( .INP(\main/n37 ), .ZN(\main/n43 ) );
-  NAND3X0 \main/U85  ( .IN1(N294), .IN2(\main/n24 ), .IN3(\main/n43 ), .QN(
-        \main/n42 ) );
-  INVX0 \main/U84  ( .INP(\main/n25 ), .ZN(\main/n93 ) );
-  NAND3X0 \main/U83  ( .IN1(\main/n42 ), .IN2(\main/n87 ), .IN3(\main/n93 ), 
-        .QN(\main/n92 ) );
-  OA21X1 \main/U82  ( .IN1(N294), .IN2(\main/n24 ), .IN3(\main/n92 ), .Q(
-        \main/n36 ) );
-  NAND3X0 \main/U81  ( .IN1(N287), .IN2(\main/n25 ), .IN3(\main/n43 ), .QN(
-        \main/n39 ) );
-  NOR2X0 \main/U80  ( .IN1(N284), .IN2(\main/n27 ), .QN(\main/n44 ) );
-  NAND3X0 \main/U79  ( .IN1(N281), .IN2(N2022), .IN3(\main/n43 ), .QN(
-        \main/n45 ) );
-  NOR2X0 \main/U78  ( .IN1(N281), .IN2(N2022), .QN(\main/n47 ) );
-  NAND4X0 \main/U77  ( .IN1(N40), .IN2(N1816), .IN3(\main/n26 ), .IN4(
-        \main/n91 ), .QN(\main/n73 ) );
-  MUX21X1 \main/U76  ( .IN1(N294), .IN2(N259), .S(\main/n73 ), .Q(\main/n90 )
-         );
-  INVX0 \main/U75  ( .INP(\main/n90 ), .ZN(\main/n83 ) );
-  OA21X1 \main/U74  ( .IN1(\main/n84 ), .IN2(\main/n83 ), .IN3(\main/n89 ), 
-        .Q(\main/n85 ) );
-  MUX21X1 \main/U73  ( .IN1(\main/n87 ), .IN2(\main/n88 ), .S(\main/n73 ), .Q(
-        \main/n86 ) );
-  AO22X1 \main/U72  ( .IN1(\main/n83 ), .IN2(\main/n84 ), .IN3(\main/n85 ), 
-        .IN4(\main/n86 ), .Q(\main/n78 ) );
-  AND2X1 \main/U71  ( .IN1(\main/n77 ), .IN2(\main/n78 ), .Q(\main/n79 ) );
-  MUX21X1 \main/U70  ( .IN1(N297), .IN2(N263), .S(\main/n73 ), .Q(\main/n82 )
-         );
-  INVX0 \main/U69  ( .INP(\main/n82 ), .ZN(\main/n80 ) );
-  MUX21X1 \main/U68  ( .IN1(N301), .IN2(N266), .S(\main/n73 ), .Q(\main/n68 )
-         );
-  INVX0 \main/U67  ( .INP(\main/n68 ), .ZN(\main/n81 ) );
-  OA222X1 \main/U66  ( .IN1(\main/n77 ), .IN2(\main/n78 ), .IN3(\main/n79 ), 
-        .IN4(\main/n80 ), .IN5(N1821), .IN6(\main/n81 ), .Q(\main/n48 ) );
-  AND2X1 \main/U65  ( .IN1(N8), .IN2(\main/n73 ), .Q(\main/n53 ) );
-  NAND2X0 \main/U64  ( .IN1(\main/n53 ), .IN2(\main/n76 ), .QN(\main/n56 ) );
-  NAND3X0 \main/U63  ( .IN1(\main/n56 ), .IN2(N2020), .IN3(\main/n53 ), .QN(
-        \main/n70 ) );
-  NAND3X0 \main/U62  ( .IN1(N275), .IN2(N2018), .IN3(\main/n53 ), .QN(
-        \main/n61 ) );
-  NOR2X0 \main/U61  ( .IN1(N309), .IN2(\main/n73 ), .QN(\main/n75 ) );
-  AOI22X1 \main/U60  ( .IN1(\main/n53 ), .IN2(\main/n74 ), .IN3(\main/n75 ), 
-        .IN4(N8), .QN(\main/n64 ) );
-  NAND3X0 \main/U59  ( .IN1(N8), .IN2(N2016), .IN3(\main/n64 ), .QN(\main/n62 ) );
-  NOR2X0 \main/U58  ( .IN1(N305), .IN2(\main/n73 ), .QN(\main/n72 ) );
-  AOI22X1 \main/U57  ( .IN1(\main/n53 ), .IN2(\main/n71 ), .IN3(\main/n72 ), 
-        .IN4(N8), .QN(\main/n69 ) );
-  NAND3X0 \main/U56  ( .IN1(N8), .IN2(N2014), .IN3(\main/n69 ), .QN(\main/n67 ) );
-  AND4X1 \main/U55  ( .IN1(\main/n70 ), .IN2(\main/n61 ), .IN3(\main/n62 ), 
-        .IN4(\main/n67 ), .Q(\main/n49 ) );
-  OA22X1 \main/U54  ( .IN1(N2012), .IN2(\main/n68 ), .IN3(N2014), .IN4(
-        \main/n69 ), .Q(\main/n65 ) );
-  INVX0 \main/U53  ( .INP(\main/n67 ), .ZN(\main/n66 ) );
-  OAI22X1 \main/U52  ( .IN1(N2016), .IN2(\main/n64 ), .IN3(\main/n65 ), .IN4(
-        \main/n66 ), .QN(\main/n63 ) );
-  NAND3X0 \main/U51  ( .IN1(\main/n61 ), .IN2(\main/n62 ), .IN3(\main/n63 ), 
-        .QN(\main/n57 ) );
-  NAND3X0 \main/U50  ( .IN1(\main/n59 ), .IN2(\main/n60 ), .IN3(\main/n53 ), 
-        .QN(\main/n58 ) );
-  NAND2X0 \main/U49  ( .IN1(\main/n57 ), .IN2(\main/n58 ), .QN(\main/n55 ) );
-  INVX0 \main/U48  ( .INP(\main/n56 ), .ZN(\main/n54 ) );
-  OR2X1 \main/U47  ( .IN1(\main/n55 ), .IN2(\main/n54 ), .Q(\main/n50 ) );
-  NAND2X0 \main/U46  ( .IN1(\main/n54 ), .IN2(\main/n55 ), .QN(\main/n52 ) );
-  NAND3X0 \main/U45  ( .IN1(\main/n52 ), .IN2(N2020), .IN3(\main/n53 ), .QN(
-        \main/n51 ) );
-  AO222X1 \main/U44  ( .IN1(\main/n47 ), .IN2(\main/n43 ), .IN3(\main/n48 ), 
-        .IN4(\main/n49 ), .IN5(\main/n50 ), .IN6(\main/n51 ), .Q(\main/n46 )
-         );
-  AO22X1 \main/U43  ( .IN1(\main/n44 ), .IN2(\main/n43 ), .IN3(\main/n45 ), 
-        .IN4(\main/n46 ), .Q(\main/n40 ) );
-  NAND3X0 \main/U42  ( .IN1(N284), .IN2(\main/n27 ), .IN3(\main/n43 ), .QN(
-        \main/n41 ) );
-  NAND4X0 \main/U41  ( .IN1(\main/n39 ), .IN2(\main/n40 ), .IN3(\main/n41 ), 
-        .IN4(\main/n42 ), .QN(\main/n38 ) );
-  OAI21X1 \main/U40  ( .IN1(\main/n36 ), .IN2(\main/n37 ), .IN3(\main/n38 ), 
-        .QN(N3851) );
-  AO22X1 \main/U39  ( .IN1(N106), .IN2(\main/n34 ), .IN3(N142), .IN4(
-        \main/n35 ), .Q(\main/n33 ) );
-  AO221X1 \main/U38  ( .IN1(N118), .IN2(\main/n31 ), .IN3(N130), .IN4(
-        \main/n32 ), .IN5(\main/n33 ), .Q(\main/n28 ) );
-  XOR2X1 \main/U37  ( .IN1(N1816), .IN2(\main/n30 ), .Q(\main/n29 ) );
-  XOR3X1 \main/U36  ( .IN1(\main/n27 ), .IN2(\main/n28 ), .IN3(\main/n29 ), 
-        .Q(\main/n19 ) );
-  INVX0 \main/U35  ( .INP(\main/n26 ), .ZN(N1818) );
-  XNOR2X1 \main/U34  ( .IN1(\main/n24 ), .IN2(\main/n25 ), .Q(\main/n23 ) );
-  XNOR3X1 \main/U33  ( .IN1(N1818), .IN2(\main/n22 ), .IN3(\main/n23 ), .Q(
-        \main/n20 ) );
-  INVX0 \main/U32  ( .INP(\main/n21 ), .ZN(N1817) );
-  XNOR3X1 \main/U31  ( .IN1(\main/n19 ), .IN2(\main/n20 ), .IN3(N1817), .Q(
-        \main/n18 ) );
-  INVX0 \main/U30  ( .INP(N37), .ZN(\main/n7 ) );
-  NAND2X0 \main/U29  ( .IN1(\main/n18 ), .IN2(\main/n7 ), .QN(\main/n3 ) );
-  XNOR2X1 \main/U28  ( .IN1(N337), .IN2(N334), .Q(\main/n17 ) );
-  XOR3X1 \main/U27  ( .IN1(N331), .IN2(N328), .IN3(\main/n17 ), .Q(\main/n14 )
-         );
-  XOR2X1 \main/U26  ( .IN1(N349), .IN2(N346), .Q(\main/n16 ) );
-  XOR3X1 \main/U25  ( .IN1(N343), .IN2(N340), .IN3(\main/n16 ), .Q(\main/n15 )
-         );
-  XOR2X1 \main/U24  ( .IN1(\main/n14 ), .IN2(\main/n15 ), .Q(\main/n13 ) );
-  XOR3X1 \main/U23  ( .IN1(N259), .IN2(N256), .IN3(\main/n13 ), .Q(\main/n12 )
-         );
-  NAND2X0 \main/U22  ( .IN1(\main/n12 ), .IN2(N14), .QN(\main/n1 ) );
-  INVX0 \main/U21  ( .INP(\main/n11 ), .ZN(\main/n10 ) );
-  XNOR2X1 \main/U20  ( .IN1(\main/n9 ), .IN2(\main/n10 ), .Q(\main/n8 ) );
-  XNOR3X1 \main/U19  ( .IN1(N2014), .IN2(N1821), .IN3(\main/n8 ), .Q(\main/n6 ) );
-  NAND2X0 \main/U18  ( .IN1(\main/n6 ), .IN2(\main/n7 ), .QN(\main/n2 ) );
-  NOR3X0 \main/U17  ( .IN1(\main/n5 ), .IN2(N2970), .IN3(N2971), .QN(\main/n4 ) );
-  NAND4X0 \main/U16  ( .IN1(\main/n3 ), .IN2(\main/n1 ), .IN3(\main/n2 ), 
-        .IN4(\main/n4 ), .QN(N3882) );
-  NAND4X0 \main/U15  ( .IN1(N297), .IN2(N301), .IN3(N305), .IN4(N309), .QN(
+  INVX0 \main/U272  ( .INP(N3882), .ZN(N3881) );
+  INVX0 \main/U271  ( .INP(\main/n223 ), .ZN(N2925) );
+  NAND4X0 \main/U270  ( .IN1(N1726), .IN2(N237), .IN3(N224), .IN4(N36), .QN(
+        N1970) );
+  INVX0 \main/U269  ( .INP(N44), .ZN(N487) );
+  INVX0 \main/U268  ( .INP(N1277), .ZN(N1448) );
+  NOR2X0 \main/U267  ( .IN1(\main/n222 ), .IN2(\main/n221 ), .QN(N1277) );
+  INVX0 \main/U266  ( .INP(N57), .ZN(N493) );
+  INVX0 \main/U265  ( .INP(N69), .ZN(N491) );
+  INVX0 \main/U264  ( .INP(N82), .ZN(N489) );
+  INVX0 \main/U263  ( .INP(N96), .ZN(N490) );
+  AO221X1 \main/U262  ( .IN1(\main/n220 ), .IN2(\main/n219 ), .IN3(\main/n218 ), .IN4(N313), .IN5(N316), .Q(N2891) );
+  INVX0 \main/U261  ( .INP(N313), .ZN(\main/n219 ) );
+  INVX0 \main/U260  ( .INP(\main/n218 ), .ZN(\main/n220 ) );
+  INVX0 \main/U259  ( .INP(N108), .ZN(N494) );
+  INVX0 \main/U258  ( .INP(N120), .ZN(N492) );
+  INVX0 \main/U257  ( .INP(N132), .ZN(N488) );
+  NAND4X0 \main/U256  ( .IN1(N309), .IN2(N305), .IN3(N301), .IN4(N297), .QN(
         N792) );
-  NAND3X0 \main/U14  ( .IN1(N2), .IN2(N15), .IN3(N237), .QN(N799) );
-  INVX0 \main/U13  ( .INP(N132), .ZN(N488) );
-  INVX0 \main/U12  ( .INP(N120), .ZN(N492) );
-  INVX0 \main/U11  ( .INP(N108), .ZN(N494) );
-  INVX0 \main/U10  ( .INP(N96), .ZN(N490) );
-  INVX0 \main/U9  ( .INP(N82), .ZN(N489) );
-  INVX0 \main/U8  ( .INP(N69), .ZN(N491) );
-  INVX0 \main/U7  ( .INP(N57), .ZN(N493) );
-  INVX0 \main/U6  ( .INP(N1277), .ZN(N1448) );
-  INVX0 \main/U5  ( .INP(N44), .ZN(N487) );
-  INVX0 \main/U4  ( .INP(\main/n3 ), .ZN(N3671) );
-  INVX0 \main/U3  ( .INP(\main/n2 ), .ZN(N3809) );
-  INVX0 \main/U2  ( .INP(N3882), .ZN(N3881) );
-  INVX0 \main/U1  ( .INP(\main/n1 ), .ZN(N2925) );
-  NAND4X0 \perturb/U13  ( .IN1(N4), .IN2(N87), .IN3(N52), .IN4(N81), .QN(
-        \perturb/n7 ) );
-  NAND4X0 \perturb/U12  ( .IN1(N28), .IN2(N49), .IN3(N104), .IN4(N111), .QN(
-        \perturb/n8 ) );
-  NAND4X0 \perturb/U11  ( .IN1(N123), .IN2(N6), .IN3(N278), .IN4(N263), .QN(
-        \perturb/n9 ) );
-  NAND4X0 \perturb/U10  ( .IN1(N112), .IN2(N51), .IN3(N131), .IN4(N294), .QN(
-        \perturb/n10 ) );
-  OR4X1 \perturb/U9  ( .IN1(\perturb/n7 ), .IN2(\perturb/n8 ), .IN3(
-        \perturb/n9 ), .IN4(\perturb/n10 ), .Q(\perturb/n1 ) );
-  NOR2X0 \perturb/U8  ( .IN1(N113), .IN2(N105), .QN(\perturb/n5 ) );
-  NOR4X0 \perturb/U7  ( .IN1(N26), .IN2(N16), .IN3(N129), .IN4(N115), .QN(
-        \perturb/n6 ) );
-  NAND4X0 \perturb/U6  ( .IN1(N234), .IN2(N85), .IN3(\perturb/n5 ), .IN4(
-        \perturb/n6 ), .QN(\perturb/n2 ) );
-  OR4X1 \perturb/U5  ( .IN1(N76), .IN2(N62), .IN3(N99), .IN4(N90), .Q(
+  AO222X1 \main/U255  ( .IN1(\main/n217 ), .IN2(\main/n216 ), .IN3(\main/n217 ), .IN4(\main/n215 ), .IN5(\main/n216 ), .IN6(\main/n214 ), .Q(N3851) );
+  NAND2X0 \main/U254  ( .IN1(N294), .IN2(\main/n213 ), .QN(\main/n214 ) );
+  NOR2X0 \main/U253  ( .IN1(N294), .IN2(\main/n212 ), .QN(\main/n215 ) );
+  AO221X1 \main/U252  ( .IN1(\main/n213 ), .IN2(\main/n211 ), .IN3(\main/n213 ), .IN4(\main/n210 ), .IN5(\main/n209 ), .Q(\main/n216 ) );
+  NOR2X0 \main/U251  ( .IN1(\main/n208 ), .IN2(\main/n207 ), .QN(\main/n209 )
+         );
+  NAND3X0 \main/U250  ( .IN1(N284), .IN2(\main/n213 ), .IN3(\main/n204 ), .QN(
+        \main/n205 ) );
+  INVX0 \main/U249  ( .INP(\main/n203 ), .ZN(\main/n206 ) );
+  NOR2X0 \main/U248  ( .IN1(\main/n202 ), .IN2(\main/n201 ), .QN(\main/n208 )
+         );
+  NOR3X0 \main/U247  ( .IN1(N281), .IN2(\main/n212 ), .IN3(N2022), .QN(
+        \main/n201 ) );
+  OA22X1 \main/U246  ( .IN1(\main/n200 ), .IN2(\main/n199 ), .IN3(\main/n198 ), 
+        .IN4(\main/n197 ), .Q(\main/n202 ) );
+  OA222X1 \main/U245  ( .IN1(\main/n196 ), .IN2(\main/n195 ), .IN3(\main/n196 ), .IN4(\main/n194 ), .IN5(\main/n193 ), .IN6(\main/n192 ), .Q(\main/n199 ) );
+  OA221X1 \main/U244  ( .IN1(\main/n191 ), .IN2(\main/n190 ), .IN3(\main/n191 ), .IN4(\main/n189 ), .IN5(\main/n188 ), .Q(\main/n196 ) );
+  NAND3X0 \main/U243  ( .IN1(N275), .IN2(\main/n195 ), .IN3(N2018), .QN(
+        \main/n188 ) );
+  NOR3X0 \main/U242  ( .IN1(\main/n186 ), .IN2(\main/n185 ), .IN3(\main/n184 ), 
+        .QN(\main/n190 ) );
+  AO222X1 \main/U241  ( .IN1(\main/n183 ), .IN2(\main/n182 ), .IN3(\main/n183 ), .IN4(N2010), .IN5(\main/n182 ), .IN6(N2010), .Q(\main/n184 ) );
+  AO222X1 \main/U240  ( .IN1(\main/n181 ), .IN2(\main/n180 ), .IN3(\main/n181 ), .IN4(\main/n179 ), .IN5(\main/n180 ), .IN6(\main/n179 ), .Q(\main/n182 ) );
+  AO221X1 \main/U239  ( .IN1(\main/n178 ), .IN2(N287), .IN3(\main/n177 ), 
+        .IN4(N256), .IN5(\main/n176 ), .Q(\main/n180 ) );
+  MUX21X1 \main/U238  ( .IN1(N294), .IN2(N259), .S(\main/n177 ), .Q(
+        \main/n181 ) );
+  MUX21X1 \main/U237  ( .IN1(N297), .IN2(N263), .S(\main/n177 ), .Q(
+        \main/n183 ) );
+  NOR3X0 \main/U236  ( .IN1(\main/n175 ), .IN2(\main/n174 ), .IN3(N1820), .QN(
+        \main/n185 ) );
+  NOR3X0 \main/U235  ( .IN1(\main/n173 ), .IN2(\main/n175 ), .IN3(N1819), .QN(
+        \main/n186 ) );
+  AO222X1 \main/U234  ( .IN1(\main/n173 ), .IN2(\main/n172 ), .IN3(\main/n173 ), .IN4(\main/n171 ), .IN5(\main/n172 ), .IN6(\main/n171 ), .Q(\main/n191 ) );
+  AO222X1 \main/U233  ( .IN1(\main/n170 ), .IN2(\main/n174 ), .IN3(\main/n170 ), .IN4(\main/n169 ), .IN5(\main/n174 ), .IN6(\main/n169 ), .Q(\main/n171 ) );
+  OAI22X1 \main/U232  ( .IN1(N305), .IN2(\main/n168 ), .IN3(N269), .IN4(
+        \main/n193 ), .QN(\main/n174 ) );
+  NOR2X0 \main/U231  ( .IN1(N2012), .IN2(\main/n187 ), .QN(\main/n170 ) );
+  MUX21X1 \main/U230  ( .IN1(N301), .IN2(N266), .S(\main/n177 ), .Q(
+        \main/n187 ) );
+  OA221X1 \main/U229  ( .IN1(\main/n178 ), .IN2(\main/n167 ), .IN3(\main/n177 ), .IN4(\main/n166 ), .IN5(N8), .Q(\main/n173 ) );
+  NOR3X0 \main/U228  ( .IN1(N278), .IN2(N2020), .IN3(\main/n193 ), .QN(
+        \main/n200 ) );
+  INVX0 \main/U227  ( .INP(\main/n195 ), .ZN(\main/n193 ) );
+  NOR2X0 \main/U226  ( .IN1(\main/n175 ), .IN2(\main/n178 ), .QN(\main/n195 )
+         );
+  INVX0 \main/U225  ( .INP(\main/n177 ), .ZN(\main/n178 ) );
+  NAND3X0 \main/U224  ( .IN1(\main/n165 ), .IN2(N1816), .IN3(N40), .QN(
+        \main/n177 ) );
+  INVX0 \main/U223  ( .INP(N8), .ZN(\main/n175 ) );
+  NOR3X0 \main/U222  ( .IN1(\main/n203 ), .IN2(N284), .IN3(\main/n204 ), .QN(
+        \main/n211 ) );
+  NOR2X0 \main/U221  ( .IN1(\main/n212 ), .IN2(\main/n164 ), .QN(\main/n203 )
+         );
+  INVX0 \main/U220  ( .INP(\main/n213 ), .ZN(\main/n212 ) );
+  NOR2X0 \main/U219  ( .IN1(\main/n165 ), .IN2(\main/n163 ), .QN(\main/n213 )
+         );
+  NAND2X0 \main/U218  ( .IN1(N1816), .IN2(N40), .QN(\main/n163 ) );
+  NOR2X0 \main/U217  ( .IN1(N1818), .IN2(N262), .QN(\main/n165 ) );
+  AO21X1 \main/U216  ( .IN1(N230), .IN2(\main/n162 ), .IN3(\main/n179 ), .Q(
+        N2496) );
+  INVX0 \main/U215  ( .INP(N241), .ZN(\main/n162 ) );
+  MUX21X1 \main/U214  ( .IN1(\main/n161 ), .IN2(\main/n160 ), .S(\main/n159 ), 
+        .Q(N3546) );
+  NOR2X0 \main/U213  ( .IN1(N241), .IN2(\main/n158 ), .QN(\main/n159 ) );
+  MUX21X1 \main/U212  ( .IN1(\main/n157 ), .IN2(\main/n176 ), .S(\main/n156 ), 
+        .Q(\main/n158 ) );
+  MUX21X1 \main/U211  ( .IN1(\main/n179 ), .IN2(N2012), .S(N246), .Q(N2387) );
+  MUX21X1 \main/U210  ( .IN1(\main/n161 ), .IN2(\main/n154 ), .S(N246), .Q(
+        N3803) );
+  MUX21X1 \main/U209  ( .IN1(\main/n153 ), .IN2(\main/n152 ), .S(\main/n151 ), 
+        .Q(\main/n154 ) );
+  NAND3X0 \main/U208  ( .IN1(N1726), .IN2(\main/n150 ), .IN3(\main/n223 ), 
+        .QN(N3882) );
+  XNOR3X1 \main/U207  ( .IN1(\main/n148 ), .IN2(N337), .IN3(N334), .Q(
+        \main/n149 ) );
+  XNOR3X1 \main/U206  ( .IN1(N349), .IN2(N346), .IN3(\main/n147 ), .Q(
+        \main/n148 ) );
+  XNOR3X1 \main/U205  ( .IN1(\main/n146 ), .IN2(N331), .IN3(\main/n145 ), .Q(
+        \main/n147 ) );
+  XOR3X1 \main/U204  ( .IN1(N328), .IN2(N343), .IN3(N340), .Q(\main/n145 ) );
+  MUX21X1 \main/U203  ( .IN1(N259), .IN2(\main/n144 ), .S(N256), .Q(
+        \main/n146 ) );
+  NOR4X0 \main/U202  ( .IN1(N3671), .IN2(N3809), .IN3(N2971), .IN4(N2970), 
+        .QN(\main/n150 ) );
+  XNOR3X1 \main/U201  ( .IN1(N355), .IN2(N316), .IN3(\main/n143 ), .Q(N2970)
+         );
+  XNOR3X1 \main/U200  ( .IN1(N309), .IN2(N313), .IN3(\main/n142 ), .Q(
+        \main/n143 ) );
+  XNOR3X1 \main/U199  ( .IN1(N294), .IN2(N297), .IN3(\main/n141 ), .Q(
+        \main/n142 ) );
+  MUX21X1 \main/U198  ( .IN1(N305), .IN2(\main/n140 ), .S(N301), .Q(
+        \main/n141 ) );
+  XNOR3X1 \main/U197  ( .IN1(N263), .IN2(N287), .IN3(\main/n139 ), .Q(N2971)
+         );
+  XNOR3X1 \main/U196  ( .IN1(N278), .IN2(N275), .IN3(\main/n138 ), .Q(
+        \main/n139 ) );
+  XNOR3X1 \main/U195  ( .IN1(N281), .IN2(\main/n137 ), .IN3(\main/n136 ), .Q(
+        \main/n138 ) );
+  XNOR3X1 \main/U194  ( .IN1(N272), .IN2(N352), .IN3(\main/n135 ), .Q(
+        \main/n136 ) );
+  MUX21X1 \main/U193  ( .IN1(N269), .IN2(\main/n134 ), .S(N284), .Q(
+        \main/n137 ) );
+  NOR2X0 \main/U192  ( .IN1(\main/n133 ), .IN2(N37), .QN(N3809) );
+  XNOR3X1 \main/U191  ( .IN1(\main/n151 ), .IN2(N2014), .IN3(N1821), .Q(
+        \main/n133 ) );
+  XNOR3X1 \main/U190  ( .IN1(N1819), .IN2(\main/n157 ), .IN3(\main/n132 ), .Q(
+        \main/n151 ) );
+  XNOR3X1 \main/U189  ( .IN1(\main/n155 ), .IN2(N2018), .IN3(\main/n131 ), .Q(
+        \main/n132 ) );
+  XNOR3X1 \main/U188  ( .IN1(\main/n160 ), .IN2(N2020), .IN3(\main/n130 ), .Q(
+        \main/n131 ) );
+  MUX21X1 \main/U187  ( .IN1(\main/n129 ), .IN2(N2010), .S(N2022), .Q(
+        \main/n130 ) );
+  INVX0 \main/U186  ( .INP(\main/n161 ), .ZN(\main/n160 ) );
+  NAND4X0 \main/U185  ( .IN1(\main/n128 ), .IN2(\main/n127 ), .IN3(\main/n126 ), .IN4(\main/n125 ), .QN(\main/n161 ) );
+  NOR2X0 \main/U184  ( .IN1(\main/n120 ), .IN2(N37), .QN(N3671) );
+  XOR3X1 \main/U183  ( .IN1(\main/n119 ), .IN2(\main/n217 ), .IN3(\main/n118 ), 
+        .Q(\main/n120 ) );
+  XNOR3X1 \main/U182  ( .IN1(N1818), .IN2(\main/n117 ), .IN3(\main/n204 ), .Q(
+        \main/n118 ) );
+  XOR3X1 \main/U181  ( .IN1(\main/n116 ), .IN2(\main/n115 ), .IN3(\main/n218 ), 
+        .Q(\main/n117 ) );
+  XOR3X1 \main/U180  ( .IN1(\main/n114 ), .IN2(N1817), .IN3(N1816), .Q(
+        \main/n116 ) );
+  NOR2X0 \main/U179  ( .IN1(\main/n113 ), .IN2(\main/n112 ), .QN(\main/n114 )
+         );
+  AO22X1 \main/U178  ( .IN1(\main/n111 ), .IN2(N142), .IN3(\main/n110 ), .IN4(
+        N130), .Q(\main/n112 ) );
+  AO22X1 \main/U177  ( .IN1(\main/n109 ), .IN2(N106), .IN3(\main/n108 ), .IN4(
+        N118), .Q(\main/n113 ) );
+  MUX21X1 \main/U176  ( .IN1(\main/n176 ), .IN2(\main/n153 ), .S(N246), .Q(
+        N2643) );
+  INVX0 \main/U175  ( .INP(\main/n152 ), .ZN(\main/n153 ) );
+  NOR2X0 \main/U174  ( .IN1(N230), .IN2(\main/n179 ), .QN(\main/n152 ) );
+  MUX21X1 \main/U173  ( .IN1(N2010), .IN2(N2014), .S(N246), .Q(N2389) );
+  AND2X1 \main/U172  ( .IN1(N398), .IN2(N94), .Q(N1026) );
+  NAND3X0 \main/U171  ( .IN1(N237), .IN2(N15), .IN3(N2), .QN(N799) );
+  AOI22X1 \main/U170  ( .IN1(N231), .IN2(\main/n221 ), .IN3(N325), .IN4(
+        \main/n222 ), .QN(N1726) );
+  NAND4X0 \main/U169  ( .IN1(N44), .IN2(N82), .IN3(N96), .IN4(N132), .QN(
+        \main/n222 ) );
+  NAND4X0 \main/U168  ( .IN1(N57), .IN2(N69), .IN3(N108), .IN4(N120), .QN(
+        \main/n221 ) );
+  XNOR3X1 \main/U167  ( .IN1(N3038), .IN2(perturb_signal), .IN3(restore_signal), .Q(N3079) );
+  NOR4X0 \main/U166  ( .IN1(\main/n107 ), .IN2(\main/n106 ), .IN3(\main/n105 ), 
+        .IN4(\main/n104 ), .QN(N3038) );
+  OA21X1 \main/U165  ( .IN1(\main/n103 ), .IN2(\main/n102 ), .IN3(N16), .Q(
+        \main/n104 ) );
+  NOR4X0 \main/U164  ( .IN1(\main/n194 ), .IN2(\main/n99 ), .IN3(\main/n98 ), 
+        .IN4(\main/n97 ), .QN(\main/n100 ) );
+  NAND3X0 \main/U163  ( .IN1(\main/n96 ), .IN2(\main/n192 ), .IN3(\main/n95 ), 
+        .QN(\main/n97 ) );
+  OR2X1 \main/U162  ( .IN1(N278), .IN2(N2020), .Q(\main/n96 ) );
+  MUX21X1 \main/U161  ( .IN1(\main/n198 ), .IN2(N281), .S(N2022), .Q(
+        \main/n98 ) );
+  INVX0 \main/U160  ( .INP(N281), .ZN(\main/n198 ) );
+  MUX21X1 \main/U159  ( .IN1(\main/n157 ), .IN2(\main/n176 ), .S(N256), .Q(
+        \main/n99 ) );
+  NOR2X0 \main/U158  ( .IN1(N275), .IN2(N2018), .QN(\main/n194 ) );
+  NOR2X0 \main/U157  ( .IN1(\main/n94 ), .IN2(\main/n93 ), .QN(\main/n101 ) );
+  AO222X1 \main/U156  ( .IN1(N1821), .IN2(\main/n135 ), .IN3(N2012), .IN4(N266), .IN5(N1819), .IN6(\main/n167 ), .Q(\main/n93 ) );
+  INVX0 \main/U155  ( .INP(N266), .ZN(\main/n135 ) );
+  AO222X1 \main/U154  ( .IN1(N1820), .IN2(\main/n134 ), .IN3(N2014), .IN4(N269), .IN5(N272), .IN6(N2016), .Q(\main/n94 ) );
+  INVX0 \main/U153  ( .INP(N269), .ZN(\main/n134 ) );
+  AO221X1 \main/U152  ( .IN1(N259), .IN2(\main/n179 ), .IN3(\main/n144 ), 
+        .IN4(\main/n155 ), .IN5(\main/n92 ), .Q(\main/n103 ) );
+  MUX21X1 \main/U151  ( .IN1(\main/n129 ), .IN2(N2010), .S(N263), .Q(
+        \main/n92 ) );
+  INVX0 \main/U150  ( .INP(N2010), .ZN(\main/n129 ) );
+  INVX0 \main/U149  ( .INP(\main/n179 ), .ZN(\main/n155 ) );
+  INVX0 \main/U148  ( .INP(N259), .ZN(\main/n144 ) );
+  NAND4X0 \main/U147  ( .IN1(\main/n91 ), .IN2(\main/n90 ), .IN3(\main/n89 ), 
+        .IN4(\main/n88 ), .QN(\main/n179 ) );
+  NAND4X0 \main/U146  ( .IN1(\main/n87 ), .IN2(\main/n86 ), .IN3(\main/n85 ), 
+        .IN4(\main/n84 ), .QN(\main/n105 ) );
+  AO21X1 \main/U145  ( .IN1(N28), .IN2(\main/n83 ), .IN3(N29), .Q(\main/n84 )
+         );
+  OA221X1 \main/U144  ( .IN1(N294), .IN2(N26), .IN3(N32), .IN4(N287), .IN5(
+        \main/n82 ), .Q(\main/n83 ) );
+  AOI22X1 \main/U143  ( .IN1(N294), .IN2(N26), .IN3(N32), .IN4(N287), .QN(
+        \main/n82 ) );
+  AO21X1 \main/U142  ( .IN1(\main/n81 ), .IN2(\main/n80 ), .IN3(N16), .Q(
+        \main/n85 ) );
+  OA221X1 \main/U141  ( .IN1(N278), .IN2(N6), .IN3(N275), .IN4(N23), .IN5(
+        \main/n79 ), .Q(\main/n80 ) );
+  AOI22X1 \main/U140  ( .IN1(N278), .IN2(N6), .IN3(N275), .IN4(N23), .QN(
+        \main/n79 ) );
+  OA221X1 \main/U139  ( .IN1(N281), .IN2(N24), .IN3(N19), .IN4(N256), .IN5(
+        \main/n78 ), .Q(\main/n81 ) );
+  AOI22X1 \main/U138  ( .IN1(N281), .IN2(N24), .IN3(N19), .IN4(N256), .QN(
+        \main/n78 ) );
+  INVX0 \main/U137  ( .INP(N16), .ZN(\main/n76 ) );
+  NAND3X0 \main/U136  ( .IN1(\main/n75 ), .IN2(\main/n74 ), .IN3(\main/n73 ), 
+        .QN(\main/n77 ) );
+  MUX21X1 \main/U135  ( .IN1(N272), .IN2(\main/n167 ), .S(N22), .Q(\main/n73 )
+         );
+  INVX0 \main/U134  ( .INP(N272), .ZN(\main/n167 ) );
+  OA221X1 \main/U133  ( .IN1(N263), .IN2(N20), .IN3(N259), .IN4(N4), .IN5(
+        \main/n72 ), .Q(\main/n74 ) );
+  AOI22X1 \main/U132  ( .IN1(N263), .IN2(N20), .IN3(N259), .IN4(N4), .QN(
+        \main/n72 ) );
+  OA221X1 \main/U131  ( .IN1(N269), .IN2(N21), .IN3(N266), .IN4(N5), .IN5(
+        \main/n71 ), .Q(\main/n75 ) );
+  AOI22X1 \main/U130  ( .IN1(N269), .IN2(N21), .IN3(N266), .IN4(N5), .QN(
+        \main/n71 ) );
+  OA221X1 \main/U129  ( .IN1(N29), .IN2(\main/n70 ), .IN3(N29), .IN4(
+        \main/n69 ), .IN5(N11), .Q(\main/n87 ) );
+  OA221X1 \main/U128  ( .IN1(N305), .IN2(N34), .IN3(N33), .IN4(N297), .IN5(
+        \main/n68 ), .Q(\main/n69 ) );
+  AOI22X1 \main/U127  ( .IN1(N305), .IN2(N34), .IN3(N33), .IN4(N297), .QN(
+        \main/n68 ) );
+  OA221X1 \main/U126  ( .IN1(N309), .IN2(N35), .IN3(N27), .IN4(N301), .IN5(
+        \main/n67 ), .Q(\main/n70 ) );
+  AOI22X1 \main/U125  ( .IN1(N309), .IN2(N35), .IN3(N27), .IN4(N301), .QN(
+        \main/n67 ) );
+  OA21X1 \main/U124  ( .IN1(\main/n66 ), .IN2(\main/n65 ), .IN3(N29), .Q(
+        \main/n106 ) );
+  NAND4X0 \main/U123  ( .IN1(\main/n64 ), .IN2(\main/n63 ), .IN3(\main/n62 ), 
+        .IN4(\main/n61 ), .QN(\main/n65 ) );
+  MUX21X1 \main/U122  ( .IN1(\main/n60 ), .IN2(N297), .S(\main/n119 ), .Q(
+        \main/n61 ) );
+  NOR2X0 \main/U121  ( .IN1(\main/n59 ), .IN2(\main/n58 ), .QN(\main/n119 ) );
+  AO22X1 \main/U120  ( .IN1(\main/n111 ), .IN2(N139), .IN3(\main/n110 ), .IN4(
+        N127), .Q(\main/n58 ) );
+  AO22X1 \main/U119  ( .IN1(\main/n109 ), .IN2(N103), .IN3(\main/n108 ), .IN4(
+        N115), .Q(\main/n59 ) );
+  INVX0 \main/U118  ( .INP(N297), .ZN(\main/n60 ) );
+  MUX21X1 \main/U117  ( .IN1(\main/n57 ), .IN2(N301), .S(N1818), .Q(\main/n62 ) );
+  INVX0 \main/U116  ( .INP(N301), .ZN(\main/n57 ) );
+  MUX21X1 \main/U115  ( .IN1(\main/n140 ), .IN2(N305), .S(N1816), .Q(
+        \main/n63 ) );
+  INVX0 \main/U114  ( .INP(N305), .ZN(\main/n140 ) );
+  MUX21X1 \main/U113  ( .IN1(\main/n166 ), .IN2(N309), .S(N1817), .Q(
+        \main/n64 ) );
+  INVX0 \main/U112  ( .INP(N309), .ZN(\main/n166 ) );
+  NAND4X0 \main/U111  ( .IN1(\main/n164 ), .IN2(\main/n56 ), .IN3(\main/n218 ), 
+        .IN4(\main/n55 ), .QN(\main/n66 ) );
+  MUX21X1 \main/U110  ( .IN1(\main/n54 ), .IN2(N294), .S(\main/n217 ), .Q(
+        \main/n55 ) );
+  NOR2X0 \main/U109  ( .IN1(\main/n53 ), .IN2(\main/n52 ), .QN(\main/n217 ) );
+  AO22X1 \main/U108  ( .IN1(\main/n111 ), .IN2(N140), .IN3(\main/n110 ), .IN4(
+        N128), .Q(\main/n52 ) );
+  AO22X1 \main/U107  ( .IN1(\main/n109 ), .IN2(N104), .IN3(\main/n108 ), .IN4(
+        N116), .Q(\main/n53 ) );
+  INVX0 \main/U106  ( .INP(N294), .ZN(\main/n54 ) );
+  NAND4X0 \main/U105  ( .IN1(\main/n51 ), .IN2(\main/n50 ), .IN3(\main/n49 ), 
+        .IN4(\main/n48 ), .QN(\main/n218 ) );
+  INVX0 \main/U104  ( .INP(\main/n210 ), .ZN(\main/n56 ) );
+  NOR2X0 \main/U103  ( .IN1(N287), .IN2(\main/n115 ), .QN(\main/n210 ) );
+  NAND4X0 \main/U102  ( .IN1(\main/n47 ), .IN2(\main/n46 ), .IN3(\main/n45 ), 
+        .IN4(\main/n44 ), .QN(\main/n115 ) );
+  MUX21X1 \main/U101  ( .IN1(\main/n43 ), .IN2(N284), .S(\main/n42 ), .Q(
+        \main/n107 ) );
+  MUX21X1 \main/U100  ( .IN1(N25), .IN2(\main/n204 ), .S(N29), .Q(\main/n42 )
+         );
+  NAND4X0 \main/U99  ( .IN1(\main/n41 ), .IN2(\main/n40 ), .IN3(\main/n39 ), 
+        .IN4(\main/n38 ), .QN(\main/n204 ) );
+  INVX0 \main/U98  ( .INP(N284), .ZN(\main/n43 ) );
+  INVX0 \main/U97  ( .INP(N2016), .ZN(N1819) );
+  INVX0 \main/U96  ( .INP(N2014), .ZN(N1820) );
+  NAND4X0 \main/U95  ( .IN1(\main/n37 ), .IN2(\main/n36 ), .IN3(\main/n35 ), 
+        .IN4(\main/n34 ), .QN(N2010) );
+  NAND2X0 \main/U94  ( .IN1(\main/n157 ), .IN2(N241), .QN(N1969) );
+  INVX0 \main/U93  ( .INP(\main/n176 ), .ZN(\main/n157 ) );
+  NAND4X0 \main/U92  ( .IN1(\main/n32 ), .IN2(\main/n31 ), .IN3(\main/n30 ), 
+        .IN4(\main/n29 ), .QN(\main/n176 ) );
+  INVX0 \main/U91  ( .INP(N1028), .ZN(\main/n33 ) );
+  NOR2X0 \main/U90  ( .IN1(\main/n28 ), .IN2(\main/n27 ), .QN(N1818) );
+  AO22X1 \main/U89  ( .IN1(\main/n111 ), .IN2(N138), .IN3(\main/n110 ), .IN4(
+        N126), .Q(\main/n27 ) );
+  AO22X1 \main/U88  ( .IN1(\main/n109 ), .IN2(N102), .IN3(\main/n108 ), .IN4(
+        N114), .Q(\main/n28 ) );
+  NOR2X0 \main/U87  ( .IN1(\main/n26 ), .IN2(\main/n25 ), .QN(N1817) );
+  AO22X1 \main/U86  ( .IN1(\main/n111 ), .IN2(N136), .IN3(\main/n110 ), .IN4(
+        N124), .Q(\main/n25 ) );
+  AO22X1 \main/U85  ( .IN1(\main/n109 ), .IN2(N100), .IN3(\main/n108 ), .IN4(
+        N112), .Q(\main/n26 ) );
+  NOR2X0 \main/U84  ( .IN1(\main/n24 ), .IN2(\main/n23 ), .QN(N1816) );
+  AO22X1 \main/U83  ( .IN1(\main/n111 ), .IN2(N137), .IN3(\main/n110 ), .IN4(
+        N125), .Q(\main/n23 ) );
+  NOR2X0 \main/U82  ( .IN1(N319), .IN2(\main/n22 ), .QN(\main/n110 ) );
+  NOR2X0 \main/U81  ( .IN1(N319), .IN2(N322), .QN(\main/n111 ) );
+  AO22X1 \main/U80  ( .IN1(\main/n109 ), .IN2(N101), .IN3(\main/n108 ), .IN4(
+        N113), .Q(\main/n24 ) );
+  AND2X1 \main/U79  ( .IN1(N319), .IN2(N322), .Q(\main/n108 ) );
+  AND2X1 \main/U78  ( .IN1(\main/n22 ), .IN2(N319), .Q(\main/n109 ) );
+  INVX0 \main/U77  ( .INP(N322), .ZN(\main/n22 ) );
+  INVX0 \main/U76  ( .INP(N1821), .ZN(N2012) );
+  NOR2X0 \main/U75  ( .IN1(\main/n21 ), .IN2(\main/n20 ), .QN(N1821) );
+  AO22X1 \main/U74  ( .IN1(\main/n121 ), .IN2(N90), .IN3(\main/n122 ), .IN4(
+        N77), .Q(\main/n20 ) );
+  AO22X1 \main/U73  ( .IN1(\main/n123 ), .IN2(N64), .IN3(\main/n124 ), .IN4(
+        N52), .Q(\main/n21 ) );
+  NAND4X0 \main/U72  ( .IN1(\main/n19 ), .IN2(\main/n18 ), .IN3(\main/n17 ), 
+        .IN4(\main/n16 ), .QN(N2020) );
+  AO21X1 \main/U71  ( .IN1(\main/n124 ), .IN2(N49), .IN3(\main/n15 ), .Q(N2018) );
+  AO222X1 \main/U70  ( .IN1(N234), .IN2(\main/n14 ), .IN3(N234), .IN4(N74), 
+        .IN5(\main/n14 ), .IN6(N87), .Q(\main/n15 ) );
+  NAND4X0 \main/U69  ( .IN1(\main/n13 ), .IN2(\main/n12 ), .IN3(\main/n11 ), 
+        .IN4(\main/n10 ), .QN(N2016) );
+  NAND4X0 \main/U68  ( .IN1(\main/n9 ), .IN2(\main/n8 ), .IN3(\main/n7 ), 
+        .IN4(\main/n6 ), .QN(N2014) );
+  NAND4X0 \main/U67  ( .IN1(\main/n5 ), .IN2(\main/n4 ), .IN3(\main/n3 ), 
+        .IN4(\main/n2 ), .QN(N2022) );
+  NOR2X0 \main/U66  ( .IN1(N234), .IN2(\main/n14 ), .QN(\main/n124 ) );
+  NOR2X0 \main/U65  ( .IN1(N227), .IN2(\main/n1 ), .QN(\main/n123 ) );
+  NOR2X0 \main/U64  ( .IN1(\main/n14 ), .IN2(\main/n1 ), .QN(\main/n122 ) );
+  INVX0 \main/U63  ( .INP(N234), .ZN(\main/n1 ) );
+  INVX0 \main/U62  ( .INP(N227), .ZN(\main/n14 ) );
+  NOR2X0 \main/U61  ( .IN1(N227), .IN2(N234), .QN(\main/n121 ) );
+  NAND2X0 \main/U60  ( .IN1(N325), .IN2(\main/n33 ), .QN(N1269) );
+  NAND2X0 \main/U59  ( .IN1(N231), .IN2(\main/n33 ), .QN(N1029) );
+  NAND2X0 \main/U58  ( .IN1(N237), .IN2(N7), .QN(N1028) );
+  NAND2X0 \main/U57  ( .IN1(\main/n124 ), .IN2(N47), .QN(\main/n2 ) );
+  NAND2X0 \main/U56  ( .IN1(N14), .IN2(\main/n149 ), .QN(\main/n223 ) );
+  NAND2X0 \main/U55  ( .IN1(\main/n124 ), .IN2(N51), .QN(\main/n6 ) );
+  NAND2X0 \main/U54  ( .IN1(\main/n121 ), .IN2(N91), .QN(\main/n37 ) );
+  NAND2X0 \main/U53  ( .IN1(\main/n124 ), .IN2(N48), .QN(\main/n16 ) );
+  NAND2X0 \main/U52  ( .IN1(\main/n122 ), .IN2(N79), .QN(\main/n90 ) );
+  NAND2X0 \main/U51  ( .IN1(\main/n124 ), .IN2(N54), .QN(\main/n88 ) );
+  NAND2X0 \main/U50  ( .IN1(\main/n124 ), .IN2(N43), .QN(\main/n29 ) );
+  NAND2X0 \main/U49  ( .IN1(\main/n77 ), .IN2(\main/n76 ), .QN(\main/n86 ) );
+  NAND2X0 \main/U48  ( .IN1(\main/n101 ), .IN2(\main/n100 ), .QN(\main/n102 )
+         );
+  NAND2X0 \main/U47  ( .IN1(\main/n110 ), .IN2(N123), .QN(\main/n50 ) );
+  NAND2X0 \main/U46  ( .IN1(\main/n108 ), .IN2(N111), .QN(\main/n48 ) );
+  NAND2X0 \main/U45  ( .IN1(\main/n206 ), .IN2(\main/n205 ), .QN(\main/n207 )
+         );
+  NAND2X0 \main/U44  ( .IN1(N287), .IN2(\main/n115 ), .QN(\main/n164 ) );
+  NAND2X0 \main/U43  ( .IN1(\main/n155 ), .IN2(N230), .QN(\main/n156 ) );
+  NAND2X0 \main/U42  ( .IN1(\main/n108 ), .IN2(N117), .QN(\main/n44 ) );
+  NAND2X0 \main/U41  ( .IN1(\main/n213 ), .IN2(N2022), .QN(\main/n197 ) );
+  NAND2X0 \main/U40  ( .IN1(N275), .IN2(N2018), .QN(\main/n95 ) );
+  NAND2X0 \main/U39  ( .IN1(N2012), .IN2(\main/n187 ), .QN(\main/n189 ) );
+  NAND2X0 \main/U38  ( .IN1(N8), .IN2(N2016), .QN(\main/n172 ) );
+  NAND2X0 \main/U37  ( .IN1(N8), .IN2(N2014), .QN(\main/n169 ) );
+  NAND2X0 \main/U36  ( .IN1(\main/n178 ), .IN2(N8), .QN(\main/n168 ) );
+  NAND2X0 \main/U35  ( .IN1(\main/n122 ), .IN2(N75), .QN(\main/n12 ) );
+  NAND2X0 \main/U34  ( .IN1(\main/n121 ), .IN2(N88), .QN(\main/n13 ) );
+  NAND2X0 \main/U33  ( .IN1(\main/n124 ), .IN2(N50), .QN(\main/n10 ) );
+  NAND2X0 \main/U32  ( .IN1(\main/n123 ), .IN2(N60), .QN(\main/n3 ) );
+  NAND2X0 \main/U31  ( .IN1(\main/n122 ), .IN2(N72), .QN(\main/n4 ) );
+  NAND2X0 \main/U30  ( .IN1(\main/n121 ), .IN2(N85), .QN(\main/n5 ) );
+  NAND2X0 \main/U29  ( .IN1(\main/n123 ), .IN2(N63), .QN(\main/n7 ) );
+  NAND2X0 \main/U28  ( .IN1(\main/n122 ), .IN2(N76), .QN(\main/n8 ) );
+  NAND2X0 \main/U27  ( .IN1(\main/n121 ), .IN2(N89), .QN(\main/n9 ) );
+  NAND2X0 \main/U26  ( .IN1(\main/n123 ), .IN2(N65), .QN(\main/n35 ) );
+  NAND2X0 \main/U25  ( .IN1(\main/n122 ), .IN2(N78), .QN(\main/n36 ) );
+  NAND2X0 \main/U24  ( .IN1(\main/n124 ), .IN2(N53), .QN(\main/n34 ) );
+  NAND2X0 \main/U23  ( .IN1(\main/n123 ), .IN2(N61), .QN(\main/n17 ) );
+  NAND2X0 \main/U22  ( .IN1(\main/n122 ), .IN2(N73), .QN(\main/n18 ) );
+  NAND2X0 \main/U21  ( .IN1(\main/n121 ), .IN2(N86), .QN(\main/n19 ) );
+  NAND2X0 \main/U20  ( .IN1(\main/n123 ), .IN2(N62), .QN(\main/n11 ) );
+  NAND2X0 \main/U19  ( .IN1(\main/n122 ), .IN2(N80), .QN(\main/n127 ) );
+  NAND2X0 \main/U18  ( .IN1(\main/n121 ), .IN2(N93), .QN(\main/n128 ) );
+  NAND2X0 \main/U17  ( .IN1(\main/n124 ), .IN2(N55), .QN(\main/n125 ) );
+  NAND2X0 \main/U16  ( .IN1(\main/n123 ), .IN2(N66), .QN(\main/n89 ) );
+  NAND2X0 \main/U15  ( .IN1(\main/n121 ), .IN2(N92), .QN(\main/n91 ) );
+  NAND2X0 \main/U14  ( .IN1(\main/n123 ), .IN2(N56), .QN(\main/n30 ) );
+  NAND2X0 \main/U13  ( .IN1(\main/n122 ), .IN2(N68), .QN(\main/n31 ) );
+  NAND2X0 \main/U12  ( .IN1(\main/n121 ), .IN2(N81), .QN(\main/n32 ) );
+  NAND2X0 \main/U11  ( .IN1(\main/n111 ), .IN2(N135), .QN(\main/n51 ) );
+  NAND2X0 \main/U10  ( .IN1(\main/n109 ), .IN2(N99), .QN(\main/n49 ) );
+  NAND2X0 \main/U9  ( .IN1(\main/n111 ), .IN2(N131), .QN(\main/n41 ) );
+  NAND2X0 \main/U8  ( .IN1(\main/n109 ), .IN2(N95), .QN(\main/n39 ) );
+  NAND2X0 \main/U7  ( .IN1(\main/n108 ), .IN2(N107), .QN(\main/n38 ) );
+  NAND2X0 \main/U6  ( .IN1(\main/n111 ), .IN2(N141), .QN(\main/n47 ) );
+  NAND2X0 \main/U5  ( .IN1(\main/n109 ), .IN2(N105), .QN(\main/n45 ) );
+  NAND2X0 \main/U4  ( .IN1(\main/n123 ), .IN2(N67), .QN(\main/n126 ) );
+  NAND2X0 \main/U3  ( .IN1(\main/n110 ), .IN2(N119), .QN(\main/n40 ) );
+  NAND2X0 \main/U2  ( .IN1(\main/n110 ), .IN2(N129), .QN(\main/n46 ) );
+  NAND2X0 \main/U1  ( .IN1(N278), .IN2(N2020), .QN(\main/n192 ) );
+  NOR4X0 \perturb/U13  ( .IN1(N26), .IN2(N105), .IN3(\perturb/n10 ), .IN4(
+        \perturb/n9 ), .QN(perturb_signal) );
+  NAND3X0 \perturb/U12  ( .IN1(\perturb/n8 ), .IN2(\perturb/n7 ), .IN3(
+        \perturb/n6 ), .QN(\perturb/n9 ) );
+  NOR4X0 \perturb/U11  ( .IN1(\perturb/n5 ), .IN2(\perturb/n4 ), .IN3(
+        \perturb/n3 ), .IN4(\perturb/n2 ), .QN(\perturb/n6 ) );
+  NAND4X0 \perturb/U10  ( .IN1(N131), .IN2(N51), .IN3(N28), .IN4(N234), .QN(
+        \perturb/n2 ) );
+  NAND4X0 \perturb/U9  ( .IN1(N294), .IN2(N123), .IN3(N85), .IN4(N6), .QN(
         \perturb/n3 ) );
-  OR4X1 \perturb/U4  ( .IN1(N305), .IN2(N272), .IN3(N54), .IN4(N32), .Q(
+  NAND4X0 \perturb/U8  ( .IN1(N49), .IN2(N104), .IN3(N87), .IN4(N52), .QN(
         \perturb/n4 ) );
-  NOR4X0 \perturb/U3  ( .IN1(\perturb/n1 ), .IN2(\perturb/n2 ), .IN3(
-        \perturb/n3 ), .IN4(\perturb/n4 ), .QN(perturb_signal) );
-  XNOR2X1 \restore/U44  ( .IN1(keyinput17), .IN2(N62), .Q(\restore/n39 ) );
-  XNOR2X1 \restore/U43  ( .IN1(keyinput18), .IN2(N32), .Q(\restore/n40 ) );
-  XNOR2X1 \restore/U42  ( .IN1(keyinput19), .IN2(N76), .Q(\restore/n41 ) );
-  XNOR2X1 \restore/U41  ( .IN1(keyinput21), .IN2(N123), .Q(\restore/n42 ) );
-  NAND4X0 \restore/U40  ( .IN1(\restore/n39 ), .IN2(\restore/n40 ), .IN3(
-        \restore/n41 ), .IN4(\restore/n42 ), .QN(\restore/n23 ) );
-  XNOR2X1 \restore/U39  ( .IN1(keyinput29), .IN2(N90), .Q(\restore/n35 ) );
-  XNOR2X1 \restore/U38  ( .IN1(keyinput3), .IN2(N49), .Q(\restore/n36 ) );
-  XNOR2X1 \restore/U37  ( .IN1(keyinput2), .IN2(N104), .Q(\restore/n37 ) );
-  XNOR2X1 \restore/U36  ( .IN1(keyinput4), .IN2(N99), .Q(\restore/n38 ) );
-  NAND4X0 \restore/U35  ( .IN1(\restore/n35 ), .IN2(\restore/n36 ), .IN3(
-        \restore/n37 ), .IN4(\restore/n38 ), .QN(\restore/n24 ) );
-  XNOR2X1 \restore/U34  ( .IN1(keyinput25), .IN2(N26), .Q(\restore/n31 ) );
-  XNOR2X1 \restore/U33  ( .IN1(keyinput28), .IN2(N113), .Q(\restore/n32 ) );
-  XNOR2X1 \restore/U32  ( .IN1(keyinput27), .IN2(N105), .Q(\restore/n33 ) );
-  XNOR2X1 \restore/U31  ( .IN1(keyinput26), .IN2(N85), .Q(\restore/n34 ) );
-  NAND4X0 \restore/U30  ( .IN1(\restore/n31 ), .IN2(\restore/n32 ), .IN3(
-        \restore/n33 ), .IN4(\restore/n34 ), .QN(\restore/n25 ) );
-  XNOR2X1 \restore/U29  ( .IN1(keyinput20), .IN2(N28), .Q(\restore/n27 ) );
-  XNOR2X1 \restore/U28  ( .IN1(keyinput22), .IN2(N294), .Q(\restore/n28 ) );
-  XNOR2X1 \restore/U27  ( .IN1(keyinput24), .IN2(N115), .Q(\restore/n29 ) );
-  XNOR2X1 \restore/U26  ( .IN1(keyinput23), .IN2(N6), .Q(\restore/n30 ) );
-  NAND4X0 \restore/U25  ( .IN1(\restore/n27 ), .IN2(\restore/n28 ), .IN3(
-        \restore/n29 ), .IN4(\restore/n30 ), .QN(\restore/n26 ) );
-  OR4X1 \restore/U24  ( .IN1(\restore/n23 ), .IN2(\restore/n24 ), .IN3(
-        \restore/n25 ), .IN4(\restore/n26 ), .Q(\restore/n1 ) );
-  XNOR2X1 \restore/U23  ( .IN1(keyinput9), .IN2(N305), .Q(\restore/n19 ) );
-  XNOR2X1 \restore/U22  ( .IN1(keyinput8), .IN2(N16), .Q(\restore/n20 ) );
-  XNOR2X1 \restore/U21  ( .IN1(keyinput13), .IN2(N263), .Q(\restore/n21 ) );
-  XNOR2X1 \restore/U20  ( .IN1(keyinput12), .IN2(N81), .Q(\restore/n22 ) );
-  NAND4X0 \restore/U19  ( .IN1(\restore/n19 ), .IN2(\restore/n20 ), .IN3(
-        \restore/n21 ), .IN4(\restore/n22 ), .QN(\restore/n3 ) );
-  XNOR2X1 \restore/U18  ( .IN1(keyinput5), .IN2(N52), .Q(\restore/n15 ) );
-  XNOR2X1 \restore/U17  ( .IN1(keyinput6), .IN2(N87), .Q(\restore/n16 ) );
-  XNOR2X1 \restore/U16  ( .IN1(keyinput7), .IN2(N4), .Q(\restore/n17 ) );
-  XNOR2X1 \restore/U15  ( .IN1(keyinput10), .IN2(N54), .Q(\restore/n18 ) );
-  NAND4X0 \restore/U14  ( .IN1(\restore/n15 ), .IN2(\restore/n16 ), .IN3(
-        \restore/n17 ), .IN4(\restore/n18 ), .QN(\restore/n4 ) );
-  XNOR2X1 \restore/U13  ( .IN1(keyinput1), .IN2(N278), .Q(\restore/n11 ) );
-  XNOR2X1 \restore/U12  ( .IN1(keyinput0), .IN2(N111), .Q(\restore/n12 ) );
-  XNOR2X1 \restore/U11  ( .IN1(keyinput31), .IN2(N129), .Q(\restore/n13 ) );
-  XNOR2X1 \restore/U10  ( .IN1(keyinput30), .IN2(N272), .Q(\restore/n14 ) );
-  NAND4X0 \restore/U9  ( .IN1(\restore/n11 ), .IN2(\restore/n12 ), .IN3(
-        \restore/n13 ), .IN4(\restore/n14 ), .QN(\restore/n5 ) );
-  XNOR2X1 \restore/U8  ( .IN1(keyinput11), .IN2(N112), .Q(\restore/n7 ) );
-  XNOR2X1 \restore/U7  ( .IN1(keyinput16), .IN2(N234), .Q(\restore/n8 ) );
-  XNOR2X1 \restore/U6  ( .IN1(keyinput15), .IN2(N131), .Q(\restore/n9 ) );
-  XNOR2X1 \restore/U5  ( .IN1(keyinput14), .IN2(N51), .Q(\restore/n10 ) );
-  NAND4X0 \restore/U4  ( .IN1(\restore/n7 ), .IN2(\restore/n8 ), .IN3(
-        \restore/n9 ), .IN4(\restore/n10 ), .QN(\restore/n6 ) );
-  OR4X1 \restore/U3  ( .IN1(\restore/n3 ), .IN2(\restore/n4 ), .IN3(
-        \restore/n5 ), .IN4(\restore/n6 ), .Q(\restore/n2 ) );
-  NOR2X0 \restore/U2  ( .IN1(\restore/n1 ), .IN2(\restore/n2 ), .QN(
-        restore_signal) );
+  NAND4X0 \perturb/U7  ( .IN1(N112), .IN2(N4), .IN3(N263), .IN4(N81), .QN(
+        \perturb/n5 ) );
+  NOR4X0 \perturb/U6  ( .IN1(N99), .IN2(N16), .IN3(N54), .IN4(N32), .QN(
+        \perturb/n7 ) );
+  NOR4X0 \perturb/U5  ( .IN1(N115), .IN2(N129), .IN3(N272), .IN4(N113), .QN(
+        \perturb/n8 ) );
+  NAND3X0 \perturb/U4  ( .IN1(N278), .IN2(N111), .IN3(\perturb/n1 ), .QN(
+        \perturb/n10 ) );
+  NOR4X0 \perturb/U3  ( .IN1(N90), .IN2(N76), .IN3(N62), .IN4(N305), .QN(
+        \perturb/n1 ) );
+  NOR4X0 \restore/U44  ( .IN1(\restore/n42 ), .IN2(\restore/n41 ), .IN3(
+        \restore/n40 ), .IN4(\restore/n39 ), .QN(restore_signal) );
+  OR4X1 \restore/U43  ( .IN1(\restore/n38 ), .IN2(\restore/n37 ), .IN3(
+        \restore/n36 ), .IN4(\restore/n35 ), .Q(\restore/n39 ) );
+  NAND4X0 \restore/U42  ( .IN1(\restore/n34 ), .IN2(\restore/n33 ), .IN3(
+        \restore/n32 ), .IN4(\restore/n31 ), .QN(\restore/n35 ) );
+  XNOR2X1 \restore/U41  ( .IN1(keyinput30), .IN2(N272), .Q(\restore/n31 ) );
+  XNOR2X1 \restore/U40  ( .IN1(keyinput28), .IN2(N113), .Q(\restore/n32 ) );
+  XNOR2X1 \restore/U39  ( .IN1(keyinput26), .IN2(N85), .Q(\restore/n33 ) );
+  XNOR2X1 \restore/U38  ( .IN1(keyinput24), .IN2(N115), .Q(\restore/n34 ) );
+  NAND4X0 \restore/U37  ( .IN1(\restore/n30 ), .IN2(\restore/n29 ), .IN3(
+        \restore/n28 ), .IN4(\restore/n27 ), .QN(\restore/n36 ) );
+  XNOR2X1 \restore/U36  ( .IN1(keyinput20), .IN2(N28), .Q(\restore/n27 ) );
+  XNOR2X1 \restore/U35  ( .IN1(keyinput18), .IN2(N32), .Q(\restore/n28 ) );
+  XNOR2X1 \restore/U34  ( .IN1(keyinput16), .IN2(N234), .Q(\restore/n29 ) );
+  XNOR2X1 \restore/U33  ( .IN1(keyinput31), .IN2(N129), .Q(\restore/n30 ) );
+  NAND4X0 \restore/U32  ( .IN1(\restore/n26 ), .IN2(\restore/n25 ), .IN3(
+        \restore/n24 ), .IN4(\restore/n23 ), .QN(\restore/n37 ) );
+  XNOR2X1 \restore/U31  ( .IN1(keyinput6), .IN2(N87), .Q(\restore/n23 ) );
+  XNOR2X1 \restore/U30  ( .IN1(keyinput8), .IN2(N16), .Q(\restore/n24 ) );
+  XNOR2X1 \restore/U29  ( .IN1(keyinput14), .IN2(N51), .Q(\restore/n25 ) );
+  XNOR2X1 \restore/U28  ( .IN1(keyinput12), .IN2(N81), .Q(\restore/n26 ) );
+  NAND4X0 \restore/U27  ( .IN1(\restore/n22 ), .IN2(\restore/n21 ), .IN3(
+        \restore/n20 ), .IN4(\restore/n19 ), .QN(\restore/n38 ) );
+  XNOR2X1 \restore/U26  ( .IN1(keyinput22), .IN2(N294), .Q(\restore/n19 ) );
+  XNOR2X1 \restore/U25  ( .IN1(keyinput0), .IN2(N111), .Q(\restore/n20 ) );
+  XNOR2X1 \restore/U24  ( .IN1(keyinput4), .IN2(N99), .Q(\restore/n21 ) );
+  XNOR2X1 \restore/U23  ( .IN1(keyinput2), .IN2(N104), .Q(\restore/n22 ) );
+  NAND4X0 \restore/U22  ( .IN1(\restore/n18 ), .IN2(\restore/n17 ), .IN3(
+        \restore/n16 ), .IN4(\restore/n15 ), .QN(\restore/n40 ) );
+  XNOR2X1 \restore/U21  ( .IN1(keyinput29), .IN2(N90), .Q(\restore/n15 ) );
+  XNOR2X1 \restore/U20  ( .IN1(keyinput9), .IN2(N305), .Q(\restore/n16 ) );
+  NOR4X0 \restore/U19  ( .IN1(\restore/n14 ), .IN2(\restore/n13 ), .IN3(
+        \restore/n12 ), .IN4(\restore/n11 ), .QN(\restore/n17 ) );
+  XOR2X1 \restore/U18  ( .IN1(keyinput10), .IN2(N54), .Q(\restore/n11 ) );
+  XOR2X1 \restore/U17  ( .IN1(keyinput19), .IN2(N76), .Q(\restore/n12 ) );
+  XOR2X1 \restore/U16  ( .IN1(keyinput21), .IN2(N123), .Q(\restore/n13 ) );
+  XOR2X1 \restore/U15  ( .IN1(keyinput23), .IN2(N6), .Q(\restore/n14 ) );
+  NOR2X0 \restore/U14  ( .IN1(\restore/n10 ), .IN2(\restore/n9 ), .QN(
+        \restore/n18 ) );
+  XOR2X1 \restore/U13  ( .IN1(keyinput27), .IN2(N105), .Q(\restore/n9 ) );
+  XOR2X1 \restore/U12  ( .IN1(keyinput25), .IN2(N26), .Q(\restore/n10 ) );
+  NAND4X0 \restore/U11  ( .IN1(\restore/n8 ), .IN2(\restore/n7 ), .IN3(
+        \restore/n6 ), .IN4(\restore/n5 ), .QN(\restore/n41 ) );
+  XNOR2X1 \restore/U10  ( .IN1(keyinput17), .IN2(N62), .Q(\restore/n5 ) );
+  XNOR2X1 \restore/U9  ( .IN1(keyinput5), .IN2(N52), .Q(\restore/n6 ) );
+  XNOR2X1 \restore/U8  ( .IN1(keyinput3), .IN2(N49), .Q(\restore/n7 ) );
+  XNOR2X1 \restore/U7  ( .IN1(keyinput7), .IN2(N4), .Q(\restore/n8 ) );
+  NAND4X0 \restore/U6  ( .IN1(\restore/n4 ), .IN2(\restore/n3 ), .IN3(
+        \restore/n2 ), .IN4(\restore/n1 ), .QN(\restore/n42 ) );
+  XNOR2X1 \restore/U5  ( .IN1(keyinput1), .IN2(N278), .Q(\restore/n1 ) );
+  XNOR2X1 \restore/U4  ( .IN1(keyinput11), .IN2(N112), .Q(\restore/n2 ) );
+  XNOR2X1 \restore/U3  ( .IN1(keyinput13), .IN2(N263), .Q(\restore/n3 ) );
+  XNOR2X1 \restore/U2  ( .IN1(keyinput15), .IN2(N131), .Q(\restore/n4 ) );
 endmodule
 
