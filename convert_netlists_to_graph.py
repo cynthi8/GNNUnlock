@@ -28,12 +28,12 @@ class_key_mapping = {'main': 0, 'flip': 1}
 primary_signal_types = ['INPUT', 'KEY_INPUT', 'OUTPUT']
 
 # Feature ordering
-feature_list = primary_signal_types + ['in_degree', 'out_degree', 
-'NBUFFX2', 'AO21X1', 'NOR4X0', 'XOR3X1', 'OAI21X1', 'OA21X1', 'NAND3X0', 'MUX21X1', 
-'AO22X1', 'NOR3X0', 'AOI22X1', 'AOI222X1', 'AOI221X1', 'XNOR2X1', 'OR2X1', 'NOR2X0', 
-'AND4X1', 'OAI22X1', 'OA22X1', 'XNOR3X1', 'NAND2X0', 'XOR2X1', 'AND2X1', 'NAND4X0', 
-'INVX0', 'AO221X1', 'AO222X1', 'OAI221X1', 'INVX2', 'OA221X1', 'OR4X1', 'AND3X1', 'AOI21X1',
-'INVX4', 'OR3X1', 'OAI222X1', 'MUX41X1', 'OA222X1']
+feature_list = primary_signal_types + ['in_degree', 'out_degree', 'AND2X1', 
+'AND3X1', 'AND4X1', 'AO21X1', 'AO221X1', 'AO222X1', 'AO22X1', 'AOI21X1', 
+'AOI221X1', 'AOI222X1', 'AOI22X1', 'FADDX1', 'INVX0', 'INVX2', 'INVX4', 
+'MUX21X1', 'MUX41X1', 'NAND2X0', 'NAND3X0', 'NAND4X0', 'NBUFFX2', 'NOR2X0', 
+'NOR3X0', 'NOR4X0', 'OA21X1', 'OA221X1', 'OA222X1', 'OA22X1', 'OAI21X1', 'OAI221X1', 
+'OAI222X1', 'OAI22X1', 'OR2X1', 'OR3X1', 'OR4X1', 'XNOR2X1', 'XNOR3X1', 'XOR2X1', 'XOR3X1']
 feature_mapping = {feature: key for key, feature in enumerate(feature_list)}
 
 # Keep track of the node index in the mega graph of all netlists
@@ -55,7 +55,7 @@ for root, dirs, files in os.walk(netlists_dir):
             role = file_name.split('_')[0]
             print('Role:', role)
             if not role in roles:
-                raise ValueError('\n Unrecognized node role -' + role + ' from\n' + file_name)
+                raise ValueError('\n Unrecognized graph role -' + role + ' from\n' + file_name)
 
             # Relabel the gate nodes to integers and update the base index
             gate_nodes = [node for node in G.nodes if not G.nodes[node]['type'] in primary_signal_types]
@@ -95,7 +95,7 @@ for root, dirs, files in os.walk(netlists_dir):
                     if neighbor_type in primary_signal_types:
                         continue
                     if not neighbor_type in feature_list:
-                        raise ValueError('\n Unrecognized feature -' + neighbor_type)
+                        raise ValueError('\n Unrecognized feature - ' + neighbor_type)
                     feats[node][neighbor_type] += 1
 
             # Convert into an undirected graph for GNN

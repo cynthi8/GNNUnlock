@@ -778,8 +778,47 @@ def verilogSynopsys(verilog_file_path):
     regex_port_map = r"\s*.(\S+?)\s*\(\s*(\S+)\s*\)"
 
     # Design Ware Ports
-    design_ware_input_ports = ['IN1', 'IN2', 'IN3', 'IN4', 'IN5', 'IN6', 'INP', 'S', 'S0', 'S1']
-    design_ware_output_ports = ['Q', 'QN', 'ZN']
+    design_ware_library = {
+        'AND2X1'   : {'inputs': ['IN1', 'IN2'], 'outputs': ['Q']},
+        'AND3X1'   : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['Q']},
+        'AND4X1'   : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['Q']},
+        'AO21X1'   : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['Q']},
+        'AO221X1'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'IN5'], 'outputs': ['Q']},
+        'AO222X1'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'IN5', 'IN6'], 'outputs': ['Q']},
+        'AO22X1'   : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['Q']},
+        'AOI21X1'  : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['QN']},
+        'AOI221X1' : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['QN']},
+        'AOI222X1' : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'IN5', 'IN6'], 'outputs': ['QN']},
+        'AOI22X1'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['QN']},
+        'FADDX1'   : {'inputs': ['A', 'B', 'CI'], 'outputs': ['CO', 'S']},
+        'INVX0'    : {'inputs': ['INP'], 'outputs': ['ZN']},
+        'INVX2'    : {'inputs': ['INP'], 'outputs': ['ZN']},
+        'INVX4'    : {'inputs': ['INP'], 'outputs': ['ZN']},
+        'MUX21X1'  : {'inputs': ['IN1', 'IN2', 'S'], 'outputs': ['Q']},
+        'MUX41X1'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'S0', 'S1'], 'outputs': ['Q']},
+        'NAND2X0'  : {'inputs': ['IN1', 'IN2'], 'outputs': ['QN']},
+        'NAND3X0'  : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['QN']},
+        'NAND4X0'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['QN']},
+        'NBUFFX2'  : {'inputs': ['INP'], 'outputs': ['Z']},
+        'NOR2X0'   : {'inputs': ['IN1', 'IN2'], 'outputs': ['QN']},
+        'NOR3X0'   : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['QN']},
+        'NOR4X0'   : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['QN']},
+        'OA21X1'   : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['Q']},
+        'OA221X1'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'IN5'], 'outputs': ['Q']},
+        'OA222X1'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'IN5', 'IN6'], 'outputs': ['Q']},
+        'OA22X1'   : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['Q']},
+        'OAI21X1'  : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['QN']},
+        'OAI221X1' : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'IN5'], 'outputs': ['QN']},
+        'OAI222X1' : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'IN5', 'IN6'], 'outputs': ['QN']},
+        'OAI22X1'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['QN']},
+        'OR2X1'    : {'inputs': ['IN1', 'IN2'], 'outputs': ['Q']},
+        'OR3X1'    : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['Q']},
+        'OR4X1'    : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['Q']},
+        'XNOR2X1'  : {'inputs': ['IN1', 'IN2'], 'outputs': ['Q']},
+        'XNOR3X1'  : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['Q']},
+        'XOR2X1'   : {'inputs': ['IN1', 'IN2'], 'outputs': ['Q']},
+        'XOR3X1'   : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['Q']}
+    }
 
     # Not-Global variables
     netlist = format_verilog_netlist(verilog_file_path)
@@ -825,29 +864,34 @@ def verilogSynopsys(verilog_file_path):
             # Handle module instantiation case
             m = re.search(regex_module_instantiation, line)
             module_name = m.group(1)
-            instance_name = m.group(2)
             port_mapping = m.group(3)
 
             # Extract the input and output gate signals from the instantiation mapping
             gate_inputs = []
-            gate_output = None
+            gate_outputs = []
             for port_map in port_mapping.split(','):
                 m = re.search(regex_port_map, port_map)
                 internal_port = m.group(1)
                 external_port = m.group(2)
-                if internal_port in design_ware_input_ports:
+                if internal_port in design_ware_library[module_name]['inputs']:
                     gate_inputs.append(external_port)
-                elif internal_port in design_ware_output_ports:
-                    if gate_output:
-                        raise ValueError("\nOutput for this gate has already been assigned - " + gate_output + "\n" + line)
-                    gate_output = external_port
+                elif internal_port in design_ware_library[module_name]['outputs']:
+                    gate_outputs.append(external_port)
                 else:
+                    # Print out a suggested mapping and raise an error
+                    missing_ports = []
+                    for port_map in port_mapping.split(','):
+                        m = re.search(regex_port_map, port_map)
+                        missing_ports.append(m.group(1))
+                    print('\nSuggested Mapping for', module_name)
+                    print(f"'inputs': {missing_ports[:-1]}, 'outputs': ['{missing_ports[-1]}']\n",)
                     raise ValueError("\nUnknown port name - " + internal_port + " from\n" + line)
-            if not gate_output:
+            if not gate_outputs:
                 raise ValueError("\nNo output was assigned for this gate\n" + line)
 
-            # Add the extracted gate to the graph
-            add_to_graph(gate_output, module_name, gate_inputs)
+            # For each output of this gate, add a node
+            for gate_output in gate_outputs:
+                add_to_graph(gate_output, module_name, gate_inputs)
 
     for internal_signal in internal_signals:
         assert internal_signal in circuit
