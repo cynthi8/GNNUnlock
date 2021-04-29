@@ -1,11 +1,11 @@
-conda create -y --name gnnunlock-env python=3.6.8 tensorflow=1.12.0
+conda create -y --name gnnunlock-env python=3 tensorflow=1
 conda activate gnnunlock-env
-conda install -y -c anaconda numpy=1.14.3
-conda install -y -c anaconda scipy=1.1.0 
-conda install -y -c anaconda scikit-learn=0.19.1
-conda install -y -c anaconda pyyaml=3.12
-conda install -y -c conda-forge openmp=4.0
-conda install -y -c anaconda cython=0.29.2
-conda install -y -c anaconda networkx==2.5
+conda install -y -c anaconda numpy
+conda install -y -c anaconda scipy
+conda install -y -c anaconda scikit-learn
+conda install -y -c anaconda pyyaml
+conda install -y -c conda-forge openmp
+conda install -y -c anaconda cython
+conda install -y -c anaconda networkx=2
 conda env config vars set PYTHONPATH=$PWD'/PythonEncrypt/'
 conda activate gnnunlock-env
