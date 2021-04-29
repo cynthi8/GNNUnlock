@@ -775,7 +775,7 @@ def verilogSynopsys(verilog_file_path):
 
     # Regex patterns to extract the module name and mapping from an instantiation
     regex_module_instantiation = r"^(\S+)\s+(\S+)\s+\((.*)\);"
-    regex_port_map = "\s*.(\S+?)\s*\(\s*(\S+)\s*\)"
+    regex_port_map = r"\s*.(\S+?)\s*\(\s*(\S+)\s*\)"
 
     # Design Ware Ports
     design_ware_input_ports = ['IN1', 'IN2', 'IN3', 'IN4', 'IN5', 'IN6', 'INP', 'S', 'S0', 'S1']
@@ -818,7 +818,7 @@ def verilogSynopsys(verilog_file_path):
                 gate_input = '1_b0'
             elif gate_input == "1'b1":
                 if '1_b1' not in circuit:
-                    primary_inputs.append('1_b1')
+                    circuit.add_node('1_b1', name='1_b1', type='INPUT')
                 gate_input = '1_b1'
             add_to_graph(gate_output, gate_type, [gate_input])
         else:
