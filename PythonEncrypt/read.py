@@ -787,7 +787,7 @@ def verilogSynopsys(verilog_file_path):
         'AO222X1'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'IN5', 'IN6'], 'outputs': ['Q']},
         'AO22X1'   : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['Q']},
         'AOI21X1'  : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['QN']},
-        'AOI221X1' : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['QN']},
+        'AOI221X1' : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'IN5'], 'outputs': ['QN']},
         'AOI222X1' : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'IN5', 'IN6'], 'outputs': ['QN']},
         'AOI22X1'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['QN']},
         'FADDX1'   : {'inputs': ['A', 'B', 'CI'], 'outputs': ['CO', 'S']},
