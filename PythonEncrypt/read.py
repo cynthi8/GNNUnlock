@@ -824,6 +824,10 @@ def verilogSynopsys(verilog_file_path):
     netlist = format_verilog_netlist(verilog_file_path)
     internal_signals = []
 
+    # Constant signals are introduced to the graph as inputs
+    circuit.add_node("1'b0", name="1'b0", type='INPUT')
+    circuit.add_node("1'b1", name="1'b1", type='INPUT')
+
     # Process each line in the netlist
     for line in netlist:
         line = line.strip()
@@ -850,15 +854,6 @@ def verilogSynopsys(verilog_file_path):
             gate_output = m.group(1)
             gate_input = m.group(2)
             gate_type = 'NBUFFX2'
-            # Constant signals are introduced to the graph as inputs
-            if gate_input == "1'b0":
-                if '1_b0' not in circuit:
-                    circuit.add_node('1_b0', name='1_b0', type='INPUT')
-                gate_input = '1_b0'
-            elif gate_input == "1'b1":
-                if '1_b1' not in circuit:
-                    circuit.add_node('1_b1', name='1_b1', type='INPUT')
-                gate_input = '1_b1'
             add_to_graph(gate_output, gate_type, [gate_input])
         else:
             # Handle module instantiation case
