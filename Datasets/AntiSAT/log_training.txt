@@ -1,0 +1,339 @@
+Loading training data..
+Done loading training data..
+>> layer highorderaggregator_1, dim: [44,128]
+>> layer highorderaggregator_2, dim: [384,128]
+>> layer highorderaggregator_3, dim: [384,128]
+>> layer highorderaggregator_4, dim: [128,2]
+sampling 200 subgraphs:   time = 0.223 sec
+[4mSTART PHASE    0[0m
+[1mEpoch    0[0m
+ TRAIN (Ep avg): loss = 0.7118	mic = 0.4640	mac = 0.3674	train time = 2.8755 sec
+[93m VALIDATION:     loss = 0.3128	mic = 0.8328	mac = 0.5334[0m
+  Saving models ...
+[1mEpoch    1[0m
+ TRAIN (Ep avg): loss = 0.2758	mic = 0.9364	mac = 0.6615	train time = 0.3913 sec
+[93m VALIDATION:     loss = 0.2466	mic = 0.8532	mac = 0.5501[0m
+  Saving models ...
+[1mEpoch    2[0m
+ TRAIN (Ep avg): loss = 0.2234	mic = 0.9363	mac = 0.6541	train time = 0.3359 sec
+[93m VALIDATION:     loss = 0.2095	mic = 0.8798	mac = 0.5802[0m
+  Saving models ...
+[1mEpoch    3[0m
+ TRAIN (Ep avg): loss = 0.1940	mic = 0.9415	mac = 0.6846	train time = 0.3813 sec
+[93m VALIDATION:     loss = 0.1579	mic = 0.9025	mac = 0.6415[0m
+  Saving models ...
+[1mEpoch    4[0m
+ TRAIN (Ep avg): loss = 0.1481	mic = 0.9475	mac = 0.7597	train time = 0.4841 sec
+[93m VALIDATION:     loss = 0.1135	mic = 0.9151	mac = 0.7220[0m
+  Saving models ...
+[1mEpoch    5[0m
+ TRAIN (Ep avg): loss = 0.1054	mic = 0.9666	mac = 0.8845	train time = 0.3592 sec
+[93m VALIDATION:     loss = 0.0881	mic = 0.9187	mac = 0.7351[0m
+  Saving models ...
+[1mEpoch    6[0m
+ TRAIN (Ep avg): loss = 0.0766	mic = 0.9781	mac = 0.9336	train time = 0.3361 sec
+[93m VALIDATION:     loss = 0.0740	mic = 0.9264	mac = 0.7479[0m
+  Saving models ...
+[1mEpoch    7[0m
+ TRAIN (Ep avg): loss = 0.0618	mic = 0.9838	mac = 0.9439	train time = 0.3345 sec
+[93m VALIDATION:     loss = 0.0700	mic = 0.9242	mac = 0.7481[0m
+[1mEpoch    8[0m
+ TRAIN (Ep avg): loss = 0.0529	mic = 0.9855	mac = 0.9524	train time = 0.2863 sec
+[93m VALIDATION:     loss = 0.0709	mic = 0.9238	mac = 0.7493[0m
+[1mEpoch    9[0m
+ TRAIN (Ep avg): loss = 0.0524	mic = 0.9856	mac = 0.9543	train time = 0.3024 sec
+[93m VALIDATION:     loss = 0.0602	mic = 0.9426	mac = 0.7874[0m
+  Saving models ...
+[1mEpoch   10[0m
+ TRAIN (Ep avg): loss = 0.0374	mic = 0.9895	mac = 0.9658	train time = 0.3205 sec
+[93m VALIDATION:     loss = 0.0498	mic = 0.9598	mac = 0.8270[0m
+  Saving models ...
+[1mEpoch   11[0m
+ TRAIN (Ep avg): loss = 0.0292	mic = 0.9910	mac = 0.9678	train time = 0.2987 sec
+[93m VALIDATION:     loss = 0.0444	mic = 0.9702	mac = 0.8592[0m
+  Saving models ...
+[1mEpoch   12[0m
+ TRAIN (Ep avg): loss = 0.0327	mic = 0.9916	mac = 0.9722	train time = 0.3564 sec
+[93m VALIDATION:     loss = 0.0407	mic = 0.9725	mac = 0.8628[0m
+  Saving models ...
+[1mEpoch   13[0m
+ TRAIN (Ep avg): loss = 0.0293	mic = 0.9914	mac = 0.9719	train time = 0.4352 sec
+[93m VALIDATION:     loss = 0.0375	mic = 0.9770	mac = 0.8768[0m
+  Saving models ...
+[1mEpoch   14[0m
+ TRAIN (Ep avg): loss = 0.0255	mic = 0.9933	mac = 0.9770	train time = 0.3736 sec
+[93m VALIDATION:     loss = 0.0347	mic = 0.9786	mac = 0.8790[0m
+  Saving models ...
+[1mEpoch   15[0m
+ TRAIN (Ep avg): loss = 0.0246	mic = 0.9925	mac = 0.9753	train time = 0.3771 sec
+[93m VALIDATION:     loss = 0.0315	mic = 0.9793	mac = 0.8842[0m
+  Saving models ...
+[1mEpoch   16[0m
+ TRAIN (Ep avg): loss = 0.0257	mic = 0.9922	mac = 0.9747	train time = 0.3202 sec
+[93m VALIDATION:     loss = 0.0287	mic = 0.9819	mac = 0.8987[0m
+  Saving models ...
+[1mEpoch   17[0m
+ TRAIN (Ep avg): loss = 0.0277	mic = 0.9916	mac = 0.9708	train time = 0.3162 sec
+[93m VALIDATION:     loss = 0.0271	mic = 0.9819	mac = 0.8973[0m
+[1mEpoch   18[0m
+ TRAIN (Ep avg): loss = 0.0261	mic = 0.9933	mac = 0.9764	train time = 0.2758 sec
+[93m VALIDATION:     loss = 0.0261	mic = 0.9819	mac = 0.8938[0m
+[1mEpoch   19[0m
+ TRAIN (Ep avg): loss = 0.0220	mic = 0.9943	mac = 0.9806	train time = 0.2885 sec
+[93m VALIDATION:     loss = 0.0252	mic = 0.9819	mac = 0.8973[0m
+[1mEpoch   20[0m
+ TRAIN (Ep avg): loss = 0.0212	mic = 0.9933	mac = 0.9778	train time = 0.2718 sec
+[93m VALIDATION:     loss = 0.0248	mic = 0.9825	mac = 0.8997[0m
+  Saving models ...
+[1mEpoch   21[0m
+ TRAIN (Ep avg): loss = 0.0172	mic = 0.9949	mac = 0.9825	train time = 0.3760 sec
+[93m VALIDATION:     loss = 0.0250	mic = 0.9825	mac = 0.8983[0m
+[1mEpoch   22[0m
+ TRAIN (Ep avg): loss = 0.0136	mic = 0.9966	mac = 0.9885	train time = 0.2932 sec
+[93m VALIDATION:     loss = 0.0263	mic = 0.9815	mac = 0.8915[0m
+[1mEpoch   23[0m
+ TRAIN (Ep avg): loss = 0.0170	mic = 0.9959	mac = 0.9856	train time = 0.5415 sec
+[93m VALIDATION:     loss = 0.0265	mic = 0.9819	mac = 0.8960[0m
+[1mEpoch   24[0m
+ TRAIN (Ep avg): loss = 0.0164	mic = 0.9959	mac = 0.9867	train time = 0.3739 sec
+[93m VALIDATION:     loss = 0.0278	mic = 0.9812	mac = 0.8977[0m
+[1mEpoch   25[0m
+ TRAIN (Ep avg): loss = 0.0127	mic = 0.9966	mac = 0.9878	train time = 0.3443 sec
+[93m VALIDATION:     loss = 0.0279	mic = 0.9815	mac = 0.8892[0m
+[1mEpoch   26[0m
+ TRAIN (Ep avg): loss = 0.0179	mic = 0.9960	mac = 0.9867	train time = 0.3364 sec
+[93m VALIDATION:     loss = 0.0277	mic = 0.9809	mac = 0.8837[0m
+[1mEpoch   27[0m
+ TRAIN (Ep avg): loss = 0.0123	mic = 0.9966	mac = 0.9885	train time = 0.4238 sec
+[93m VALIDATION:     loss = 0.0262	mic = 0.9831	mac = 0.9021[0m
+  Saving models ...
+[1mEpoch   28[0m
+ TRAIN (Ep avg): loss = 0.0172	mic = 0.9957	mac = 0.9852	train time = 0.3659 sec
+[93m VALIDATION:     loss = 0.0256	mic = 0.9838	mac = 0.9083[0m
+  Saving models ...
+[1mEpoch   29[0m
+ TRAIN (Ep avg): loss = 0.0142	mic = 0.9956	mac = 0.9857	train time = 0.3880 sec
+[93m VALIDATION:     loss = 0.0258	mic = 0.9828	mac = 0.8948[0m
+[1mEpoch   30[0m
+ TRAIN (Ep avg): loss = 0.0174	mic = 0.9959	mac = 0.9856	train time = 0.2998 sec
+[93m VALIDATION:     loss = 0.0267	mic = 0.9822	mac = 0.8892[0m
+[1mEpoch   31[0m
+ TRAIN (Ep avg): loss = 0.0149	mic = 0.9957	mac = 0.9841	train time = 0.3149 sec
+[93m VALIDATION:     loss = 0.0235	mic = 0.9831	mac = 0.9014[0m
+[1mEpoch   32[0m
+ TRAIN (Ep avg): loss = 0.0109	mic = 0.9961	mac = 0.9871	train time = 0.2627 sec
+[93m VALIDATION:     loss = 0.0236	mic = 0.9841	mac = 0.9087[0m
+  Saving models ...
+[1mEpoch   33[0m
+ TRAIN (Ep avg): loss = 0.0105	mic = 0.9976	mac = 0.9913	train time = 0.3622 sec
+[93m VALIDATION:     loss = 0.0236	mic = 0.9825	mac = 0.8983[0m
+[1mEpoch   34[0m
+ TRAIN (Ep avg): loss = 0.0090	mic = 0.9969	mac = 0.9899	train time = 0.3132 sec
+[93m VALIDATION:     loss = 0.0243	mic = 0.9819	mac = 0.8931[0m
+[1mEpoch   35[0m
+ TRAIN (Ep avg): loss = 0.0120	mic = 0.9961	mac = 0.9866	train time = 0.3179 sec
+[93m VALIDATION:     loss = 0.0243	mic = 0.9815	mac = 0.8915[0m
+[1mEpoch   36[0m
+ TRAIN (Ep avg): loss = 0.0090	mic = 0.9978	mac = 0.9922	train time = 0.3183 sec
+[93m VALIDATION:     loss = 0.0245	mic = 0.9838	mac = 0.9083[0m
+[1mEpoch   37[0m
+ TRAIN (Ep avg): loss = 0.0086	mic = 0.9971	mac = 0.9910	train time = 0.2983 sec
+[93m VALIDATION:     loss = 0.0244	mic = 0.9854	mac = 0.9172[0m
+  Saving models ...
+[1mEpoch   38[0m
+ TRAIN (Ep avg): loss = 0.0134	mic = 0.9959	mac = 0.9864	train time = 0.3844 sec
+[93m VALIDATION:     loss = 0.0249	mic = 0.9825	mac = 0.8997[0m
+[1mEpoch   39[0m
+ TRAIN (Ep avg): loss = 0.0108	mic = 0.9974	mac = 0.9910	train time = 0.3090 sec
+[93m VALIDATION:     loss = 0.0247	mic = 0.9828	mac = 0.9044[0m
+[1mEpoch   40[0m
+ TRAIN (Ep avg): loss = 0.0086	mic = 0.9969	mac = 0.9886	train time = 0.3449 sec
+[93m VALIDATION:     loss = 0.0258	mic = 0.9838	mac = 0.9089[0m
+[1mEpoch   41[0m
+ TRAIN (Ep avg): loss = 0.0069	mic = 0.9976	mac = 0.9916	train time = 0.3325 sec
+[93m VALIDATION:     loss = 0.0278	mic = 0.9812	mac = 0.8900[0m
+[1mEpoch   42[0m
+ TRAIN (Ep avg): loss = 0.0047	mic = 0.9988	mac = 0.9959	train time = 0.3531 sec
+[93m VALIDATION:     loss = 0.0289	mic = 0.9793	mac = 0.8778[0m
+[1mEpoch   43[0m
+ TRAIN (Ep avg): loss = 0.0168	mic = 0.9964	mac = 0.9876	train time = 0.3161 sec
+[93m VALIDATION:     loss = 0.0283	mic = 0.9786	mac = 0.8774[0m
+[1mEpoch   44[0m
+ TRAIN (Ep avg): loss = 0.0053	mic = 0.9979	mac = 0.9926	train time = 0.3061 sec
+[93m VALIDATION:     loss = 0.0291	mic = 0.9776	mac = 0.8722[0m
+[1mEpoch   45[0m
+ TRAIN (Ep avg): loss = 0.0060	mic = 0.9986	mac = 0.9951	train time = 0.3490 sec
+[93m VALIDATION:     loss = 0.0277	mic = 0.9802	mac = 0.8921[0m
+[1mEpoch   46[0m
+ TRAIN (Ep avg): loss = 0.0057	mic = 0.9986	mac = 0.9952	train time = 0.3518 sec
+[93m VALIDATION:     loss = 0.0300	mic = 0.9780	mac = 0.8911[0m
+[1mEpoch   47[0m
+ TRAIN (Ep avg): loss = 0.0117	mic = 0.9969	mac = 0.9895	train time = 0.3319 sec
+[93m VALIDATION:     loss = 0.0306	mic = 0.9750	mac = 0.8798[0m
+[1mEpoch   48[0m
+ TRAIN (Ep avg): loss = 0.0103	mic = 0.9963	mac = 0.9878	train time = 0.3025 sec
+[93m VALIDATION:     loss = 0.0293	mic = 0.9757	mac = 0.8789[0m
+[1mEpoch   49[0m
+ TRAIN (Ep avg): loss = 0.0103	mic = 0.9959	mac = 0.9859	train time = 0.3249 sec
+[93m VALIDATION:     loss = 0.0309	mic = 0.9744	mac = 0.8774[0m
+[1mEpoch   50[0m
+ TRAIN (Ep avg): loss = 0.0149	mic = 0.9959	mac = 0.9867	train time = 0.6410 sec
+[93m VALIDATION:     loss = 0.0276	mic = 0.9786	mac = 0.8886[0m
+[1mEpoch   51[0m
+ TRAIN (Ep avg): loss = 0.0093	mic = 0.9971	mac = 0.9896	train time = 0.5423 sec
+[93m VALIDATION:     loss = 0.0267	mic = 0.9776	mac = 0.8748[0m
+[1mEpoch   52[0m
+ TRAIN (Ep avg): loss = 0.0074	mic = 0.9976	mac = 0.9908	train time = 0.3617 sec
+[93m VALIDATION:     loss = 0.0258	mic = 0.9793	mac = 0.8835[0m
+[1mEpoch   53[0m
+ TRAIN (Ep avg): loss = 0.0094	mic = 0.9973	mac = 0.9914	train time = 0.3735 sec
+[93m VALIDATION:     loss = 0.0266	mic = 0.9802	mac = 0.8961[0m
+[1mEpoch   54[0m
+ TRAIN (Ep avg): loss = 0.0085	mic = 0.9974	mac = 0.9915	train time = 0.3671 sec
+[93m VALIDATION:     loss = 0.0271	mic = 0.9789	mac = 0.8906[0m
+[1mEpoch   55[0m
+ TRAIN (Ep avg): loss = 0.0080	mic = 0.9966	mac = 0.9887	train time = 0.3469 sec
+[93m VALIDATION:     loss = 0.0259	mic = 0.9783	mac = 0.8784[0m
+[1mEpoch   56[0m
+ TRAIN (Ep avg): loss = 0.0066	mic = 0.9981	mac = 0.9935	train time = 0.3391 sec
+[93m VALIDATION:     loss = 0.0292	mic = 0.9767	mac = 0.8586[0m
+[1mEpoch   57[0m
+ TRAIN (Ep avg): loss = 0.0094	mic = 0.9961	mac = 0.9861	train time = 0.2711 sec
+[93m VALIDATION:     loss = 0.0271	mic = 0.9786	mac = 0.8757[0m
+[1mEpoch   58[0m
+ TRAIN (Ep avg): loss = 0.0077	mic = 0.9976	mac = 0.9917	train time = 0.2875 sec
+[93m VALIDATION:     loss = 0.0275	mic = 0.9802	mac = 0.8955[0m
+[1mEpoch   59[0m
+ TRAIN (Ep avg): loss = 0.0103	mic = 0.9964	mac = 0.9879	train time = 0.2788 sec
+[93m VALIDATION:     loss = 0.0270	mic = 0.9796	mac = 0.8946[0m
+[1mEpoch   60[0m
+ TRAIN (Ep avg): loss = 0.0089	mic = 0.9969	mac = 0.9898	train time = 0.4488 sec
+[93m VALIDATION:     loss = 0.0258	mic = 0.9812	mac = 0.9009[0m
+[1mEpoch   61[0m
+ TRAIN (Ep avg): loss = 0.0062	mic = 0.9978	mac = 0.9921	train time = 0.3033 sec
+[93m VALIDATION:     loss = 0.0269	mic = 0.9786	mac = 0.8886[0m
+[1mEpoch   62[0m
+ TRAIN (Ep avg): loss = 0.0042	mic = 0.9983	mac = 0.9943	train time = 0.2845 sec
+[93m VALIDATION:     loss = 0.0279	mic = 0.9773	mac = 0.8840[0m
+[1mEpoch   63[0m
+ TRAIN (Ep avg): loss = 0.0098	mic = 0.9971	mac = 0.9903	train time = 0.2785 sec
+[93m VALIDATION:     loss = 0.0290	mic = 0.9767	mac = 0.8841[0m
+[1mEpoch   64[0m
+ TRAIN (Ep avg): loss = 0.0061	mic = 0.9978	mac = 0.9925	train time = 0.3328 sec
+[93m VALIDATION:     loss = 0.0302	mic = 0.9770	mac = 0.8867[0m
+[1mEpoch   65[0m
+ TRAIN (Ep avg): loss = 0.0063	mic = 0.9978	mac = 0.9926	train time = 0.3201 sec
+[93m VALIDATION:     loss = 0.0291	mic = 0.9783	mac = 0.8886[0m
+[1mEpoch   66[0m
+ TRAIN (Ep avg): loss = 0.0067	mic = 0.9981	mac = 0.9936	train time = 0.3018 sec
+[93m VALIDATION:     loss = 0.0288	mic = 0.9786	mac = 0.8872[0m
+[1mEpoch   67[0m
+ TRAIN (Ep avg): loss = 0.0055	mic = 0.9981	mac = 0.9935	train time = 0.3068 sec
+[93m VALIDATION:     loss = 0.0291	mic = 0.9786	mac = 0.8858[0m
+[1mEpoch   68[0m
+ TRAIN (Ep avg): loss = 0.0035	mic = 0.9988	mac = 0.9958	train time = 0.3704 sec
+[93m VALIDATION:     loss = 0.0296	mic = 0.9786	mac = 0.8879[0m
+[1mEpoch   69[0m
+ TRAIN (Ep avg): loss = 0.0039	mic = 0.9993	mac = 0.9976	train time = 0.2960 sec
+[93m VALIDATION:     loss = 0.0295	mic = 0.9776	mac = 0.8817[0m
+[1mEpoch   70[0m
+ TRAIN (Ep avg): loss = 0.0039	mic = 0.9993	mac = 0.9975	train time = 0.2736 sec
+[93m VALIDATION:     loss = 0.0306	mic = 0.9793	mac = 0.8933[0m
+[1mEpoch   71[0m
+ TRAIN (Ep avg): loss = 0.0086	mic = 0.9983	mac = 0.9944	train time = 0.2750 sec
+[93m VALIDATION:     loss = 0.0315	mic = 0.9783	mac = 0.8893[0m
+[1mEpoch   72[0m
+ TRAIN (Ep avg): loss = 0.0063	mic = 0.9978	mac = 0.9929	train time = 0.2794 sec
+[93m VALIDATION:     loss = 0.0317	mic = 0.9783	mac = 0.8879[0m
+[1mEpoch   73[0m
+ TRAIN (Ep avg): loss = 0.0042	mic = 0.9990	mac = 0.9968	train time = 0.2682 sec
+[93m VALIDATION:     loss = 0.0326	mic = 0.9776	mac = 0.8825[0m
+[1mEpoch   74[0m
+ TRAIN (Ep avg): loss = 0.0049	mic = 0.9981	mac = 0.9931	train time = 0.2862 sec
+[93m VALIDATION:     loss = 0.0348	mic = 0.9763	mac = 0.8764[0m
+[1mEpoch   75[0m
+ TRAIN (Ep avg): loss = 0.0071	mic = 0.9979	mac = 0.9930	train time = 0.2777 sec
+[93m VALIDATION:     loss = 0.0368	mic = 0.9747	mac = 0.8715[0m
+[1mEpoch   76[0m
+ TRAIN (Ep avg): loss = 0.0057	mic = 0.9983	mac = 0.9939	train time = 0.2732 sec
+[93m VALIDATION:     loss = 0.0386	mic = 0.9734	mac = 0.8687[0m
+[1mEpoch   77[0m
+ TRAIN (Ep avg): loss = 0.0043	mic = 0.9988	mac = 0.9958	train time = 0.2726 sec
+[93m VALIDATION:     loss = 0.0376	mic = 0.9738	mac = 0.8707[0m
+[1mEpoch   78[0m
+ TRAIN (Ep avg): loss = 0.0060	mic = 0.9983	mac = 0.9942	train time = 0.2941 sec
+[93m VALIDATION:     loss = 0.0361	mic = 0.9744	mac = 0.8739[0m
+[1mEpoch   79[0m
+ TRAIN (Ep avg): loss = 0.0044	mic = 0.9990	mac = 0.9966	train time = 0.2673 sec
+[93m VALIDATION:     loss = 0.0358	mic = 0.9738	mac = 0.8729[0m
+[1mEpoch   80[0m
+ TRAIN (Ep avg): loss = 0.0036	mic = 0.9983	mac = 0.9944	train time = 0.2646 sec
+[93m VALIDATION:     loss = 0.0356	mic = 0.9725	mac = 0.8681[0m
+[1mEpoch   81[0m
+ TRAIN (Ep avg): loss = 0.0054	mic = 0.9979	mac = 0.9924	train time = 0.2803 sec
+[93m VALIDATION:     loss = 0.0341	mic = 0.9734	mac = 0.8724[0m
+[1mEpoch   82[0m
+ TRAIN (Ep avg): loss = 0.0048	mic = 0.9988	mac = 0.9961	train time = 0.2585 sec
+[93m VALIDATION:     loss = 0.0335	mic = 0.9741	mac = 0.8734[0m
+[1mEpoch   83[0m
+ TRAIN (Ep avg): loss = 0.0047	mic = 0.9988	mac = 0.9961	train time = 0.2928 sec
+[93m VALIDATION:     loss = 0.0330	mic = 0.9754	mac = 0.8769[0m
+[1mEpoch   84[0m
+ TRAIN (Ep avg): loss = 0.0048	mic = 0.9988	mac = 0.9958	train time = 0.2655 sec
+[93m VALIDATION:     loss = 0.0335	mic = 0.9757	mac = 0.8768[0m
+[1mEpoch   85[0m
+ TRAIN (Ep avg): loss = 0.0060	mic = 0.9978	mac = 0.9925	train time = 0.3057 sec
+[93m VALIDATION:     loss = 0.0340	mic = 0.9773	mac = 0.8840[0m
+[1mEpoch   86[0m
+ TRAIN (Ep avg): loss = 0.0049	mic = 0.9983	mac = 0.9944	train time = 0.3155 sec
+[93m VALIDATION:     loss = 0.0339	mic = 0.9767	mac = 0.8777[0m
+[1mEpoch   87[0m
+ TRAIN (Ep avg): loss = 0.0035	mic = 0.9988	mac = 0.9957	train time = 0.3870 sec
+[93m VALIDATION:     loss = 0.0346	mic = 0.9763	mac = 0.8749[0m
+[1mEpoch   88[0m
+ TRAIN (Ep avg): loss = 0.0070	mic = 0.9981	mac = 0.9936	train time = 0.4447 sec
+[93m VALIDATION:     loss = 0.0338	mic = 0.9770	mac = 0.8783[0m
+[1mEpoch   89[0m
+ TRAIN (Ep avg): loss = 0.0037	mic = 0.9988	mac = 0.9958	train time = 0.3332 sec
+[93m VALIDATION:     loss = 0.0341	mic = 0.9763	mac = 0.8779[0m
+[1mEpoch   90[0m
+ TRAIN (Ep avg): loss = 0.0028	mic = 0.9990	mac = 0.9968	train time = 0.3653 sec
+[93m VALIDATION:     loss = 0.0341	mic = 0.9789	mac = 0.8893[0m
+[1mEpoch   91[0m
+ TRAIN (Ep avg): loss = 0.0060	mic = 0.9981	mac = 0.9932	train time = 0.4148 sec
+[93m VALIDATION:     loss = 0.0330	mic = 0.9799	mac = 0.8878[0m
+[1mEpoch   92[0m
+ TRAIN (Ep avg): loss = 0.0037	mic = 0.9988	mac = 0.9960	train time = 0.3001 sec
+[93m VALIDATION:     loss = 0.0339	mic = 0.9799	mac = 0.8878[0m
+[1mEpoch   93[0m
+ TRAIN (Ep avg): loss = 0.0024	mic = 0.9993	mac = 0.9974	train time = 0.2708 sec
+[93m VALIDATION:     loss = 0.0347	mic = 0.9796	mac = 0.8856[0m
+[1mEpoch   94[0m
+ TRAIN (Ep avg): loss = 0.0066	mic = 0.9983	mac = 0.9943	train time = 0.2787 sec
+[93m VALIDATION:     loss = 0.0325	mic = 0.9806	mac = 0.8949[0m
+[1mEpoch   95[0m
+ TRAIN (Ep avg): loss = 0.0018	mic = 0.9993	mac = 0.9976	train time = 0.2667 sec
+[93m VALIDATION:     loss = 0.0317	mic = 0.9799	mac = 0.8893[0m
+[1mEpoch   96[0m
+ TRAIN (Ep avg): loss = 0.0078	mic = 0.9974	mac = 0.9904	train time = 0.2793 sec
+[93m VALIDATION:     loss = 0.0313	mic = 0.9793	mac = 0.8769[0m
+[1mEpoch   97[0m
+ TRAIN (Ep avg): loss = 0.0040	mic = 0.9990	mac = 0.9966	train time = 0.2959 sec
+[93m VALIDATION:     loss = 0.0326	mic = 0.9786	mac = 0.8694[0m
+[1mEpoch   98[0m
+ TRAIN (Ep avg): loss = 0.0071	mic = 0.9966	mac = 0.9886	train time = 0.2723 sec
+[93m VALIDATION:     loss = 0.0302	mic = 0.9796	mac = 0.8793[0m
+[1mEpoch   99[0m
+ TRAIN (Ep avg): loss = 0.0036	mic = 0.9983	mac = 0.9941	train time = 0.2752 sec
+[93m VALIDATION:     loss = 0.0291	mic = 0.9786	mac = 0.8774[0m
+[93mOptimization Finished![0m
+[91mFull validation (Epoch   37): 
+  F1_Micro = 0.9854	F1_Macro = 0.9172[0m
+[91mFull test stats: 
+  F1_Micro = 0.9937	F1_Macro = 0.9678[0m
+[91mTotal training time:  35.64 sec[0m
+Test Confusion Matrix (rows are true labels):
+[[5690   17]
+ [  21  292]]
+These labels were found: [0, 1]
+F1 Scores: [(0, 0.9966719215274128), (1, 0.9389067524115755)]

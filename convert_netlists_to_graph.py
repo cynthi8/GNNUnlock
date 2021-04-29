@@ -8,8 +8,9 @@ from collections import defaultdict
 
 import read
 
-netlists_dir = 'Datasets'
+netlists_dir = 'Datasets/SFLL_HD_2'
 output_dir = 'Graph'
+locking_type = 'SFLL'
 
 # Variables to store the final output
 full_matrixs = []
@@ -20,8 +21,9 @@ feats = defaultdict(lambda: defaultdict(int))
 
 # Class definition for gate nodes
 default_class = 'main'
-class_key_mapping = {'main': 0, 'flip': 1}
-#class_key_mapping = {'main': 0, 'perturb': 1, 'restore': 2}
+class_key_mapping = {'main': 0, 'perturb': 1, 'restore': 2}
+if locking_type == 'AntiSAT':
+    class_key_mapping = {'main': 0, 'flip': 1}
 
 # Nodes with these types are not gates and should excluded from the graph
 primary_signal_types = ['INPUT', 'KEY_INPUT', 'OUTPUT']
