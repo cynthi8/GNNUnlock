@@ -5,8 +5,7 @@ import scipy.sparse as sp
 import numpy as np
 import networkx as nx
 from collections import defaultdict
-import sys
-sys.path.append("PythonEncrypt")
+
 import read
 
 netlists_dir = 'Datasets'
