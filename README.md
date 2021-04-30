@@ -1,9 +1,9 @@
 # GNNUnlock
 *Reproduction of https://github.com/DfX-NYUAD/GNNUnlock*
 
-This project reproduces the steps of _Lilas Alrahis ect al._ in **GNNUnlock** up to evaluating the GNN (Graph Neural Network).
+This project reproduces the steps of _Lilas Alrahis et al._ in **GNNUnlock** up to evaluating the GNN (Graph Neural Network).
 
-[SFLL-HD](#sfll-hd) explains that I was unable to reproduce the success of the original authors for netlists locked with SFLL-HD and [Cross Compilation](#cross-compilation) explains an essential shortcoming with **GNNUnlock**.
+[SFLL-HD](#sfll-hd) explains that I was **unable to reproduce the success** of the original authors **for netlists locked with SFLL-HD** and [Cross Compilation](#cross-compilation) explains an **essential shortcoming** with **GNNUnlock**.
 
 ## SFLL-HD 
 
@@ -53,4 +53,4 @@ _Remain in the `gnnunlock-env` anaconda enviroment while working within this rep
 7. Train GNN. **`trainGNN.sh`**
 
 ### Epochs Trained
-Adjust the _phase: end_ parameter in [DATE21.yml](DATE21.yml) to increase the training time. Data were collected with `end: 2000` to be consistant with **GNNUnlock**.
+Adjust the `phase: end` parameter in [DATE21.yml](DATE21.yml) to increase the training time. Data were collected with `end: 2000` to be consistant with **GNNUnlock**.
