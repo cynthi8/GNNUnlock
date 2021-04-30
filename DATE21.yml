@@ -11,7 +11,7 @@ params:
     weight_decay: 0.0
     sample_coverage: 50
 phase:
-  - end: 100
+  - end: 2000
     sampler: 'rw'
     depth: 2
     num_root: 3000
