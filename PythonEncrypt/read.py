@@ -845,9 +845,9 @@ def verilogSynopsys(verilog_file_path):
     netlist = format_verilog_netlist(verilog_file_path)
     internal_signals = []
 
-    # Constant signals are introduced to the graph as inputs
-    circuit.add_node("1'b0", name="1'b0", type='INPUT')
-    circuit.add_node("1'b1", name="1'b1", type='INPUT')
+    # Constant signals are introduced to the graph as CONST nodes
+    circuit.add_node("1'b0", name="1'b0", type='CONST0')
+    circuit.add_node("1'b1", name="1'b1", type='CONST1')
 
     # Process each line in the netlist
     for line in netlist:
