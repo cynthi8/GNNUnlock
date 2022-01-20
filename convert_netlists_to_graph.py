@@ -5,10 +5,11 @@ import scipy.sparse as sp
 import numpy as np
 import networkx as nx
 from collections import defaultdict
+from itertools import chain
 
 import read
 
-netlists_dir = 'Datasets/SFLL_HD_2'
+netlists_dir = '/home/erin/GNNUnlock/Netlist_to_graph/Circuits_datasets/sfll_class/'
 output_dir = 'Graph'
 locking_type = 'SFLL'
 
@@ -25,20 +26,25 @@ class_key_mapping = {'main': 0, 'perturb': 1, 'restore': 2}
 if locking_type == 'AntiSAT':
     class_key_mapping = {'main': 0, 'flip': 1}
 
-# Nodes with these types are not gates and should excluded from the graph
-primary_signal_types = ['INPUT', 'KEY_INPUT', 'OUTPUT']
+# Allow for different gate libraries
+with open("lilas_gate_library.json") as f:
+    gate_library = json.load(f)
+gate_type = gate_library['gate_type']
 
-# We ignore the bit width of the gates and just focus on functionality
-trimmed_gate_types = ['AND', 'AO', 'AOI', 'FADD', 'INV', 'MUX', 'NAND', 'NBUFF', 'NOR', 'OA', 'OAI', 'OR', 'XNOR', 'XOR', 'CONST0', 'CONST1']
-def TrimGateType(gate_type):
-    for tgt in trimmed_gate_types:
-        if gate_type.startswith(tgt):
-            return tgt
-    raise ValueError('\n Unrecognized gate type - ' + gate_type)
+# Nodes with these types are not gates and should excluded from the graph
+primary_signal_types = ['INPUT','OUTPUT', 'KEY_INPUT']
+ignored_types = primary_signal_types + [gate_library['const0_type'], gate_library['const1_type']]
+
+# Alias lookup for Lilas-style role and classes names
+alias_role_names = {'Test' : 'te', 'Train' : 'tr', 'Validate' : 'va'}
+alias_class_names = {'perturbb' : 'perturb',}
 
 # Feature ordering
-feature_list = primary_signal_types + ['in_degree', 'out_degree'] + trimmed_gate_types
-feature_mapping = {feature: key for key, feature in enumerate(feature_list)}
+feature_list = primary_signal_types + gate_library['types'][0:17] + ['in_degree', 'out_degree'] + gate_library['types'][17:]
+#feature_mapping = {feature: key for key, feature in enumerate(feature_list)}
+
+with open("lilas_feature_mapping.json") as f:
+    feature_mapping = json.load(f)
 
 # Keep track of the node index in the mega graph of all netlists
 base_index = 0
@@ -57,12 +63,17 @@ for root, dirs, files in os.walk(netlists_dir):
 
             # Extract the role from the file name prefix
             role = file_name.split('_')[0]
+            if role in alias_role_names:
+                role = alias_role_names[role]
             print('Role:', role)
             if not role in roles:
-                raise ValueError('\n Unrecognized graph role -' + role + ' from\n' + file_name)
+                raise ValueError('\n Unrecognized graph role - ' + role + ' from\n' + file_name)
 
             # Relabel the gate nodes to integers and update the base index
-            gate_nodes = [node for node in G.nodes if not G.nodes[node]['type'] in primary_signal_types]
+            gate_nodes = [node for node in G.nodes if not G.nodes[node]['type'] in ignored_types]
+            with open('gate_nodes.txt', 'w') as f:
+                for gn in gate_nodes:
+                    f.write(f'{gn}\n')
             relabel_mapping = {old_label:(new_label + base_index) for new_label, old_label in enumerate(gate_nodes)}
             base_index += len(relabel_mapping)
             nx.relabel.relabel_nodes(G, relabel_mapping, copy=False)
@@ -79,8 +90,10 @@ for root, dirs, files in os.walk(netlists_dir):
                 m = re.search(regex_node_class, node_name)
                 if m:
                     node_class = m.group(1)
+                    if node_class in alias_class_names:
+                        node_class = alias_class_names[node_class]
                     if not node_class in class_key_mapping:
-                        raise ValueError('\n Unrecognized node class -' + node_class + ' from\n' + node_name)
+                        raise ValueError('\n Unrecognized node class - ' + node_class + ' from\n' + node_name)
                 class_map[node] = class_key_mapping[node_class]
 
                 # Extract connectivity degree
@@ -88,7 +101,7 @@ for root, dirs, files in os.walk(netlists_dir):
                 feats[node]['out_degree'] = G.out_degree(node)
 
                 # Extract PI, KI, PO connectivity count
-                for neighbor in G.neighbors(node):
+                for neighbor in chain(G.predecessors(node), G.successors(node)):
                     neighbor_type = G.nodes[neighbor]['type']
                     if neighbor_type in primary_signal_types:
                         feats[node][neighbor_type] += 1
@@ -98,8 +111,8 @@ for root, dirs, files in os.walk(netlists_dir):
                     neighbor_type = G.nodes[neighbor]['type']
                     if neighbor_type in primary_signal_types:
                         continue
-                    neighbor_type_trimmed = TrimGateType(neighbor_type)
-                    feats[node][neighbor_type_trimmed] += 1
+                    neighbor_gate_type = gate_type[neighbor_type]
+                    feats[node][neighbor_gate_type] += 1
 
             # Convert into an undirected graph for GNN
             G = G.to_undirected()

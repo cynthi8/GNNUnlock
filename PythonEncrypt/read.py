@@ -778,7 +778,7 @@ def verilogSynopsys(verilog_file_path):
     regex_port_map = r"\s*.(\S+?)\s*\(\s*(\S+)\s*\)"
 
     # Design Ware Ports
-    design_ware_library = {
+    design_ware_ports = {
         'AND2X1'   : {'inputs': ['IN1', 'IN2'], 'outputs': ['Q']},
         'AND2X2'   : {'inputs': ['IN1', 'IN2'], 'outputs': ['Q']},
         'AND2X4'   : {'inputs': ['IN1', 'IN2'], 'outputs': ['Q']},
@@ -841,13 +841,17 @@ def verilogSynopsys(verilog_file_path):
         'XOR3X1'   : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['Q']}
     }
 
+    import json 
+    with open("lilas_gate_library.json") as f:
+        library = json.load(f)
+    gate_ports = library['gate_ports']
+    assign_gate = library['assign_gate']
+    const0_type = library['const0_type']
+    const1_type = library['const1_type']
+
     # Not-Global variables
     netlist = format_verilog_netlist(verilog_file_path)
     internal_signals = []
-
-    # Constant signals are introduced to the graph as CONST nodes
-    circuit.add_node("1'b0", name="1'b0", type='CONST0')
-    circuit.add_node("1'b1", name="1'b1", type='CONST1')
 
     # Process each line in the netlist
     for line in netlist:
@@ -874,8 +878,13 @@ def verilogSynopsys(verilog_file_path):
             m = re.search(regex_assign, line) 
             gate_output = m.group(1)
             gate_input = m.group(2)
-            gate_type = 'NBUFFX2'
-            add_to_graph(gate_output, gate_type, [gate_input])
+            if gate_input == "1'b0":
+                add_to_graph(gate_output, const0_type, [])
+            elif gate_input == "1'b1":
+                add_to_graph(gate_output, const1_type, [])
+            else:
+                # Assign to wire (use default buffer gate)
+                add_to_graph(gate_output, assign_gate, [gate_input])
         else:
             # Handle module instantiation case
             m = re.search(regex_module_instantiation, line)
@@ -889,10 +898,10 @@ def verilogSynopsys(verilog_file_path):
                 m = re.search(regex_port_map, port_map)
                 internal_port = m.group(1)
                 external_port = m.group(2)
-                if internal_port in design_ware_library[module_name]['inputs']:
-                    gate_inputs.append(external_port)
-                elif internal_port in design_ware_library[module_name]['outputs']:
+                if internal_port in gate_ports[module_name]['outputs']:
                     gate_outputs.append(external_port)
+                elif internal_port in gate_ports[module_name]['inputs']:
+                    gate_inputs.append(external_port)
                 else:
                     # Print out a suggested mapping and raise an error
                     missing_ports = []
