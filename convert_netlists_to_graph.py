@@ -106,8 +106,15 @@ for root, dirs, files in os.walk(netlists_dir):
                     if neighbor_type in primary_signal_types:
                         feats[node][neighbor_type] += 1
 
-                # Extract 2-hop gate neighborhood count 
-                for neighbor in nx.generators.ego.ego_graph(G, node, radius=2, center=True, undirected=True, distance=None):
+                # Extract 2-hop gate neighborhood count (use 2-hop successor and predecessor cone, not true neighborhood)
+                cone = set([node])
+                cone.update(G.successors(node))
+                for succ in G.successors(node):
+                    cone.update(G.successors(succ))
+                cone.update(G.predecessors(node))
+                for pred in G.predecessors(node):
+                    cone.update(G.predecessors(pred))
+                for neighbor in cone:
                     neighbor_type = G.nodes[neighbor]['type']
                     if neighbor_type in primary_signal_types:
                         continue
