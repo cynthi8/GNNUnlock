@@ -121,11 +121,11 @@ for root, dirs, files in os.walk(netlists_dir):
                     neighbor_gate_type = gate_type[neighbor_type]
                     feats[node][neighbor_gate_type] += 1
 
-            # Convert into an undirected graph for GNN
-            G = G.to_undirected()
-
             # Add the gate nodes to the role dict
             roles[role].extend(list(H.nodes))
+
+            # Convert into an undirected graph for GNN
+            H = H.to_undirected()
 
             # Add the adjacency matrix to our list
             matrix = nx.convert_matrix.to_scipy_sparse_matrix(H, dtype=bool, format='coo')
