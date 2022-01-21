@@ -759,11 +759,11 @@ def verilogSynopsys(verilog_file_path):
     node_groups_to_contract = [] # Gates with multiple outputs (like ADDF) will be contracted at the end
 
     # Function to add node and connection to graph
-    def add_to_graph(gate_output, gate_type, gate_inputs):
+    def add_to_graph(gate_output, gate_type, gate_inputs, gate_name):
         nonlocal circuit, edge_list
 
         if gate_output not in circuit:
-            circuit.add_node(gate_output, name=gate_output, type=gate_type)
+            circuit.add_node(gate_output, name=gate_name, type=gate_type)
         else:
             if circuit.nodes[gate_output]['type'] != gate_type:
                 raise ValueError("Gate type mismatch on " + gate_output + " - " + circuit.nodes[gate_output]['type'] + " and " + gate_type)
@@ -882,16 +882,17 @@ def verilogSynopsys(verilog_file_path):
             gate_output = m.group(1)
             gate_input = m.group(2)
             if gate_input == "1'b0":
-                add_to_graph(gate_output, const0_type, [])
+                add_to_graph(gate_output, const0_type, [], gate_output)
             elif gate_input == "1'b1":
-                add_to_graph(gate_output, const1_type, [])
+                add_to_graph(gate_output, const1_type, [], gate_output)
             else:
                 # Assign to wire (use default buffer gate)
-                add_to_graph(gate_output, assign_gate, [gate_input])
+                add_to_graph(gate_output, assign_gate, [gate_input], gate_output)
         else:
             # Handle module instantiation case
             m = re.search(regex_module_instantiation, line)
             module_name = m.group(1)
+            instance_name = m.group(2)
             port_mapping = m.group(3)
 
             # Extract the input and output gate signals from the instantiation mapping
@@ -919,7 +920,7 @@ def verilogSynopsys(verilog_file_path):
 
             # For each output of this gate, add a node
             for gate_output in gate_outputs:
-                add_to_graph(gate_output, module_name, gate_inputs)
+                add_to_graph(gate_output, module_name, gate_inputs, instance_name)
 
             # Keep track of multi-output gates to contract 
             if len(gate_outputs) > 1:
