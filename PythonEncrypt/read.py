@@ -26,6 +26,8 @@ __status__ = "Development"
 
 
 # Imported packages
+from os import rename
+from platform import node
 import re
 import networkx as nx
 import random
@@ -754,6 +756,7 @@ def verilogSynopsys(verilog_file_path):
     # Global variables
     circuit = nx.DiGraph()
     edge_list = []
+    node_groups_to_contract = [] # Gates with multiple outputs (like ADDF) will be contracted at the end
 
     # Function to add node and connection to graph
     def add_to_graph(gate_output, gate_type, gate_inputs):
@@ -918,9 +921,18 @@ def verilogSynopsys(verilog_file_path):
             for gate_output in gate_outputs:
                 add_to_graph(gate_output, module_name, gate_inputs)
 
+            # Keep track of multi-output gates to contract 
+            if len(gate_outputs) > 1:
+                node_groups_to_contract.append(gate_outputs)
+
     for internal_signal in internal_signals:
         assert internal_signal in circuit
         
     circuit.add_edges_from(edge_list)
+    for node_group in node_groups_to_contract:
+        new_node_label = '_'.join(node_group)
+        for additional_node in node_group[1:]:
+            nx.algorithms.minors.contracted_nodes(circuit, node_group[0], additional_node, copy=False)
+        nx.relabel.relabel_nodes(circuit, {node_group[0] : new_node_label}, copy=False)
     return circuit
 
