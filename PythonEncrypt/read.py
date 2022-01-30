@@ -855,6 +855,7 @@ def verilogSynopsys(verilog_file_path):
     # Not-Global variables
     netlist = format_verilog_netlist(verilog_file_path)
     internal_signals = []
+    assign_count = 0
 
     # Process each line in the netlist
     for line in netlist:
@@ -881,13 +882,15 @@ def verilogSynopsys(verilog_file_path):
             m = re.search(regex_assign, line) 
             gate_output = m.group(1)
             gate_input = m.group(2)
+            gate_name = 'assign_' + str(assign_count)
             if gate_input == "1'b0":
-                add_to_graph(gate_output, const0_type, [], gate_output)
+                add_to_graph(gate_output, const0_type, [], gate_name)
             elif gate_input == "1'b1":
-                add_to_graph(gate_output, const1_type, [], gate_output)
+                add_to_graph(gate_output, const1_type, [], gate_name)
             else:
                 # Assign to wire (use default buffer gate)
-                add_to_graph(gate_output, assign_gate, [gate_input], gate_output)
+                add_to_graph(gate_output, assign_gate, [gate_input], gate_name)
+            assign_count += 1
         else:
             # Handle module instantiation case
             m = re.search(regex_module_instantiation, line)
