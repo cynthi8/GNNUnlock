@@ -85,12 +85,14 @@ for root, dirs, files in os.walk(netlists_dir):
 
             nx.relabel.relabel_nodes(G, relabel_mapping, copy=False)
 
-            # Create a subgraph of only the gates
-            gate_nodes = list(relabel_mapping.values())
-            H = G.subgraph(gate_nodes)
+            # Reassign gate_nodes with the new integer labels
+            gate_nodes = sorted(list(relabel_mapping.values()))
+
+            # Keep track of nodes connected to primary outputs
+            primary_output_nodes = set()
 
             # Process each gate node
-            for node in H.nodes:
+            for node in gate_nodes:
                 # Extract node class
                 node_name = G.nodes[node]['name']
                 node_class = default_class
@@ -112,6 +114,9 @@ for root, dirs, files in os.walk(netlists_dir):
                     neighbor_type = G.nodes[neighbor]['type']
                     if neighbor_type in primary_signal_types:
                         feats[node][neighbor_type] += 1
+                    # Add self-loops for nodes connected to POs
+                    if neighbor_type == 'OUTPUT':
+                        primary_output_nodes.add(node)
 
                 # Extract 2-hop gate neighborhood count (use 2-hop successor and predecessor cone, not true neighborhood)
                 cone = set([node])
@@ -129,13 +134,17 @@ for root, dirs, files in os.walk(netlists_dir):
                     feats[node][neighbor_gate_type] += 1
 
             # Add the gate nodes to the role dict
-            roles[role].extend(list(H.nodes))
+            roles[role].extend(gate_nodes)
+
+            # Add self-loops for nodes connected to primary outputs (done in Lilas)
+            for node in list(primary_output_nodes):
+                G.add_edge(node, node)
 
             # Convert into an undirected graph for GNN
-            H = H.to_undirected()
+            G = G.to_undirected()
                
             # Add the adjacency matrix to our list
-            matrix = nx.convert_matrix.to_scipy_sparse_matrix(H, nodelist=sorted(list(H.nodes())), dtype=bool, weight=None, format='coo')
+            matrix = nx.convert_matrix.to_scipy_sparse_matrix(G, nodelist=gate_nodes, dtype=bool, weight=None, format='coo')
             full_matrixs.append(matrix)
             if role == 'tr':
                 train_matrixs.append(matrix)
