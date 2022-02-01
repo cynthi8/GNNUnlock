@@ -757,18 +757,19 @@ def verilogSynopsys(verilog_file_path):
     circuit = nx.DiGraph()
     edge_list = []
     node_groups_to_contract = [] # Gates with multiple outputs (like ADDF) will be contracted at the end
+    node_count = 0
 
     # Function to add node and connection to graph
-    def add_to_graph(gate_output, gate_type, gate_inputs, gate_name):
-        nonlocal circuit, edge_list
+    def add_to_graph(gate_label, gate_type, gate_inputs, gate_name):
+        nonlocal circuit, edge_list, node_count
 
-        if gate_output not in circuit:
-            circuit.add_node(gate_output, name=gate_name, type=gate_type)
-        else:
-            if circuit.nodes[gate_output]['type'] != gate_type:
-                raise ValueError("Gate type mismatch on " + gate_output + " - " + circuit.nodes[gate_output]['type'] + " and " + gate_type)
+        if gate_label in circuit:
+            raise ValueError('Gate ' + gate_label + ' already in circuit')
+        circuit.add_node(gate_label, name=gate_name, type=gate_type, order=node_count)
+        node_count += 1
+        
         for gate_input in gate_inputs:
-            edge_list.append((gate_input, gate_output))
+            edge_list.append((gate_input, gate_label))
     
     # Regex pattern to extract the signal names from input, output, or wire lines
     regex_signal_list = r"(\S+)\s*(?:,|;)"
@@ -865,15 +866,12 @@ def verilogSynopsys(verilog_file_path):
         elif line.startswith('input'):
             for m in re.finditer(regex_signal_list, line):
                 primary_input = m.group(1)
-                if primary_input.lower().startswith('keyinput'):
-                    circuit.add_node(primary_input, name=primary_input, type='KEY_INPUT')
-                else:
-                    circuit.add_node(primary_input, name=primary_input, type='INPUT')
+                t = 'KEY_INPUT' if primary_input.lower().startswith('keyinput') else 'INPUT'
+                add_to_graph(primary_input, t, [], primary_input)
         elif line.startswith('output'):
             for m in re.finditer(regex_signal_list, line):
                 primary_output = m.group(1)
-                circuit.add_node(primary_output+'_OUT', name=primary_output, type='OUTPUT')
-                edge_list.append((primary_output, primary_output+'_OUT'))
+                add_to_graph(primary_output+'_OUT', 'OUTPUT', [primary_output], primary_output)
         elif line.startswith('wire'):
             for m in re.finditer(regex_signal_list, line):
                 signal = m.group(1)

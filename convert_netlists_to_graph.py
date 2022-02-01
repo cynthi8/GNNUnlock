@@ -9,7 +9,8 @@ from itertools import chain
 
 import read
 
-netlists_dir = '/home/erin/GNNUnlock/Netlist_to_graph/Circuits_datasets/sfll_class/'
+netlists_dir = '/home/erin/GNNUnlock/Netlist_to_graph/Circuits_datasets/sfll_one_shot/'
+#netlists_dir = '/home/erin/GNNUnlock/Netlist_to_graph/Circuits_datasets/SFLL_DATASET_c7552/'
 output_dir = 'Graph'
 locking_type = 'SFLL'
 
@@ -22,7 +23,8 @@ feats = defaultdict(lambda: defaultdict(int))
 
 # Class definition for gate nodes
 default_class = 'main'
-class_key_mapping = {'main': 0, 'perturb': 1, 'restore': 2}
+#class_key_mapping = {'main': 0, 'perturb': 1, 'restore': 2}
+class_key_mapping = {'main': 2, 'perturb': 1, 'restore': 0}
 if locking_type == 'AntiSAT':
     class_key_mapping = {'main': 0, 'flip': 1}
 
@@ -52,9 +54,12 @@ base_index = 0
 # Regex pattern to extract the class from a node name
 regex_node_class = r"\\(\w+)/"
 
+# Log the final node labeling used in GNN
+node_labeling = {}
+
 # Process every verilog file in the netlist directory tree
 for root, dirs, files in os.walk(netlists_dir):
-    for file_name in files:
+    for file_name in sorted(files):
         if file_name.endswith('.v'):
             # Read original graph
             file_path = os.path.join(root, file_name)
@@ -71,11 +76,13 @@ for root, dirs, files in os.walk(netlists_dir):
 
             # Relabel the gate nodes to integers and update the base index
             gate_nodes = [node for node in G.nodes if not G.nodes[node]['type'] in ignored_types]
-            with open('gate_nodes.txt', 'w') as f:
-                for gn in gate_nodes:
-                    f.write(f'{gn}\n')
+            gate_nodes.sort(key=lambda x: G.nodes[x]['order'])
             relabel_mapping = {old_label:(new_label + base_index) for new_label, old_label in enumerate(gate_nodes)}
             base_index += len(relabel_mapping)
+
+            for k in relabel_mapping:
+                node_labeling[relabel_mapping[k]] = (k, G.nodes[k]['name'], file_name)
+
             nx.relabel.relabel_nodes(G, relabel_mapping, copy=False)
 
             # Create a subgraph of only the gates
@@ -126,15 +133,15 @@ for root, dirs, files in os.walk(netlists_dir):
 
             # Convert into an undirected graph for GNN
             H = H.to_undirected()
-
+               
             # Add the adjacency matrix to our list
-            matrix = nx.convert_matrix.to_scipy_sparse_matrix(H, dtype=bool, format='coo')
+            matrix = nx.convert_matrix.to_scipy_sparse_matrix(H, nodelist=sorted(list(H.nodes())), dtype=bool, weight=None, format='coo')
             full_matrixs.append(matrix)
             if role == 'tr':
                 train_matrixs.append(matrix)
             else:
                 # Save an empty matrix of the same size
-                train_matrixs.append(sp.coo_matrix(matrix.get_shape()))
+                train_matrixs.append(sp.coo_matrix(matrix.get_shape(), dtype=bool))
             print('Nodes added:', matrix.get_shape()[0], '\n')
 
 # Write outputs to specified directory
@@ -164,3 +171,7 @@ with open(os.path.join(output_dir, 'class_map.json'), 'w') as f:
 
 with open(os.path.join(output_dir, 'role.json'), 'w') as f:
     json.dump(roles, f)
+
+with open(os.path.join(output_dir, 'node_labeling.txt'), 'w') as f:
+    for label in node_labeling:
+        f.write(f"{label} {' '.join(node_labeling[label])}\n")
