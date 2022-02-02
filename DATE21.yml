@@ -1,10 +1,10 @@
 network:
-  - dim: 128
-    aggr: 'concat'
-    loss: 'softmax'
-    arch: '2-2-0'
-    act: 'relu'
-    bias: 'norm'
+  - dim: 512
+    aggr: "concat"
+    loss: "softmax"
+    arch: "2-2-0"
+    act: "relu"
+    bias: "norm"
 params:
   - lr: 0.01
     dropout: 0.1
@@ -12,6 +12,6 @@ params:
     sample_coverage: 50
 phase:
   - end: 2000
-    sampler: 'rw'
+    sampler: "rw"
     depth: 2
     num_root: 3000
