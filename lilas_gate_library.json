@@ -1157,7 +1157,9 @@
       ]
     }
   },
-  "assign_gate": "BUFH_X1M_A9TH",
+  "assign_gate": "BUF",
+  "const0_type": "TIELO",
+  "const1_type": "TIEHI",
   "gate_type": {
     "ADDF_X1M_A9TH": "ADDF",
     "AND2_X0P5M_A9TH": "AND",
@@ -1197,6 +1199,7 @@
     "AOI32_X0P7M_A9TH": "AOI",
     "AOI32_X1M_A9TH": "AOI",
     "BUFH_X1M_A9TH": "BUF",
+    "BUF": "BUF",
     "INV_X0P5B_A9TH": "INV",
     "INV_X0P6M_A9TH": "INV",
     "INV_X0P7M_A9TH": "INV",
@@ -1266,6 +1269,8 @@
     "OR6_X0P5M_A9TH": "OR",
     "OR6_X0P7M_A9TH": "OR",
     "TIELO_X1M_A9TH": "TIELO",
+    "TIELO": "TIELO",
+    "TIEHI": "TIEHI",
     "XNOR2_X0P5M_A9TH": "XNOR",
     "XNOR3_X0P5M_A9TH": "XNOR",
     "XNOR3_X1M_A9TH": "XNOR",
@@ -1285,8 +1290,6 @@
     "ADDF",
     "AOI",
     "OAI",
-    "BUFH",
-    "BUFZ",
     "MXIT",
     "AO1B",
     "AOI2XB",
