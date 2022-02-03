@@ -1277,36 +1277,5 @@
     "XOR2_X0P5M_A9TH": "XOR",
     "XOR2_X0P7M_A9TH": "XOR",
     "XOR3_X0P5M_A9TH": "XOR"
-  },
-  "types": [
-    "XOR",
-    "XNOR",
-    "AND",
-    "OR",
-    "NAND",
-    "NOR",
-    "INV",
-    "BUF",
-    "ADDF",
-    "AOI",
-    "OAI",
-    "MXIT",
-    "AO1B",
-    "AOI2XB",
-    "AO",
-    "OA",
-    "OAI2XB",
-    "TIELO",
-    "TIEHI",
-    "RF2R",
-    "RF1R",
-    "PREICG",
-    "POSTICG",
-    "M",
-    "A",
-    "FRICG",
-    "MXT",
-    "MX",
-    "ADDH"
-  ]
+  }
 }

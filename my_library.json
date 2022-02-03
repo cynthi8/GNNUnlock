@@ -691,23 +691,5 @@
     "XNOR3X2": "XNOR",
     "XOR2X1": "XOR",
     "XOR3X1": "XOR"
-  },
-  "types": [
-    "AND",
-    "AO",
-    "AOI",
-    "CONST0",
-    "CONST1",
-    "FADD",
-    "INV",
-    "MUX",
-    "NAND",
-    "NBUFF",
-    "NOR",
-    "OA",
-    "OAI",
-    "OR",
-    "XNOR",
-    "XOR"
-  ]
+  }
 }
