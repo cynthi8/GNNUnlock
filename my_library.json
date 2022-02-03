@@ -1,0 +1,713 @@
+{
+  "gate_ports": {
+    "AND2X1": {
+      "inputs": [
+        "IN1",
+        "IN2"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "AND2X2": {
+      "inputs": [
+        "IN1",
+        "IN2"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "AND2X4": {
+      "inputs": [
+        "IN1",
+        "IN2"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "AND3X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "AND4X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "AO21X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "AO22X2": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "AO221X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4",
+        "IN5"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "AO221X2": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4",
+        "IN5"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "AO222X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4",
+        "IN5",
+        "IN6"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "AO222X2": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4",
+        "IN5",
+        "IN6"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "AO22X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "AOI21X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3"
+      ],
+      "outputs": [
+        "QN"
+      ]
+    },
+    "AOI221X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4",
+        "IN5"
+      ],
+      "outputs": [
+        "QN"
+      ]
+    },
+    "AOI222X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4",
+        "IN5",
+        "IN6"
+      ],
+      "outputs": [
+        "QN"
+      ]
+    },
+    "AOI22X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4"
+      ],
+      "outputs": [
+        "QN"
+      ]
+    },
+    "AOI22X2": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4"
+      ],
+      "outputs": [
+        "QN"
+      ]
+    },
+    "FADDX1": {
+      "inputs": [
+        "A",
+        "B",
+        "CI"
+      ],
+      "outputs": [
+        "CO",
+        "S"
+      ]
+    },
+    "INVX0": {
+      "inputs": [
+        "INP"
+      ],
+      "outputs": [
+        "ZN"
+      ]
+    },
+    "INVX1": {
+      "inputs": [
+        "INP"
+      ],
+      "outputs": [
+        "ZN"
+      ]
+    },
+    "INVX2": {
+      "inputs": [
+        "INP"
+      ],
+      "outputs": [
+        "ZN"
+      ]
+    },
+    "INVX4": {
+      "inputs": [
+        "INP"
+      ],
+      "outputs": [
+        "ZN"
+      ]
+    },
+    "MUX21X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "S"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "MUX21X2": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "S"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "MUX41X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4",
+        "S0",
+        "S1"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "MUX41X2": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4",
+        "S0",
+        "S1"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "NAND2X0": {
+      "inputs": [
+        "IN1",
+        "IN2"
+      ],
+      "outputs": [
+        "QN"
+      ]
+    },
+    "NAND2X1": {
+      "inputs": [
+        "IN1",
+        "IN2"
+      ],
+      "outputs": [
+        "QN"
+      ]
+    },
+    "NAND2X2": {
+      "inputs": [
+        "IN1",
+        "IN2"
+      ],
+      "outputs": [
+        "QN"
+      ]
+    },
+    "NAND3X0": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3"
+      ],
+      "outputs": [
+        "QN"
+      ]
+    },
+    "NAND3X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3"
+      ],
+      "outputs": [
+        "QN"
+      ]
+    },
+    "NAND4X0": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4"
+      ],
+      "outputs": [
+        "QN"
+      ]
+    },
+    "NAND4X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4"
+      ],
+      "outputs": [
+        "QN"
+      ]
+    },
+    "NBUFFX2": {
+      "inputs": [
+        "INP"
+      ],
+      "outputs": [
+        "Z"
+      ]
+    },
+    "NOR2X0": {
+      "inputs": [
+        "IN1",
+        "IN2"
+      ],
+      "outputs": [
+        "QN"
+      ]
+    },
+    "NOR2X1": {
+      "inputs": [
+        "IN1",
+        "IN2"
+      ],
+      "outputs": [
+        "QN"
+      ]
+    },
+    "NOR2X2": {
+      "inputs": [
+        "IN1",
+        "IN2"
+      ],
+      "outputs": [
+        "QN"
+      ]
+    },
+    "NOR3X0": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3"
+      ],
+      "outputs": [
+        "QN"
+      ]
+    },
+    "NOR3X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3"
+      ],
+      "outputs": [
+        "QN"
+      ]
+    },
+    "NOR4X0": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4"
+      ],
+      "outputs": [
+        "QN"
+      ]
+    },
+    "NOR4X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4"
+      ],
+      "outputs": [
+        "QN"
+      ]
+    },
+    "OA21X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "OA221X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4",
+        "IN5"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "OA222X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4",
+        "IN5",
+        "IN6"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "OA222X2": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4",
+        "IN5",
+        "IN6"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "OA22X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "OAI21X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3"
+      ],
+      "outputs": [
+        "QN"
+      ]
+    },
+    "OAI221X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4",
+        "IN5"
+      ],
+      "outputs": [
+        "QN"
+      ]
+    },
+    "OAI222X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4",
+        "IN5",
+        "IN6"
+      ],
+      "outputs": [
+        "QN"
+      ]
+    },
+    "OAI22X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4"
+      ],
+      "outputs": [
+        "QN"
+      ]
+    },
+    "OR2X1": {
+      "inputs": [
+        "IN1",
+        "IN2"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "OR2X2": {
+      "inputs": [
+        "IN1",
+        "IN2"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "OR2X4": {
+      "inputs": [
+        "IN1",
+        "IN2"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "OR3X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "OR4X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3",
+        "IN4"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "XNOR2X1": {
+      "inputs": [
+        "IN1",
+        "IN2"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "XNOR3X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "XNOR3X2": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "XOR2X1": {
+      "inputs": [
+        "IN1",
+        "IN2"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    },
+    "XOR3X1": {
+      "inputs": [
+        "IN1",
+        "IN2",
+        "IN3"
+      ],
+      "outputs": [
+        "Q"
+      ]
+    }
+  },
+  "assign_gate": "NBUFF",
+  "const0_type": "CONST0",
+  "const1_type": "CONST1",
+  "gate_type": {
+    "AND2X1": "AND",
+    "AND2X2": "AND",
+    "AND2X4": "AND",
+    "AND3X1": "AND",
+    "AND4X1": "AND",
+    "AO21X1": "AO",
+    "AO22X2": "AO",
+    "AO221X1": "AO",
+    "AO221X2": "AO",
+    "AO222X1": "AO",
+    "AO222X2": "AO",
+    "AO22X1": "AO",
+    "AOI21X1": "AOI",
+    "AOI221X1": "AOI",
+    "AOI222X1": "AOI",
+    "AOI22X1": "AOI",
+    "AOI22X2": "AOI",
+    "CONST0": "CONST0",
+    "CONST1": "CONST1",
+    "FADDX1": "FADD",
+    "INVX0": "INV",
+    "INVX1": "INV",
+    "INVX2": "INV",
+    "INVX4": "INV",
+    "MUX21X1": "MUX",
+    "MUX21X2": "MUX",
+    "MUX41X1": "MUX",
+    "MUX41X2": "MUX",
+    "NAND2X0": "NAND",
+    "NAND2X1": "NAND",
+    "NAND2X2": "NAND",
+    "NAND3X0": "NAND",
+    "NAND3X1": "NAND",
+    "NAND4X0": "NAND",
+    "NAND4X1": "NAND",
+    "NBUFFX2": "NBUFF",
+    "NBUFF": "NBUFF",
+    "NOR2X0": "NOR",
+    "NOR2X1": "NOR",
+    "NOR2X2": "NOR",
+    "NOR3X0": "NOR",
+    "NOR3X1": "NOR",
+    "NOR4X0": "NOR",
+    "NOR4X1": "NOR",
+    "OA21X1": "OA",
+    "OA221X1": "OA",
+    "OA222X1": "OA",
+    "OA222X2": "OA",
+    "OA22X1": "OA",
+    "OAI21X1": "OAI",
+    "OAI221X1": "OAI",
+    "OAI222X1": "OAI",
+    "OAI22X1": "OAI",
+    "OR2X1": "OR",
+    "OR2X2": "OR",
+    "OR2X4": "OR",
+    "OR3X1": "OR",
+    "OR4X1": "OR",
+    "XNOR2X1": "XNOR",
+    "XNOR3X1": "XNOR",
+    "XNOR3X2": "XNOR",
+    "XOR2X1": "XOR",
+    "XOR3X1": "XOR"
+  },
+  "types": [
+    "AND",
+    "AO",
+    "AOI",
+    "CONST0",
+    "CONST1",
+    "FADD",
+    "INV",
+    "MUX",
+    "NAND",
+    "NBUFF",
+    "NOR",
+    "OA",
+    "OAI",
+    "OR",
+    "XNOR",
+    "XOR"
+  ]
+}

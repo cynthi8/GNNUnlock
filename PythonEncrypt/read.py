@@ -745,11 +745,12 @@ def vhdl(vhdl_file_path):
     # Return netlist graph
     return circuit
 
-def verilogSynopsys(verilog_file_path):
+def verilogSynopsys(verilog_file_path, library_path):
     """
     Function to read a single module verilog gate level file that has been
-    synthesized by Synopsys Design Compiler and uses Design Ware components
+    synthesized by Synopsys Design Compiler and uses components described in the library
     :param verilog_file_path(string): Path to verilog file
+    :param library_path(string): Path to JSON file that describes the components in the verilog file
     :returns: the circuit as an Undirected networkx graph
     """
 
@@ -781,77 +782,17 @@ def verilogSynopsys(verilog_file_path):
     regex_module_instantiation = r"^(\S+)\s+(\S+)\s+\((.*)\);"
     regex_port_map = r"\s*.(\S+?)\s*\(\s*(\S+)\s*\)"
 
-    # Design Ware Ports
-    design_ware_ports = {
-        'AND2X1'   : {'inputs': ['IN1', 'IN2'], 'outputs': ['Q']},
-        'AND2X2'   : {'inputs': ['IN1', 'IN2'], 'outputs': ['Q']},
-        'AND2X4'   : {'inputs': ['IN1', 'IN2'], 'outputs': ['Q']},
-        'AND3X1'   : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['Q']},
-        'AND4X1'   : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['Q']},
-        'AO21X1'   : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['Q']},
-        'AO22X2'   : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['Q']},
-        'AO221X1'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'IN5'], 'outputs': ['Q']},
-        'AO221X2'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'IN5'], 'outputs': ['Q']},
-        'AO222X1'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'IN5', 'IN6'], 'outputs': ['Q']},
-        'AO222X2'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'IN5', 'IN6'], 'outputs': ['Q']},
-        'AO22X1'   : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['Q']},
-        'AOI21X1'  : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['QN']},
-        'AOI221X1' : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'IN5'], 'outputs': ['QN']},
-        'AOI222X1' : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'IN5', 'IN6'], 'outputs': ['QN']},
-        'AOI22X1'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['QN']},
-        'AOI22X2'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['QN']},
-        'FADDX1'   : {'inputs': ['A', 'B', 'CI'], 'outputs': ['CO', 'S']},
-        'INVX0'    : {'inputs': ['INP'], 'outputs': ['ZN']},
-        'INVX1'    : {'inputs': ['INP'], 'outputs': ['ZN']},
-        'INVX2'    : {'inputs': ['INP'], 'outputs': ['ZN']},
-        'INVX4'    : {'inputs': ['INP'], 'outputs': ['ZN']},
-        'MUX21X1'  : {'inputs': ['IN1', 'IN2', 'S'], 'outputs': ['Q']},
-        'MUX21X2'  : {'inputs': ['IN1', 'IN2', 'S'], 'outputs': ['Q']},
-        'MUX41X1'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'S0', 'S1'], 'outputs': ['Q']},
-        'MUX41X2'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'S0', 'S1'], 'outputs': ['Q']},
-        'NAND2X0'  : {'inputs': ['IN1', 'IN2'], 'outputs': ['QN']},
-        'NAND2X1'  : {'inputs': ['IN1', 'IN2'], 'outputs': ['QN']},
-        'NAND2X2'  : {'inputs': ['IN1', 'IN2'], 'outputs': ['QN']},
-        'NAND3X0'  : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['QN']},
-        'NAND3X1'  : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['QN']},
-        'NAND4X0'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['QN']},
-        'NAND4X1'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['QN']},
-        'NBUFFX2'  : {'inputs': ['INP'], 'outputs': ['Z']},
-        'NOR2X0'   : {'inputs': ['IN1', 'IN2'], 'outputs': ['QN']},
-        'NOR2X1'   : {'inputs': ['IN1', 'IN2'], 'outputs': ['QN']},
-        'NOR2X2'   : {'inputs': ['IN1', 'IN2'], 'outputs': ['QN']},
-        'NOR3X0'   : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['QN']},
-        'NOR3X1'   : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['QN']},
-        'NOR4X0'   : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['QN']},
-        'NOR4X1'   : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['QN']},
-        'OA21X1'   : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['Q']},
-        'OA221X1'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'IN5'], 'outputs': ['Q']},
-        'OA222X1'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'IN5', 'IN6'], 'outputs': ['Q']},
-        'OA222X2'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'IN5', 'IN6'], 'outputs': ['Q']},
-        'OA22X1'   : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['Q']},
-        'OAI21X1'  : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['QN']},
-        'OAI221X1' : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'IN5'], 'outputs': ['QN']},
-        'OAI222X1' : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4', 'IN5', 'IN6'], 'outputs': ['QN']},
-        'OAI22X1'  : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['QN']},
-        'OR2X1'    : {'inputs': ['IN1', 'IN2'], 'outputs': ['Q']},
-        'OR2X2'    : {'inputs': ['IN1', 'IN2'], 'outputs': ['Q']},
-        'OR2X4'    : {'inputs': ['IN1', 'IN2'], 'outputs': ['Q']},
-        'OR3X1'    : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['Q']},
-        'OR4X1'    : {'inputs': ['IN1', 'IN2', 'IN3', 'IN4'], 'outputs': ['Q']},
-        'XNOR2X1'  : {'inputs': ['IN1', 'IN2'], 'outputs': ['Q']},
-        'XNOR3X1'  : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['Q']},
-        'XNOR3X2'  : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['Q']},
-        'XOR2X1'   : {'inputs': ['IN1', 'IN2'], 'outputs': ['Q']},
-        'XOR3X1'   : {'inputs': ['IN1', 'IN2', 'IN3'], 'outputs': ['Q']}
-    }
-
     import json 
-    with open("lilas_gate_library.json") as f:
+    with open(library_path) as f:
         library = json.load(f)
     gate_ports = library['gate_ports']
     assign_gate = library['assign_gate']
     const0_type = library['const0_type']
     const1_type = library['const1_type']
+
+    # Add const nodes to graph in case any future edges will connect
+    add_to_graph("1'b0", const0_type, [], "1'b0")
+    add_to_graph("1'b1", const1_type, [], "1'b1")
 
     # Not-Global variables
     netlist = format_verilog_netlist(verilog_file_path)

@@ -9,8 +9,9 @@ from itertools import chain
 
 import read
 
-netlists_dir = '/home/erin/GNNUnlock/Netlist_to_graph/Circuits_datasets/sfll_one_shot/'
+netlists_dir = '/home/erin/Data/Documents/2021S/VLSI_Topics_Research/GNNUnlock/Datasets/SFLL_HD_2/'
 #netlists_dir = '/home/erin/GNNUnlock/Netlist_to_graph/Circuits_datasets/SFLL_DATASET_c7552/'
+library_path = "my_library.json"
 output_dir = 'Graph'
 locking_type = 'SFLL'
 
@@ -29,7 +30,7 @@ if locking_type == 'AntiSAT':
     class_key_mapping = {'main': 0, 'flip': 1}
 
 # Allow for different gate libraries
-with open("lilas_gate_library.json") as f:
+with open(library_path) as f:
     gate_library = json.load(f)
 gate_type = gate_library['gate_type']
 
@@ -42,11 +43,12 @@ alias_role_names = {'Test' : 'te', 'Train' : 'tr', 'Validate' : 'va'}
 alias_class_names = {'perturbb' : 'perturb',}
 
 # Feature ordering
-feature_list = primary_signal_types + gate_library['types'][0:17] + ['in_degree', 'out_degree'] + gate_library['types'][17:]
-#feature_mapping = {feature: key for key, feature in enumerate(feature_list)}
+feature_list = primary_signal_types + ['in_degree', 'out_degree'] + sorted(list(set(gate_type.values())))
+feature_mapping = {feature: key for key, feature in enumerate(feature_list)}
 
-with open("lilas_feature_mapping.json") as f:
-    feature_mapping = json.load(f)
+# Set feature mapping to specific labeling order for direct comparison of feats
+#with open("lilas_feature_mapping.json") as f:
+#    feature_mapping = json.load(f)
 
 # Keep track of the node index in the mega graph of all netlists
 base_index = 0
@@ -64,7 +66,7 @@ for root, dirs, files in os.walk(netlists_dir):
             # Read original graph
             file_path = os.path.join(root, file_name)
             print('Processing', file_path)
-            G = read.verilogSynopsys(file_path)
+            G = read.verilogSynopsys(file_path, library_path)
 
             # Extract the role from the file name prefix
             role = file_name.split('_')[0]
