@@ -9,9 +9,8 @@ from itertools import chain
 
 import read
 
-netlists_dir = '/home/erin/Data/Documents/2021S/VLSI_Topics_Research/GNNUnlock/Datasets/SFLL_HD_2/'
-#netlists_dir = '/home/erin/GNNUnlock/Netlist_to_graph/Circuits_datasets/SFLL_DATASET_c7552/'
-library_path = "my_library.json"
+netlists_dir = 'Datasets/Lilas_SFLL_DATASET_c7552'
+library_path = "lilas_gate_library.json"
 output_dir = 'Graph'
 locking_type = 'SFLL'
 
@@ -24,7 +23,6 @@ feats = defaultdict(lambda: defaultdict(int))
 
 # Class definition for gate nodes
 default_class = 'main'
-#class_key_mapping = {'main': 0, 'perturb': 1, 'restore': 2}
 class_key_mapping = {'main': 2, 'perturb': 1, 'restore': 0}
 if locking_type == 'AntiSAT':
     class_key_mapping = {'main': 0, 'flip': 1}
@@ -45,10 +43,6 @@ alias_class_names = {'perturbb' : 'perturb',}
 # Feature ordering
 feature_list = primary_signal_types + ['in_degree', 'out_degree'] + sorted(list(set(gate_type.values())))
 feature_mapping = {feature: key for key, feature in enumerate(feature_list)}
-
-# Set feature mapping to specific labeling order for direct comparison of feats
-#with open("lilas_feature_mapping.json") as f:
-#    feature_mapping = json.load(f)
 
 # Keep track of the node index in the mega graph of all netlists
 base_index = 0
