@@ -105,11 +105,11 @@ for root, dirs, files in os.walk(netlists_dir):
                 feats[node]['in_degree'] = G.in_degree(node)
                 feats[node]['out_degree'] = G.out_degree(node)
 
-                # Extract PI, KI, PO connectivity count
+                # Extract PI, KI, PO connectivity
                 for neighbor in chain(G.predecessors(node), G.successors(node)):
                     neighbor_type = G.nodes[neighbor]['type']
                     if neighbor_type in primary_signal_types:
-                        feats[node][neighbor_type] += 1
+                        feats[node][neighbor_type] = 1
                     # Add self-loops for nodes connected to POs
                     if neighbor_type == 'OUTPUT':
                         primary_output_nodes.add(node)
