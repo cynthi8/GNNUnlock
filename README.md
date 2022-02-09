@@ -3,7 +3,7 @@
 
 This project reproduces the steps of _Lilas Alrahis et al._ in **GNNUnlock** up to evaluating the GNN (Graph Neural Network).
 
-[SFLL-HD](#sfll-hd) explains that I was **unable to reproduce the success** of the original authors **for netlists locked with SFLL-HD** and [Cross Compilation](#cross-compilation) explains an **essential shortcoming** with **GNNUnlock**.
+[SFLL-HD](#sfll-hd) explains that I was **able reproduce the success** of the original authors for netlists locked with SFLL-HD and [Cross Compilation](#cross-compilation) explains an **essential shortcoming** with **GNNUnlock**.
 
 ## SFLL-HD 
 
@@ -12,23 +12,17 @@ I chose to reproduce the setup in [ANTI_SAT_DATASET_c7552](https://github.com/Df
 The training log for this setup is shown in [Datasets/SFLL_HD_2/log_training.txt](Datasets/SFLL_HD_2/log_training.txt). The GNN performance on the _test_ graphs is shown below:
 
 **Confusion Matrix**
-| True \ Predicted | main | perturb | restore |
+| True \ Predicted | restore | perturb | main |
 |:--------------:|:----:|:-------:|:-------:|
-|      main      | 8367 |   195   |    0    |
-|     perturb    |  81  |   657   |    83   |
-|     restore    |   7  |    11   |   1014  |
+|restore|888|0  |0|
+|perturb|0  |654|22|
+|main   |15 |5  |8518|
 
 
 **F1 Score by Class**
 |  main | perturb | restore |
 |:-----:|:-------:|:-------:|
-| 0.983 | 0.780   | 0.953   |
-
-**The GNN performs significantly worse on classifying pertub nodes**, which is expected as the GNN cannot use _Key Inputs_ as a determining feature like for restore nodes.
-
-However, **these results contradict** those reported in **GNNUnlock**. GNNUnlock reports F1 scores above 99% for all node classes as shown in **Table V**, which I was unable to due for the same GNN training parameters - [DATE21.yml](DATE21.yml) - and a similar feature set.
-
-![reported_success_of_GNNUnlock](https://user-images.githubusercontent.com/71356003/116633821-7b754100-a928-11eb-864a-ccd1d2aad9f0.png)
+| 0.992 | 0.980   | 0.998   |
 
 ## Cross Compilation 
 In **GNNUnlock**, _training_, _validation_, and _testing_ are all done on **non-cross-compiled** netlists. Any realistic implementation of logic locking would flatten the design heirarchy before compiling which would further obfuscate the main design/pertub/restore node classes.
@@ -44,13 +38,25 @@ _Remain in the `gnnunlock-env` anaconda enviroment while working within this rep
 # Reproduction Steps: 
 *The bolded directories at each step contain the relevant files.*
 
-1. Obtain Benchmarks in *Bench* format. **`Benchmarks`**
-2. Convert to Verilog. **`convert_bench_files_to_verilog.py`**, **`VerilogBenchmarks`**
-3. Lock with SFLL and AntiSAT. **`lock_netlists.py`**, **`LockedNetlists`**
-4. Synthesize with Design Compiler™. **`Synthesizer`**, **`SynthesizedLockedNetlists`**
-5. Assign roles (train, validation, test). **`Datasets`**
-6. Convert to graph and extract features. **`convert_netlists_to_graph.py`**, **`Graph`**
-7. Train GNN. **`trainGNN.sh`**
+1. Obtain Benchmarks in *Bench* format. These are already saved in **Benchmarks**
+2. Convert to Verilog.
+```python convert_bench_files_to_verilog.py```
+3. Lock with SFLL and AntiSAT. 
+```python lock_netlists.py```
+4. Synthesize with Design Compiler™. Examples are already saved in **SynthesizedLockedNetlists**
+```
+cd Synthesizer/ 
+python synthesize_netlists.py
+```
+5. Assign roles (train, validation, test). Examples are saved in **Datasets**
+6. Convert to graph and extract features. 
+```
+python convert_netlists_to_graph.py
+```
+7. Train GNN.
+```
+./trainGNN.sh
+```
 
 ### Epochs Trained
 Adjust the `phase: end` parameter in [DATE21.yml](DATE21.yml) to increase the training time. Data were collected with `end: 2000` to be consistant with **GNNUnlock**.
